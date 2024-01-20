@@ -28,6 +28,14 @@ async def info(ctx, num: int):
 
 
 @bot.hybrid_command()
+async def info(ctx, name: str):
+    """add two numbers"""
+    content = query_server(servers_dict[name][0], servers[name][1])
+    await ctx.send(content)
+
+
+
+@bot.hybrid_command()
 async def ping(ctx):
     """ping bot"""
     num = random.randint(1, 6)
