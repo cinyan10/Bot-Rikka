@@ -67,7 +67,7 @@ def query_server(ip, port):
         if players:
             content += "\nPlayer List:"
             for player in players['players']:
-                content += f"{player['name']} - Time: {format_duration(player['duration'])}"
+                content += f"\n{player['name']}\t - Time: {format_duration(player['duration'])}"
 
         return content
     except Exception as e:
