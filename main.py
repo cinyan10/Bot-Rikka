@@ -21,19 +21,22 @@ async def sync(ctx):
 
 
 @bot.hybrid_command()
-async def info(ctx, context):
-    """show server info"""
+async def info_id(ctx, num: int):
+    """show server info by num"""
+    result = query_server(servers[num][0], servers[num][1])
+    await ctx.send(result)
+
+
+@bot.hybrid_command()
+async def info(ctx, context: str):
+    """show server info by name"""
     content = ''
-    try:
-        num = int(context)
-        content = query_server(servers_dict[num][0], servers[num][1])
-    except Exception:
-        if context[:1] == '北京':
-            num = int(context[2]) + 6
-            content = query_server(servers_dict[num][0], servers[num][1])
-        elif context[:1] == '广州':
-            num = int(context[2])
-            content = query_server(servers_dict[num][0], servers[num][1])
+    if context[:1] == '北京':
+        num = int(context[2]) + 6
+        content = query_server(servers[num][0], servers[num][1])
+    elif context[:1] == '广州':
+        num = int(context[2])
+        content = query_server(servers[num][0], servers[num][1])
     await ctx.send(content)
 
 
