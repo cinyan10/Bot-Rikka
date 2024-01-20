@@ -1,6 +1,4 @@
 import random
-from typing import Union
-
 import discord
 from discord.ext import commands
 import os
@@ -23,7 +21,7 @@ async def sync(ctx):
 
 
 @bot.hybrid_command()
-async def info(ctx, num: Union[int, str]):
+async def info(ctx, num):
     """show server info"""
     if type(num) is int:
         content = query_server(servers[num][0], servers[num][1])
