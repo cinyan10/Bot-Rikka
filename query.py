@@ -62,8 +62,8 @@ def query_server(ip, port):
             players = server.players()
 
         content = (f"Server: {info['server_name']}"
-                   f"Map: {info['map']}"
-                   f"Players: {info['player_count']}/{info['max_players']}")
+                   f"\nMap: {info['map']}"
+                   f"\nPlayers: {info['player_count']}/{info['max_players']}")
         if players:
             content += "\nPlayer List:"
             for player in players['players']:
