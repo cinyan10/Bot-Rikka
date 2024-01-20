@@ -24,7 +24,7 @@ async def sync(ctx):
 
 @bot.hybrid_command()
 async def info(ctx, num: Union[int, str]):
-    """add two numbers"""
+    """show server info"""
     if type(num) is int:
         content = query_server(servers[num][0], servers[num][1])
     else:
