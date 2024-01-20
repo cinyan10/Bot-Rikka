@@ -31,10 +31,10 @@ async def info_id(ctx, num: int):
 async def info(ctx, context: str):
     """show server info by name"""
     content = ''
-    if context[:1] == '北京':
+    if context[:2] == '北京':
         num = int(context[2]) + 6
         content = query_server(servers[num][0], servers[num][1])
-    elif context[:1] == '广州':
+    elif context[:2] == '广州':
         num = int(context[2])
         content = query_server(servers[num][0], servers[num][1])
     await ctx.send(content)
