@@ -41,7 +41,7 @@ async def info(ctx, content: str):
         elif content[:2] == '广州':
             num = int(content[2]) - 1
             result = query_server(servers[num][0], servers[num][1])
-    await ctx.send(content)
+    await ctx.send(result)
 
 
 @bot.hybrid_command()
