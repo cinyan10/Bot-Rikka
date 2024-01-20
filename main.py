@@ -1,4 +1,6 @@
 import random
+from typing import Union
+
 import discord
 from discord.ext import commands
 import os
@@ -21,18 +23,13 @@ async def sync(ctx):
 
 
 @bot.hybrid_command()
-async def info(ctx, num: int):
+async def info(ctx, num: Union[int, str]):
     """add two numbers"""
-    content = query_server(servers[num][0], servers[num][1])
+    if type(num) is int:
+        content = query_server(servers[num][0], servers[num][1])
+    else:
+        content = query_server(servers_dict[num][0], servers[num][1])
     await ctx.send(content)
-
-
-@bot.hybrid_command()
-async def info(ctx, name: str):
-    """add two numbers"""
-    content = query_server(servers_dict[name][0], servers[name][1])
-    await ctx.send(content)
-
 
 
 @bot.hybrid_command()
