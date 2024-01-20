@@ -21,14 +21,6 @@ async def sync(ctx):
 
 
 @bot.hybrid_command()
-async def info(ctx, num: str):
-    """show server info"""
-
-    content = query_server(servers[num][0], servers[num][1])
-    await ctx.send(content)
-
-
-@bot.hybrid_command()
 async def info(ctx, content):
     """show server info"""
     try:
