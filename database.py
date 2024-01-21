@@ -33,7 +33,7 @@ def retrieve_join_date(steam_id):
     cursor = connection.cursor()
     connection.select_db('firstjoin')
     cursor.execute(
-        'SELECT join_date FROM firstjoin WHERE steamid = %s',
+        'SELECT joindate FROM firstjoin WHERE auth = %s',
         (steam_id,)
     )
     result = cursor.fetchone()
@@ -47,7 +47,7 @@ def retrieve_last_seen(steam_id):
     cursor = connection.cursor()
     connection.select_db('firstjoin')
     cursor.execute(
-        'SELECT last_seen FROM firstjoin WHERE steamid = %s',
+        'SELECT lastseen FROM firstjoin WHERE auth = %s',
         (steam_id,)
     )
     result = cursor.fetchone()
