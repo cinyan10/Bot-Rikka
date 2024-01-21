@@ -1,5 +1,10 @@
 # discord-bot
 
+```markdown
+> [!CAUTION]
+> Reading this project will definitely waste your precious time!!!
+```
+
 requirements:
 
 ```shell
