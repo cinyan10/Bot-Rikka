@@ -1,11 +1,8 @@
 import random
 import discord
-import os
 from discord.ext import commands
-from dotenv import load_dotenv
 from query import *
 from webhook import *
-from pymysql import Connection
 from database import *
 
 load_dotenv()
@@ -16,6 +13,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+
 
 # functions
 @bot.command()
@@ -52,7 +50,7 @@ async def info(ctx, content: str = None):   # NOQA
 
 
 @bot.hybrid_command()
-async def servers(ctx):
+async def servers():
     await send_webhook()
 
 
@@ -86,19 +84,24 @@ async def bind_steam(ctx, steam_id: str):
 async def get_steam(ctx):
     user_id = ctx.author.id
 
-    # Retrieve user binding from the database
-    cursor = connection.cursor(dictionary=True)
-    cursor.execute(
-        'SELECT steamid_32 FROM users WHERE discord_id = %s',
-        (user_id,)
-    )
-    result = cursor.fetchone()
-    cursor.close()
+    steamid = get_steamid(user_id)
 
-    if result:
-        await ctx.send(f'Your bound Steam ID: {result["steamid_32"]}')
+    if steamid:
+        await ctx.send(f'Your bound Steam ID: {steamid["steamid_32"]}')
     else:
         await ctx.send('No Steam ID bound.')
+
+
+@bot.hybrid_command()
+async def joindate(ctx):
+    user_id = ctx.author.id
+    await ctx.send('')
+
+
+@bot.hybrid_command()
+async def lastseen(ctx):
+
+    await ctx.send('')
 
 
 print('Bot_Rikka starting...')
