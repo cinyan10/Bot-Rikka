@@ -64,22 +64,40 @@ async def ping(ctx):
     await ctx.send(result)
 
 
-@bot.hybrid_command()
+@bot.hybrid_command(name="bind steamid32")
 async def bind_steam(ctx, steam_id: str):
-    discord_id = ctx.author.id
+    user_id = ctx.author.id
 
     # Insert or update user binding in the database
     cursor = connection.cursor()
-    connection.select_db('discord')
     cursor.execute(
-        'INSERT INTO users (discord_id, steam_id) '
-        'VALUES (%s, %s) ON DUPLICATE KEY UPDATE steam_id = VALUES(steam_id)',
-        (discord_id, steam_id)
+        'INSERT INTO users (discord_id, steamid_32) '
+        'VALUES (%s, %s) ON DUPLICATE KEY UPDATE steamid_32 = VALUES(steamid_32)',
+        (user_id, steam_id)
     )
     connection.commit()
     cursor.close()
 
     await ctx.send('Steam ID bound successfully!')
+
+
+@bot.hybrid_command(name="get steamid32")
+async def get_steam(ctx):
+    user_id = ctx.author.id
+
+    # Retrieve user binding from the database
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute(
+        'SELECT steamid_32 FROM users WHERE discord_id = %s',
+        (user_id,)
+    )
+    result = cursor.fetchone()
+    cursor.close()
+
+    if result:
+        await ctx.send(f'Your bound Steam ID: {result["steamid_32"]}')
+    else:
+        await ctx.send('No Steam ID bound.')
 
 
 print('Bot_Rikka starting...')
