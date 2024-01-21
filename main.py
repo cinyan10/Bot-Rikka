@@ -32,7 +32,7 @@ async def info(ctx, content: str = None):   # NOQA
     result = ''
     if not content:
         for server in servers:
-            result += query_server_basic(server.ip, server.port)
+            result += query_server_basic(server.server_ip, server.port)
         await ctx.send(result)
         return
 
@@ -40,10 +40,10 @@ async def info(ctx, content: str = None):   # NOQA
     try:
         server_id = int(content) - 1
         server = find_server_by_id(server_id)
-        result = query_server(server.ip, server.port)
+        result = query_server(server.server_ip, server.port)
     except Exception:   # NOQA
         server = find_server_by_name(content)
-        result = query_server(server.ip, server.port)
+        result = query_server(server.server_ip, server.port)
     await ctx.send(result)
 
 
