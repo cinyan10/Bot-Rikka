@@ -13,6 +13,8 @@ def find_server_by_id(server_id):
 
 
 class Server:
+    name = None
+
     def __init__(self, name: str, name_cn: str, name_short: str, server_id: int, ip: str, port: int):
         self.name = name
         self.name_cn = name_cn
