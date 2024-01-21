@@ -2,8 +2,8 @@
 
 requirements:
 
-```
-pip install discord, python-dotenv, python-valve
+```shell
+pip install -r requirements.txt
 ```
 
 if there's an error
@@ -15,7 +15,6 @@ if there's an error
  you can modify the `valve/source/messages.py` file in the `valve` library. Open the file and locate the line that starts with `class Message(collections.Mapping):`. Replace it with the following line:
 
 ```
-pythonCopy code
 class Message(collections.abc.Mapping):
 ```
 
