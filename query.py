@@ -45,10 +45,9 @@ def query_server_basic(server):     # NOQA
             players_str = ''
             for player in players['players']:
                 players_str += f"{player['name']}  "
+                content += f"{player['name']}  "
             if players_str != '':
                 content += "\n"
-            else:
-                content += players_str
         return content
     except Exception as e:
         print(f"Error: {e}")
