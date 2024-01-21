@@ -52,5 +52,15 @@ def retrieve_last_seen(steam_id):
     )
     result = cursor.fetchone()
     cursor.close()
-
     return result[0] if result else None
+
+
+def reset_user_steam(discord_id, steam_id):
+    cursor = connection.cursor()
+    connection.select_db('discord')
+    cursor.execute(
+        'UPDATE users SET steamid_32 = %s WHERE steamid_32 = (SELECT steamid_32 FROM users WHERE steamid_32 = %s)',
+        (steam_id, discord_id)
+    )
+    connection.commit()
+    cursor.close()
