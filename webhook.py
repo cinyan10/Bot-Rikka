@@ -8,8 +8,7 @@ from query import query_server_simple
 
 def send_webhook():
     # Replace YOUR_WEBHOOK_URL with your actual webhook URL
-    load_dotenv()
-    webhook_url = os.getenv('WEBHOOK_URL')
+    webhook_url = 'https://discord.com/api/webhooks/1198613157225177170/M8R3R3X8VSgupBG9Iup3xFj6aDtUopeYUbeMDUlxKh2y8aEQJdUV6b21PqLEA7OSJ47n'
     info_data = ''
     for s in servers:
         info_data += query_server_simple(s)
