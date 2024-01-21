@@ -55,12 +55,23 @@ def retrieve_last_seen(steam_id):
     return result[0] if result else None
 
 
-def reset_user_steam(discord_id):
+def reset_user_steam(discord_id, steam_id):
     cursor = connection.cursor()
     connection.select_db('discord')
+
+    if steam_id is not None:
+        # Update the temporary table with the new steam ID
+        cursor.execute('UPDATE temp_users SET steamid_32 = %s', (steam_id,))
+    else:
+        # Update the temporary table to set steam ID to NULL
+        cursor.execute('UPDATE temp_users SET steamid_32 = NULL')
+
+        # Update the main table based on the temporary table
     cursor.execute(
-        'UPDATE users SET steamid_32 = NULL WHERE steamid_32 = (SELECT steamid_32 FROM users WHERE steamid_32 = %s)',
-        (discord_id,)
-    )
+        'UPDATE users INNER JOIN temp_users ON users.steamid = temp_users.steamid SET users.steamid = temp_users.steamid')
+
+    # Drop the temporary table
+    cursor.execute('DROP TEMPORARY TABLE IF EXISTS temp_users')
+
     connection.commit()
     cursor.close()
