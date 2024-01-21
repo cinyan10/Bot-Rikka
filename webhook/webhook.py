@@ -4,6 +4,7 @@ from valve.source import a2s
 from servers import *
 from query import query_server_simple
 
+
 # Replace YOUR_WEBHOOK_URL with your actual webhook URL
 webhook_url = "https://discord.com/api/webhooks/1198569911757308026/p8qXZuo5Rhf7e_5VagkGK8uYaG5Gf9WemfWIh7uBpyv1ySRM34NJJ_ZvmyqqbJgdAyf2"
 
