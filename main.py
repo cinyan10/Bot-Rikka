@@ -84,11 +84,10 @@ async def bind_steam(ctx, steam_id: str):
 @bot.hybrid_command()
 async def get_steam(ctx):
     user_id = ctx.author.id
+    steam_id = retrieve_steam_id(user_id)
 
-    steamid = get_steamid(user_id)
-
-    if steamid:
-        await ctx.send(f'Your bound Steam ID: {steamid["steamid_32"]}')
+    if steam_id:
+        await ctx.send(f'Your bound Steam ID: {steam_id}')
     else:
         await ctx.send('No Steam ID bound.')
 

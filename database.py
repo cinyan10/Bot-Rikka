@@ -16,23 +16,17 @@ connection = Connection(
 )
 
 
-def get_steamid(user_id):
-
-    # Retrieve user binding from the database
+def retrieve_steam_id(discord_id):
     cursor = connection.cursor()
     connection.select_db('discord')
     cursor.execute(
         'SELECT steamid_32 FROM users WHERE discord_id = %s',
-        (user_id,)
+        (discord_id,)
     )
     result = cursor.fetchone()
     cursor.close()
 
-    if result:
-        return result
-    else:
-        return
-
+    return result[0] if result else None
 
 def get_join_date():
     pass
