@@ -58,7 +58,6 @@ def retrieve_last_seen(steam_id):
 def reset_user_steam(discord_id, steam_id):
     cursor = connection.cursor()
     connection.select_db('discord')
-
     try:
         if steam_id is not None:
             # Update the main table, setting the steam ID to the new value
@@ -72,7 +71,19 @@ def reset_user_steam(discord_id, steam_id):
                 'UPDATE users SET steamid_32 = NULL WHERE discord_id = %s',
                 (discord_id,)
             )
-
     finally:
         connection.commit()
         cursor.close()
+
+
+def retrieve_user_name(steamid_32):
+    cursor = connection.cursor()
+    connection.select_db('firstjoin')
+    cursor.execute(
+        'SELECT name FROM firstjoin WHERE steamid_32 = %s',
+        (steamid_32,)
+    )
+    result = cursor.fetchone()
+    cursor.close()
+
+    return result[0] if result else None

@@ -24,7 +24,7 @@ async def sync(ctx):
 
 
 @bot.hybrid_command()
-async def info(ctx, content: str = None):   # NOQA
+async def server(ctx, content: str = None):   # NOQA
     """query server info by name or id
     Parameters:
         content (str, optional): input the server name(e.g. 广州1) or id. it will show all servers info if it's None
@@ -99,14 +99,15 @@ async def get_steam(ctx):
 
 
 @bot.hybrid_command()
-async def joindate(ctx):
+async def info(ctx):
     user_id = ctx.author.id
     steam_id = retrieve_steam_id(user_id)
+    name = retrieve_user_name(steam_id)
     join_date = retrieve_join_date(steam_id)
     last_seen = retrieve_last_seen(steam_id)
 
     if join_date and last_seen:
-        await ctx.send(f'Steam ID: {steam_id}\nJoin Date: {join_date}\nLast Seen: {last_seen}')
+        await ctx.send(f'Player:P{name}\nSteam ID: {steam_id}\nJoin Date: {join_date}\nLast Seen: {last_seen}')
     else:
         await ctx.send('No data found for the specified Steam ID.')
 
