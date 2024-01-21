@@ -19,7 +19,7 @@ def send_webhook():
                 "title": "SERVER LIST",
                 "description": info_data,
                 "color": 0x60FFFF,  # Hex color code, e.g., red
-                "footer": {"text": "Your Footer"},
+                # "footer": {"text": "Your Footer"},
             }
         ]
     }
