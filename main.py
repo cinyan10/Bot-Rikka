@@ -64,7 +64,7 @@ async def ping(ctx):
     await ctx.send(result)
 
 
-@bot.hybrid_command(name="bind steamid32")
+@bot.hybrid_command()
 async def bind_steam(ctx, steam_id: str):
     user_id = ctx.author.id
 
@@ -81,7 +81,7 @@ async def bind_steam(ctx, steam_id: str):
     await ctx.send('Steam ID bound successfully!')
 
 
-@bot.hybrid_command(name="get steamid32")
+@bot.hybrid_command()
 async def get_steam(ctx):
     user_id = ctx.author.id
 
