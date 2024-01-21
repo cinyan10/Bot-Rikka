@@ -31,19 +31,19 @@ async def info(ctx, content: str = None):   # NOQA
     # if content = None, query all servers info
     result = ''
     if not content:
-        for server in servers:
-            result += query_server_basic(server.ip, server.port)
+        for s in servers:
+            result += query_server_basic(s.ip, s.port)
         await ctx.send(result)
         return
 
     # query single server info
     try:
         server_id = int(content) - 1
-        server = find_server_by_id(server_id)
-        result = query_server(server.ip, server.port)
+        s = find_server_by_id(server_id)
+        result = query_server(s.ip, s.port)
     except Exception:   # NOQA
-        server = find_server_by_name(content)
-        result = query_server(server.ip, server.port)
+        s = find_server_by_name(content)
+        result = query_server(s.ip, s.port)
     await ctx.send(result)
 
 
