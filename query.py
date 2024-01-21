@@ -24,7 +24,7 @@ def query_server(server: Server):   # NOQA
             tier = fetch_map_tier(info['map'])
 
         content = (f"Server: {info['server_name']}"
-                   f"\nMap: {info['map']} {tier}"
+                   f"\nMap: {info['map']} T{tier}"
                    f"\nPlayers: {info['player_count']}/{info['max_players']}")
         if players:
             content += "\nPlayer List:"
