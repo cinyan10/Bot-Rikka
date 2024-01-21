@@ -28,5 +28,29 @@ def retrieve_steam_id(discord_id):
 
     return result[0] if result else None
 
-def get_join_date():
-    pass
+
+def retrieve_join_date(steam_id):
+    cursor = connection.cursor()
+    connection.select_db('firstjoin')
+    cursor.execute(
+        'SELECT join_date FROM firstjoin WHERE steamid = %s',
+        (steam_id,)
+    )
+    result = cursor.fetchone()
+    cursor.close()
+
+    return result[0] if result else None
+
+
+# Function to retrieve last_seen from firstjoin table by steamid
+def retrieve_last_seen(steam_id):
+    cursor = connection.cursor()
+    connection.select_db('firstjoin')
+    cursor.execute(
+        'SELECT last_seen FROM firstjoin WHERE steamid = %s',
+        (steam_id,)
+    )
+    result = cursor.fetchone()
+    cursor.close()
+
+    return result[0] if result else None

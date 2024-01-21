@@ -95,13 +95,13 @@ async def get_steam(ctx):
 @bot.hybrid_command()
 async def joindate(ctx):
     user_id = ctx.author.id
-    await ctx.send('')
+    join_date = retrieve_join_date(steam_id)
+    last_seen = retrieve_last_seen(steam_id)
 
-
-@bot.hybrid_command()
-async def lastseen(ctx):
-
-    await ctx.send('')
+    if join_date and last_seen:
+        await ctx.send(f'Steam ID: {steam_id}\nJoin Date: {join_date}\nLast Seen: {last_seen}')
+    else:
+        await ctx.send('No data found for the specified Steam ID.')
 
 
 print('Bot_Rikka starting...')
