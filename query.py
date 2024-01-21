@@ -39,9 +39,10 @@ def query_server_basic(server):     # NOQA
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
             players = s.players()
+            tier = fetch_map_tier(info['map'])
 
-        content = (f"[{server.name_short[:2]}#{server.name_short[2]}](http://redirect.axekz.com/{server.id}):\t"
-                   f"{info['map']}\t"
+        content = (f"[{server.name_short[:2]}#{server.name_short[2]}](http://redirect.axekz.com/{server.id}):  "
+                   f"{info['map']}  {tier}  "
                    f"{info['player_count']}/{info['max_players']}\n")
         if players:
             players_str = ''
