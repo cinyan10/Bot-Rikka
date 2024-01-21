@@ -9,16 +9,16 @@ from query import query_server_simple
 webhook_url = "https://discord.com/api/webhooks/1198569911757308026/p8qXZuo5Rhf7e_5VagkGK8uYaG5Gf9WemfWIh7uBpyv1ySRM34NJJ_ZvmyqqbJgdAyf2"
 
 
-content = ''
+info_data = ''
 for s in servers:
-    content += query_server_simple(s)
+    info_data += query_server_simple(s)
 
 payload = {
     "content": "",
     "embeds": [
         {
             "title": "SERVER LIST",
-            "description": content,
+            "description": info_data,
             "color": 0x60FFFF,  # Hex color code, e.g., red
             "footer": {"text": "Your Footer"},
         }

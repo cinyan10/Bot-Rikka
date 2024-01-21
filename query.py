@@ -44,13 +44,13 @@ def query_server_simple(server):  # NOQA
             players = s.players()
             tier = maps_tier[info['map']]
 
-        content = (f"[**{server.name_short[:2]}#{server.name_short[2]}**](http://redirect.axekz.com/{server.id}):  "
+        content = (f"[**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}**](http://redirect.axekz.com/{server.id}):  "
                    f"*{info['map']}* "
                    f'T{tier}  '
                    f"{info['player_count']}/{info['max_players']}\n")
 
         if players:
-            players_str = None
+            players_str = ''
             for player in players['players']:
                 content += f"`{player['name']}`  "
                 players_str += f"`{player['name']}`"
@@ -80,4 +80,5 @@ def fetch_map_tier(map_name: str):
 
 
 if __name__ == "__main__":
-    print(maps_tier['kz_lionheart'])
+    rs = query_server_simple(servers[1])
+    print(rs, type(rs))
