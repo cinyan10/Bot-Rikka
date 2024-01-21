@@ -1,5 +1,3 @@
-import sys
-
 from valve.source import a2s
 from servers import *
 import requests
@@ -41,11 +39,10 @@ def query_server_basic(server):     # NOQA
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
             players = s.players()
-            tier = fetch_map_tier(info['map'])
 
         content = (f"[{server.name_short[:2]}#{server.name_short[2]}](http://redirect.axekz.com/{server.id}):  "
                    f"{info['map']} "
-                   f'T{tier}  '
+                   f'T{fetch_map_tier(info['map'])}  '
                    f"{info['player_count']}/{info['max_players']}\n")
         if players:
             players_str = ''
