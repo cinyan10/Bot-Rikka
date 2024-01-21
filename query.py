@@ -38,9 +38,9 @@ def query_server_basic(server):     # NOQA
             info = s.info()
             players = s.players()
 
-        content = (f"[{server.name_short}](https://redirect.axekz.com/{server.id}):"
+        content = (f"[{server.name_short}](https://redirect.axekz.com/{server.id}): "
                    f" {info['map']}"
-                   f" Players: {info['player_count']}/{info['max_players']}\n")
+                   f" {info['player_count']}/{info['max_players']}\n")
         if players:
             players_str = ''
             for player in players['players']:
