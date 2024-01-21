@@ -34,16 +34,19 @@ def query_server(server: Server):   # NOQA
         print(f"Error: {e}")
 
 
-def query_server_basic(server):     # NOQA
+def query_server_basic(server):  # NOQA
     try:
+        tier = None  # Default value if an exception occurs
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
             players = s.players()
             tier = str(fetch_map_tier(info['map']))
+
         content = (f"[{server.name_short[:2]}#{server.name_short[2]}](http://redirect.axekz.com/{server.id}):  "
                    f"{info['map']} "
                    f'T{tier}  '
                    f"{info['player_count']}/{info['max_players']}\n")
+
         if players:
             players_str = ''
             for player in players['players']:
@@ -51,9 +54,11 @@ def query_server_basic(server):     # NOQA
                 content += f"{player['name']}  "
             if players_str != '':
                 content += "\n"
+
         return content
     except Exception as e:
         print(f"Error: {e}")
+
 
 
 def fetch_map_tier(map_name: str):
