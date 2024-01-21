@@ -38,7 +38,7 @@ async def info(ctx, content: str = None):   # NOQA
 
     # query single server info
     try:
-        server_id = int(content) - 1
+        server_id = int(content)
         s = find_server_by_id(server_id)
         result = query_server(s)
     except Exception:   # NOQA
