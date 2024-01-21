@@ -4,7 +4,7 @@ import os
 from discord.ext import commands
 from dotenv import load_dotenv
 from query import *
-from servers import *
+from webhook import *
 
 # main_bot.py
 intents = discord.Intents.default()
@@ -46,6 +46,11 @@ async def info(ctx, content: str = None):   # NOQA
         s = find_server_by_name(content)
         result = query_server_details(s)
     await ctx.send(result)
+
+
+@bot.hybrid_command()
+async def servers(ctx):
+    await send_webhook()
 
 
 @bot.hybrid_command()
