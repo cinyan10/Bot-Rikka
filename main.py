@@ -97,6 +97,7 @@ async def joindate(ctx):
     user_id = ctx.author.id
     join_date = retrieve_join_date(steam_id)
     last_seen = retrieve_last_seen(steam_id)
+    steam_id = retrieve_steam_id(user_id)
 
     if join_date and last_seen:
         await ctx.send(f'Steam ID: {steam_id}\nJoin Date: {join_date}\nLast Seen: {last_seen}')
