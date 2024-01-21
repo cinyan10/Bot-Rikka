@@ -73,6 +73,23 @@ def query_server(ip, port):
     except Exception as e:
         print(f"Error: {e}")
 
+def query_server_basic(ip, port):
+    try:
+        with a2s.ServerQuerier((ip, port)) as server:
+            info = server.info()
+            players = server.players()
+
+        content = (f"[{info['server_name']}](https://ban.axekz.com/):"
+                   f" {info['map']}"
+                   f" Players: {info['player_count']}/{info['max_players']}")
+        # if players:
+        #     content += "\nPlayer List:"
+        #     for player in players['players']:
+        #         content += f"\n{player['name']}\t - Time: {format_duration(player['duration'])}"
+        return content
+    except Exception as e:
+        print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     server_ip = "43.139.56.16"
