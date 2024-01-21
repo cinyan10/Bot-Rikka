@@ -34,7 +34,8 @@ async def info(ctx, content: str = None):
     if not content:
         for server in servers:
             result += query_server_basic(server[0], server[1])
-        return ctx.send(result)
+        await ctx.send(result)
+        return
 
     try:
         num = int(content) - 1
