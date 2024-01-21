@@ -1,5 +1,6 @@
 from valve.source import a2s
 from servers import *
+import requests
 
 
 def format_seconds(seconds):
@@ -18,9 +19,10 @@ def query_server(server: Server):   # NOQA
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
             players = s.players()
+            tier = fetch_map_tier(info['map'])
 
         content = (f"Server: {info['server_name']}"
-                   f"\nMap: {info['map']}"
+                   f"\nMap: {info['map']} {tier}"
                    f"\nPlayers: {info['player_count']}/{info['max_players']}")
         if players:
             content += "\nPlayer List:"
@@ -51,6 +53,24 @@ def query_server_basic(server):     # NOQA
         return content
     except Exception as e:
         print(f"Error: {e}")
+
+
+def fetch_map_tier(map_name: str):
+    try:
+        response = requests.get('https://kztimerglobal.com/api/v2.0/maps/name/' + map_name)
+
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Parse the response as JSON (assuming the API returns JSON)
+            data = response.json()
+            return data['difficulty']
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
+            return None
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
 
 
 if __name__ == "__main__":
