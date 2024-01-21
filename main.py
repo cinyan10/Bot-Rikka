@@ -50,8 +50,9 @@ async def info(ctx, content: str = None):   # NOQA
 
 
 @bot.hybrid_command()
-async def servers():
-    await send_webhook()
+async def servers(ctx):
+    send_webhook()
+    await ctx.send("Server List Sent!")
 
 
 @bot.hybrid_command()
@@ -106,4 +107,3 @@ async def lastseen(ctx):
 
 print('Bot_Rikka starting...')
 bot.run(TOKEN)
-
