@@ -72,7 +72,7 @@ async def bind_steam(ctx, steam_id: str):
     cursor = connection.cursor()
     connection.select_db('discord')
     cursor.execute(
-        'INSERT INTO user_bindings (discord_id, steam_id) '
+        'INSERT INTO users (discord_id, steam_id) '
         'VALUES (%s, %s) ON DUPLICATE KEY UPDATE steam_id = VALUES(steam_id)',
         (discord_id, steam_id)
     )
