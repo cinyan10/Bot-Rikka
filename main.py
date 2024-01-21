@@ -81,9 +81,9 @@ async def bind_steam(ctx, steam_id: str):
     await ctx.send('Steam ID bound successfully!')
 
 @bot.hybrid_command()
-async def reset_steam(ctx, steam_id: str):
+async def reset_steam(ctx):
     user_id = ctx.author.id
-    reset_user_steam(user_id, steam_id)
+    reset_user_steam(user_id)
     await ctx.send('Your Steam ID has been reset.')
 
 
