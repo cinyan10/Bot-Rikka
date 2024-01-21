@@ -19,7 +19,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 @commands.has_permissions(administrator=True)
 async def sync(ctx):
     await bot.tree.sync()
-    await ctx.send("Synchronization completed!")
+    await ctx.send("Sync completed!")
 
 
 @bot.hybrid_command()
@@ -32,7 +32,7 @@ async def info(ctx, content: str = None):   # NOQA
     result = ''
     if not content:
         for s in servers:
-            result += query_server_basic(s.ip, s.port)
+            result += query_server_basic(s)
         await ctx.send(result)
         return
 
@@ -40,10 +40,10 @@ async def info(ctx, content: str = None):   # NOQA
     try:
         server_id = int(content) - 1
         s = find_server_by_id(server_id)
-        result = query_server(s.ip, s.port)
+        result = query_server(s)
     except Exception:   # NOQA
         s = find_server_by_name(content)
-        result = query_server(s.ip, s.port)
+        result = query_server(s)
     await ctx.send(result)
 
 

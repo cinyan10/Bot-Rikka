@@ -1,4 +1,5 @@
 from valve.source import a2s
+from servers import *
 
 
 def format_seconds(seconds):
@@ -12,30 +13,11 @@ def format_seconds(seconds):
         return "{:02}:{:02}".format(int(minutes), int(seconds))
 
 
-def query_csgo_server(ip, port):
+def query_server(server: Server):   # NOQA
     try:
-        with a2s.ServerQuerier((ip, port)) as server:
-            info = server.info()
-            players = server.players()
-
-        print(f"Server Info:")
-        print(f"Server Name: {info['server_name']}")
-        print(f"Map: {info['map']}")
-        print(f"Players: {info['player_count']}/{info['max_players']}")
-
-        if players:
-            print("\nPlayer List:")
-            for player in players['players']:
-                print(f"{player['name']} - Time: {format_seconds(player['duration'])}")
-    except Exception as e:
-        print(f"Error: {e}")
-
-
-def query_server(ip, port):
-    try:
-        with a2s.ServerQuerier((ip, port)) as server:
-            info = server.info()
-            players = server.players()
+        with a2s.ServerQuerier((server.ip, server.port)) as s:
+            info = s.info()
+            players = s.players()
 
         content = (f"Server: {info['server_name']}"
                    f"\nMap: {info['map']}"
@@ -50,19 +32,19 @@ def query_server(ip, port):
         print(f"Error: {e}")
 
 
-def query_server_basic(ip, port):
+def query_server_basic(server):     # NOQA
     try:
-        with a2s.ServerQuerier((ip, port)) as server:
-            info = server.info()
-            players = server.players()
+        with a2s.ServerQuerier((server.ip, server.port)) as s:
+            info = s.info()
+            players = s.players()
 
-        content = (f"[{info['server_name']}](https://redirect.axekz.com/):"
+        content = (f"[{info['server_name']}](https://redirect.axekz.com/{server.id}):"
                    f" {info['map']}"
                    f" Players: {info['player_count']}/{info['max_players']}\n")
-        # if players:
-        #     content += "\nPlayer List:"
-        #     for player in players['players']:
-        #         content += f"\n{player['name']}\t - Time: {format_duration(player['duration'])}"
+        if players:
+            for player in players['players']:
+                content += f"{player['name']}\t"
+        content += "\n"
         return content
     except Exception as e:
         print(f"Error: {e}")
