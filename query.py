@@ -47,19 +47,22 @@ def query_server_basic(server):  # NOQA
             players = s.players()
             tier = maps_tier[info['map']]
 
-        content = (f"[{server.name_short[:2]}#{server.name_short[2]}](http://redirect.axekz.com/{server.id}):  "
-                   f"{info['map']} "
+        content = (f"[**{server.name_short[:2]}#{server.name_short[2]}**](http://redirect.axekz.com/{server.id}):  "
+                   f"*{info['map']}* "
                    f'T{tier}  '
                    f"{info['player_count']}/{info['max_players']}\n")
 
         if players:
-            players_str = ''
+            # players_str = ''
+            # for player in players['players']:
+            #     players_str += f"{player['name']}  "
+            #     content += f"{player['name']}  "
+            # if players_str != '':
+            #     content += "\n"
+            content += "`"
             for player in players['players']:
-                players_str += f"{player['name']}  "
                 content += f"{player['name']}  "
-            if players_str != '':
-                content += "\n"
-
+            content += "`\n"
         return content
     except Exception as e:
         print(f"Error: {e}")
