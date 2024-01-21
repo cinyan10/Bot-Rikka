@@ -1,6 +1,12 @@
+import json
+
 from valve.source import a2s
 from servers import *
 import requests
+
+f = open('maps_tier.json', 'r', encoding='utf-8')
+maps_tier = json.loads(f.read())
+f.close()
 
 
 def format_seconds(seconds):
@@ -14,12 +20,12 @@ def format_seconds(seconds):
         return "{:02}:{:02}".format(int(minutes), int(seconds))
 
 
-def query_server(server: Server):   # NOQA
+def query_server(server: Server):  # NOQA
     try:
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
             players = s.players()
-            tier = fetch_map_tier(info['map'])
+            tier = maps_tier[info['map']]
 
         content = (f"Server: {info['server_name']}"
                    f"\nMap: {info['map']} T{tier}"
@@ -36,11 +42,10 @@ def query_server(server: Server):   # NOQA
 
 def query_server_basic(server):  # NOQA
     try:
-        tier = None  # Default value if an exception occurs
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
             players = s.players()
-            tier = str(fetch_map_tier(info['map']))
+            tier = maps_tier[info['map']]
 
         content = (f"[{server.name_short[:2]}#{server.name_short[2]}](http://redirect.axekz.com/{server.id}):  "
                    f"{info['map']} "
@@ -58,7 +63,6 @@ def query_server_basic(server):  # NOQA
         return content
     except Exception as e:
         print(f"Error: {e}")
-
 
 
 def fetch_map_tier(map_name: str):
@@ -80,4 +84,4 @@ def fetch_map_tier(map_name: str):
 
 
 if __name__ == "__main__":
-    print(fetch_map_tier('kz_p1'))
+    print(maps_tier['kz_lionheart'])
