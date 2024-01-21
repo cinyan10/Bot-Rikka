@@ -14,11 +14,11 @@ payload = {
             "description": "",
             "color": 0x60FFFF,  # Hex color code, e.g., red
             "fields": [
-                {"name": "AXE GOKZ 广州#1", "value": "kz_lionheart T6\n一只波奇酱♪ 小尐 吕墨菲", "inline": False},
-                {"name": "AXE GOKZ 广州#2", "value": "kz_lionheart T6\n路小雨", "inline": False},
-                {"name": "AXE GOKZ 广州#3", "value": "kz_lionheart T6\n别打我 我是热狗", "inline": False},
-                {"name": "AXE GOKZ 广州#4", "value": "kz_lionheart T6\nHarutya", "inline": False},
-                {"name": "AXE GOKZ 广州#5", "value": "kz_lionheart T6\n", "inline": False},
+                {"name": "AXE GOKZ 广州#1 kz_lionheart T6", "value": "一只波奇酱♪ 小尐 吕墨菲", "inline": False},
+                {"name": "AXE GOKZ 广州#2 kz_lionheart T6", "value": "路小雨", "inline": False},
+                {"name": "AXE GOKZ 广州#3 kz_lionheart T6", "value": "别打我 我是热狗", "inline": False},
+                {"name": "AXE GOKZ 广州#4 kz_lionheart T6", "value": "Harutya", "inline": False},
+                {"name": "AXE GOKZ 广州#5 kz_lionheart T6", "value": "", "inline": False},
                 {"name": "AXE GOKZ 广州#6", "value": "kz_lionheart T6\n树叶飘零 GoneHway", "inline": False},
                 {"name": "AXE GOKZ 北京#1", "value": "kz_lionheart T6\n", "inline": False},
                 {"name": "AXE GOKZ 北京#2", "value": "kz_lionheart T6\n尘缘隐匿于星海 Tikeone 潜在鸣猩哥 17号", "inline": False},
