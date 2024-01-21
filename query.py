@@ -95,4 +95,5 @@ if __name__ == "__main__":
     server_ip = "43.139.56.16"
     server_port = 10003  # Default CS:GO port is usually 27015
 
-    query_csgo_server(server_ip, server_port)
+    test_result = query_server_basic(server_ip, server_port)
+    print(result)
