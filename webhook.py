@@ -11,7 +11,7 @@ webhook_url = "https://discord.com/api/webhooks/1198569911757308026/p8qXZuo5Rhf7
 
 content = ''
 for s in servers:
-    content += ('AXE GOKZ' + query_server_simple(s))
+    content += query_server_simple(s)
 
 payload = {
     "content": "",
