@@ -41,10 +41,12 @@ def query_server_basic(server):     # NOQA
         content = (f"[{server.name_short}](https://redirect.axekz.com/{server.id}):"
                    f" {info['map']}"
                    f" Players: {info['player_count']}/{info['max_players']}\n")
-        if len(players) > 0:
+        if players:
+            players_str = ''
             for player in players['players']:
-                content += f"{player['name']}  "
-            content += "\n"
+                players_str += f"{player['name']}  "
+            if players_str != '':
+                content += "\n"
         return content
     except Exception as e:
         print(f"Error: {e}")
