@@ -53,16 +53,9 @@ def query_server_basic(server):  # NOQA
                    f"{info['player_count']}/{info['max_players']}\n")
 
         if players:
-            # players_str = ''
-            # for player in players['players']:
-            #     players_str += f"{player['name']}  "
-            #     content += f"{player['name']}  "
-            # if players_str != '':
-            #     content += "\n"
-            content += "`"
             for player in players['players']:
-                content += f"{player['name']}  "
-            content += "`\n"
+                content += f"`{player['name']}`  "
+            content += "\n"
         return content
     except Exception as e:
         print(f"Error: {e}")
