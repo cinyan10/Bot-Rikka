@@ -10,7 +10,7 @@ payload = {
     "embeds": [
         {
             "title": "SERVER LIST",
-            "description": "",
+            "description": "**[AXE GOKZ 广州#1](http://redirect.axekz.com/1) kz_lionheart T6**\n一只波奇酱♪ 小尐 吕墨菲",
             "color": 0x60FFFF,  # Hex color code, e.g., red
             "fields": [
                 {"name": "[AXE GOKZ 广州#1](http://redirect.axekz.com/1) kz_lionheart T6", "value": "一只波奇酱♪ 小尐 吕墨菲", "inline": False},
