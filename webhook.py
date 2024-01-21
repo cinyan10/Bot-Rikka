@@ -9,17 +9,9 @@ from query import query_server_simple
 webhook_url = "https://discord.com/api/webhooks/1198569911757308026/p8qXZuo5Rhf7e_5VagkGK8uYaG5Gf9WemfWIh7uBpyv1ySRM34NJJ_ZvmyqqbJgdAyf2"
 
 
-# ip="43.139.56.16", port=10001
-# Construct the payload for the embedded message
-def query_servers():
-    rs = ''
-    for s in servers:
-        rs += query_server_simple(s)
-
-
 content = ''
 for s in servers:
-    content += query_server_simple(s)
+    content += ('AXE GOKZ' + query_server_simple(s))
 
 payload = {
     "content": "",
