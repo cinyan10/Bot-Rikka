@@ -33,8 +33,7 @@ async def info(ctx, content: str):
     result = ''
     if content == '':
         for server in servers:
-            result += query_server(server[0], server[1])
-
+            result += query_server_basic(server[0], server[1])
     try:
         num = int(content) - 1
         result = query_server(servers[num][0], servers[num][1])

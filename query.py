@@ -81,7 +81,7 @@ def query_server_basic(ip, port):
 
         content = (f"[{info['server_name']}](https://ban.axekz.com/):"
                    f" {info['map']}"
-                   f" Players: {info['player_count']}/{info['max_players']}")
+                   f" Players: {info['player_count']}/{info['max_players']}\n")
         # if players:
         #     content += "\nPlayer List:"
         #     for player in players['players']:
