@@ -18,7 +18,7 @@ for m in maps:
 
 print(maps_tier)
 
-w = open('../maps_tier.json', 'w', encoding='utf-8')
+w = open('../files/maps_tier.json', 'w', encoding='utf-8')
 w.write(json.dumps(maps_tier))
 w.close()
 

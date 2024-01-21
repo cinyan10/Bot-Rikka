@@ -1,10 +1,9 @@
 import json
-
 from valve.source import a2s
 from servers import *
 import requests
 
-f = open('maps_tier.json', 'r', encoding='utf-8')
+f = open('files/maps_tier.json', 'r', encoding='utf-8')
 maps_tier = json.loads(f.read())
 f.close()
 
@@ -20,7 +19,7 @@ def format_seconds(seconds):
         return "{:02}:{:02}".format(int(minutes), int(seconds))
 
 
-def query_server(server: Server):  # NOQA
+def query_server_details(server: Server):  # NOQA
     try:
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
@@ -40,7 +39,7 @@ def query_server(server: Server):  # NOQA
         print(f"Error: {e}")
 
 
-def query_server_basic(server):  # NOQA
+def query_server_simple(server):  # NOQA
     try:
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()

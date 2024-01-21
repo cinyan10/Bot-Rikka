@@ -1,12 +1,12 @@
 import random
 import discord
-from discord.ext import commands
 import os
+from discord.ext import commands
 from dotenv import load_dotenv
 from query import *
 from servers import *
 
-# discord initial
+# main_bot.py
 intents = discord.Intents.default()
 intents.message_content = True
 load_dotenv()
@@ -29,10 +29,11 @@ async def info(ctx, content: str = None):   # NOQA
         content (str, optional): input the server name(e.g. 广州1) or id. it will show all servers info if it's None
     """
     # if content = None, query all servers info
+    content = str(content)
     result = ''
     if not content:
         for s in servers:
-            result += query_server_basic(s)
+            result += query_server_simple(s)
         await ctx.send(result)
         return
 
@@ -40,10 +41,10 @@ async def info(ctx, content: str = None):   # NOQA
     try:
         server_id = int(content)
         s = find_server_by_id(server_id)
-        result = query_server(s)
+        result = query_server_details(s)
     except Exception:   # NOQA
         s = find_server_by_name(content)
-        result = query_server(s)
+        result = query_server_details(s)
     await ctx.send(result)
 
 
@@ -54,5 +55,5 @@ async def ping(ctx):
     result = random.choice(responses)
     await ctx.send(result)
 
-
+print('Bot_Rikka starting...')
 bot.run(TOKEN)
