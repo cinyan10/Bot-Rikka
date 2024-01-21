@@ -23,7 +23,10 @@ def query_server_details(server: Server):  # NOQA
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
             players = s.players()
-            tier = maps_tier[info['map']]
+            try:
+                tier = maps_tier[info['map']]
+            except Exception:
+                tier = 'T0'
 
         content = (f"Server: {info['server_name']}"
                    f"\nMap: {info['map']} T{tier}"
@@ -43,8 +46,10 @@ def query_server_simple(server):  # NOQA
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
             players = s.players()
-            tier = maps_tier[info['map']]
-
+            try:
+                tier = maps_tier[info['map']]
+            except Exception:
+                tier = 'T0'
         content = (f"[**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}**](http://redirect.axekz.com/{server.id}):  "
                    f"*{info['map']}* "
                    f'T{tier}  '
