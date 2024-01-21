@@ -80,7 +80,7 @@ def retrieve_user_name(steamid_32):
     cursor = connection.cursor()
     connection.select_db('firstjoin')
     cursor.execute(
-        'SELECT name FROM firstjoin WHERE steamid_32 = %s',
+        'SELECT name FROM firstjoin WHERE auth = %s',
         (steamid_32,)
     )
     result = cursor.fetchone()
