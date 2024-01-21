@@ -4,15 +4,17 @@ from discord.ext import commands
 import os
 from dotenv import load_dotenv
 from query import *
+from servers import *
 
+# discord initial
 intents = discord.Intents.default()
 intents.message_content = True
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 
+# functions
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def sync(ctx):
@@ -21,51 +23,36 @@ async def sync(ctx):
 
 
 @bot.hybrid_command()
-async def info_id(ctx, num: int):
-    """show server info by num"""
-    result = query_server(servers[num][0], servers[num][1])
-    await ctx.send(result)
-
-
-@bot.hybrid_command()
-async def info(ctx, content: str = None):
-    """show server info by name"""
+async def info(ctx, content: str = None):   # NOQA
+    """query server info by name or id
+    Parameters:
+        content (str, optional): input the server name(e.g. 广州1) or id. it will show all servers info if it's None
+    """
+    # if content = None, query all servers info
     result = ''
     if not content:
         for server in servers:
-            result += query_server_basic(server[0], server[1])
+            result += query_server_basic(server.ip, server.port)
         await ctx.send(result)
         return
 
+    # query single server info
     try:
-        num = int(content) - 1
-        result = query_server(servers[num][0], servers[num][1])
+        server_id = int(content) - 1
+        server = find_server_by_id(server_id)
+        result = query_server(server.ip, server.port)
     except Exception:   # NOQA
-        if content[:2] == '北京':
-            num = int(content[2]) + 5
-            result = query_server(servers[num][0], servers[num][1])
-        elif content[:2] == '广州':
-            num = int(content[2]) - 1
-            result = query_server(servers[num][0], servers[num][1])
+        server = find_server_by_name(content)
+        result = query_server(server.ip, server.port)
     await ctx.send(result)
 
 
 @bot.hybrid_command()
 async def ping(ctx):
     """ping bot"""
-    num = random.randint(1, 6)
-    if num == 1:
-        await ctx.send("meow~")
-    elif num == 2:
-        await ctx.send("Itami~ >.<")
-    elif num == 3:
-        await ctx.send("What's the matter, gosyujinnsama?")
-    elif num == 4:
-        await ctx.send("pong~")
-    elif num == 5:
-        await ctx.send("UwU")
-    else:
-        await ctx.send("don't poke me again plz T^T ")
+    responses = ["meow~", "Itami~ >.<", "What's the matter, gosyujinnsama?", "pong~", "UwU", "don't poke me, plz T^T"]
+    result = random.choice(responses)
+    await ctx.send(result)
 
 
 bot.run(TOKEN)
