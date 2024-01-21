@@ -11,7 +11,7 @@ payload = {
         {
             "title": "SERVER LIST",
             "description": "",
-            "color": 0xADD8E6,  # Hex color code, e.g., red
+            "color": 0x60FFFF,  # Hex color code, e.g., red
             "fields": [
                 {"name": "AXE GOKZ #1", "value": "MAP 1", "inline": True},
                 {"name": "AXE GOKZ #2", "value": "MAP 2", "inline": True},
