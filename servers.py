@@ -29,12 +29,12 @@ servers = [
     Server('GOKZ GuangZhou #4', 'GOKZ 广州#4', '广州4', 4, '43.139.56.16', 10004),
     Server('GOKZ GuangZhou #5', 'GOKZ 广州#5', '广州5', 5, '43.139.56.16', 10005),
     Server('GOKZ GuangZhou #6', 'GOKZ 广州#6', '广州6', 6, '43.139.56.16', 10006),
-    Server('GOKZ BeiJing #1', 'GOKZ 北京#1', '北京1', 7, '43.139.56.16', 10001),
-    Server('GOKZ BeiJing #2', 'GOKZ 北京#2', '北京2', 8, '43.139.56.16', 10002),
-    Server('GOKZ BeiJing #3', 'GOKZ 北京#3', '北京3', 9, '43.139.56.16', 10003),
-    Server('GOKZ BeiJing #4', 'GOKZ 北京#4', '北京4', 10, '43.139.56.16', 10004),
-    Server('GOKZ BeiJing #5', 'GOKZ 北京#5', '北京5', 11, '43.139.56.16', 10005),
-    Server('GOKZ BeiJing #6', 'GOKZ 北京#6', '北京6', 12, '43.139.56.16', 10006),
+    Server('GOKZ BeiJing #1', 'GOKZ 北京#1', '北京1', 7, '43.138.126.94', 10001),
+    Server('GOKZ BeiJing #2', 'GOKZ 北京#2', '北京2', 8, '43.138.126.94', 10002),
+    Server('GOKZ BeiJing #3', 'GOKZ 北京#3', '北京3', 9, '43.138.126.94', 10003),
+    Server('GOKZ BeiJing #4', 'GOKZ 北京#4', '北京4', 10, '43.138.126.94', 10004),
+    Server('GOKZ BeiJing #5', 'GOKZ 北京#5', '北京5', 11, '43.138.126.94', 10005),
+    Server('GOKZ BeiJing #6', 'GOKZ 北京#6', '北京6', 12, '43.138.126.94', 10006),
 ]
 
 
