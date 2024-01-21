@@ -51,6 +51,7 @@ async def server(ctx, content: str = None):   # NOQA
 
 @bot.hybrid_command()
 async def servers(ctx):
+    """get server infos in bot-commands channel"""
     send_webhook()
     await ctx.send("Server List Sent!")
 
@@ -65,6 +66,7 @@ async def ping(ctx):
 
 @bot.hybrid_command()
 async def bind_steam(ctx, steam_id: str):
+    """bind your steamid32"""
     user_id = ctx.author.id
 
     # Insert or update user binding in the database
@@ -82,6 +84,7 @@ async def bind_steam(ctx, steam_id: str):
 
 @bot.hybrid_command()
 async def reset_steam(ctx, steamid: str=None):
+    """resets the steamid"""
     user_id = ctx.author.id
     reset_user_steam(user_id, steamid)
     await ctx.send('Your Steam ID has been reset.')
@@ -89,6 +92,7 @@ async def reset_steam(ctx, steamid: str=None):
 
 @bot.hybrid_command()
 async def get_steam(ctx):
+    """get your steamid"""
     user_id = ctx.author.id
     steam_id = retrieve_steam_id(user_id)
 
@@ -100,6 +104,7 @@ async def get_steam(ctx):
 
 @bot.hybrid_command()
 async def info(ctx):
+    """Shows information aboutyou."""
     user_id = ctx.author.id
     steam_id = retrieve_steam_id(user_id)
     name = retrieve_user_name(steam_id)
@@ -107,7 +112,7 @@ async def info(ctx):
     last_seen = retrieve_last_seen(steam_id)
 
     if join_date and last_seen:
-        await ctx.send(f'Player:P{name}\nSteam ID: {steam_id}\nJoin Date: {join_date}\nLast Seen: {last_seen}')
+        await ctx.send(f'Player:{name}\nSteam ID: {steam_id}\nJoin Date: {join_date}\nLast Seen: {last_seen}')
     else:
         await ctx.send('No data found for the specified Steam ID.')
 
