@@ -5,14 +5,17 @@ from discord.ext import commands
 from dotenv import load_dotenv
 from query import *
 from webhook import *
+from pymysql import Connection
+from database import *
+
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 # main_bot.py
 intents = discord.Intents.default()
 intents.message_content = True
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-bot = commands.Bot(command_prefix="!", intents=intents)
 
+bot = commands.Bot(command_prefix="!", intents=intents)
 
 # functions
 @bot.command()
@@ -60,5 +63,24 @@ async def ping(ctx):
     result = random.choice(responses)
     await ctx.send(result)
 
+
+@bot.hybrid_command()
+async def bind_steam(ctx, steam_id: str):
+    discord_id = ctx.author.id
+
+    # Insert or update user binding in the database
+    cursor = connection.cursor()
+    cursor.execute(
+        'INSERT INTO user_bindings (discord_id, steam_id) '
+        'VALUES (%s, %s) ON DUPLICATE KEY UPDATE steam_id = VALUES(steam_id)',
+        (discord_id, steam_id)
+    )
+    connection.commit()
+    cursor.close()
+
+    await ctx.send('Steam ID bound successfully!')
+
+
 print('Bot_Rikka starting...')
 bot.run(TOKEN)
+
