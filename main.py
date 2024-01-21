@@ -28,10 +28,10 @@ async def info_id(ctx, num: int):
 
 
 @bot.hybrid_command()
-async def info(ctx, content: str):
+async def info(ctx, content: str = None):
     """show server info by name"""
     result = ''
-    if content == '':
+    if not content:
         for server in servers:
             result += query_server_basic(server[0], server[1])
     try:
