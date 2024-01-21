@@ -1,7 +1,7 @@
 def find_server_by_name(server_name_short):
     """find a server by short name"""
     for server in servers:
-        if server_name_short == server.server_name_short:
+        if server_name_short == server.name_short:
             return server
 
 
@@ -14,12 +14,12 @@ def find_server_by_id(server_id):
 
 class Server:
     def __init__(self, name: str, name_cn: str, name_short: str, server_id: int, ip: str, port: int):
-        self.server_name = name
-        self.server_name_cn = name_cn
-        self.server_name_short = name_short
-        self.server_id = server_id
-        self.server_ip = ip
-        self.server_port = port
+        self.name = name
+        self.name_cn = name_cn
+        self.name_short = name_short
+        self.id = server_id
+        self.ip = ip
+        self.port = port
 
 
 servers = [
@@ -36,3 +36,8 @@ servers = [
     Server('GOKZ BeiJing #5', 'GOKZ 北京#5', '北京5', 11, '43.139.56.16', 10005),
     Server('GOKZ BeiJing #6', 'GOKZ 北京#6', '北京6', 12, '43.139.56.16', 10006),
 ]
+
+
+if __name__ == '__main__':
+    server = servers[0]
+    print(server.ip)
