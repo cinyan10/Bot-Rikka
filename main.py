@@ -23,21 +23,24 @@ bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents)
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
 
+    # Fetch the channel using the stored channel ID
+    channel = bot.get_channel(SERVER_LIST_CHANNEL_ID)
+
+    # Check if a message already exists in the channel
+    async for message in channel.history(limit=1):
+        # If there's an existing message, use that message for the loop
+        existing_message = message
+        break
+    else:
+        # If no existing message, send a new one and use that for the loop
+        embed = discord.Embed(title='AXE SERVER LIST', description='Loading')
+        existing_message = await channel.send(embed=embed)
+
+    # Start the dynamic embed loop
+    await dynamic_embed_loop(existing_message)
+
+
 # ---- Loop
-
-
-@bot.hybrid_command()
-async def start_dynamic_embed(ctx):
-    # Replace this with your initial embedded message content
-    embed = discord.Embed(title='AXE SERVER LIST', description='Loading')
-
-    # Send the initial embedded message and store the message object
-    message = await ctx.send(embed=embed)
-
-    # Start a loop that updates the embedded message every minute
-    await dynamic_embed_loop(message)
-
-
 async def dynamic_embed_loop(message):
     while True:
         # Function that updates the content of the embedded message
