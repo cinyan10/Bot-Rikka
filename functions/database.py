@@ -165,4 +165,3 @@ def get_total_playtime(steamid32):
     playtime_str = f"{total_hours} hours, {total_minutes} minutes, {total_seconds} seconds"
 
     return playtime_str
-
