@@ -35,4 +35,3 @@ def user_info(discord_id) -> discord.Embed:
     embed.set_image(url=pfp_url)
 
     return embed
-
