@@ -5,9 +5,10 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 WEBHOOK_URL = os.getenv('WEBHOOK_URL')
-MYSQL_HOST = os.getenv('MYSQL_HOST')
-MYSQL_PASSWORD = os.getenv('MYSQL_PASSWORD')
-MYSQL_PORT = os.getenv('MYSQL_PORT')
+DB_HOST = os.getenv('DB_HOST')
+DB_PORT = os.getenv('DB_PORT')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
 
 # Test:
-# print(TOKEN, WEBHOOK_URL, MYSQL_PORT, MYSQL_PASSWORD, sep='\n')
+# print(TOKEN, WEBHOOK_URL, DB_PORT, DB_PASSWORD, sep='\n')
