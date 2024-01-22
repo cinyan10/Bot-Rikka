@@ -1,26 +1,37 @@
+# main.py
 import random
 import discord
 from discord.ext import commands
+from database import *
 from query import *
 from webhook import *
-from database import *
 
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+# Constants
+COMMAND_PREFIX = "!"
 
-# main_bot.py
+# Initialize bot
 intents = discord.Intents.default()
 intents.message_content = True
+bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents)
 
-bot = commands.Bot(command_prefix="!", intents=intents)
 
-
-# functions
+# ----- Command Group: Basic Commands -----
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def sync(ctx):
     await bot.tree.sync()
     await ctx.send("Sync completed!")
+
+
+@bot.hybrid_command()
+async def ping(ctx):
+    """ping bot"""
+    responses = ["meow~", "Itami~ >.<", "What's the matter, gosyujinnsama?", "pong~", "UwU", "don't poke me, plz T^T"]
+    result = random.choice(responses)
+    await ctx.send(result)
+
+
+# ----- Command Group: Server Commands -----
 
 
 @bot.hybrid_command()
@@ -30,7 +41,6 @@ async def server(ctx, content: str = None):   # NOQA
         content (str, optional): input the server name(e.g. 广州1) or id. it will show all servers info if it's None
     """
     # if content = None, query all servers info
-    content = str(content)
     result = ''
     if not content:
         for s in servers:
@@ -51,17 +61,12 @@ async def server(ctx, content: str = None):   # NOQA
 
 @bot.hybrid_command()
 async def servers(ctx):
-    """get server infos in bot-commands channel"""
+    """get server infos in bot-commands channel as webhook"""
     send_webhook()
     await ctx.send("Server List Sent!")
 
 
-@bot.hybrid_command()
-async def ping(ctx):
-    """ping bot"""
-    responses = ["meow~", "Itami~ >.<", "What's the matter, gosyujinnsama?", "pong~", "UwU", "don't poke me, plz T^T"]
-    result = random.choice(responses)
-    await ctx.send(result)
+# ----- Command Group: Utility Commands -----
 
 
 @bot.hybrid_command()
@@ -79,27 +84,15 @@ async def bind_steam(ctx, steam_id: str):
     )
     connection.commit()
     cursor.close()
-
     await ctx.send('Steam ID bound successfully!')
 
+
 @bot.hybrid_command()
-async def reset_steam(ctx, steamid: str=None):
+async def reset_steam(ctx, steamid: str = None):
     """resets the steamid"""
     user_id = ctx.author.id
     reset_user_steam(user_id, steamid)
     await ctx.send('Your Steam ID has been reset.')
-
-
-@bot.hybrid_command()
-async def get_steam(ctx):
-    """get your steamid"""
-    user_id = ctx.author.id
-    steam_id = retrieve_steam_id(user_id)
-
-    if steam_id:
-        await ctx.send(f'Your bound Steam ID: {steam_id}')
-    else:
-        await ctx.send('No Steam ID bound.')
 
 
 @bot.hybrid_command()
@@ -112,10 +105,11 @@ async def info(ctx):
     last_seen = retrieve_last_seen(steam_id)
 
     if join_date and last_seen:
-        await ctx.send(f'Player:{name}\nSteam ID: {steam_id}\nJoin Date: {join_date}\nLast Seen: {last_seen}')
+        await ctx.send(f'Player: **{name}**\nSteam ID: `{steam_id}`\nJoin Date: {join_date}\nLast Seen: {last_seen}')
     else:
         await ctx.send('No data found for the specified Steam ID.')
 
 
+# ----- Main Execution -----
 print('Bot_Rikka starting...')
 bot.run(TOKEN)
