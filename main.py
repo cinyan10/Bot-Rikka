@@ -25,6 +25,11 @@ async def on_ready():
     print(f'Logged in as {bot.user.name}')
     await bot.get_channel(PRINT_CHANNEL_ID).send(content="I'm successfully started!!")
 
+    async def sync(ctx):
+        """s"""
+        await bot.tree.sync()
+        await bot.get_channel(PRINT_CHANNEL_ID).send(content="Sync completed!")
+
     # Fetch the channel using the stored channel ID
     server_list_channel = bot.get_channel(SERVER_LIST_CHANNEL_ID)
     guangzhou_channel = bot.get_channel(GUANGZHOU_CHANNEL_ID)
