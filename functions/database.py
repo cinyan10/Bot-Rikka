@@ -123,7 +123,7 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
     for steamid32, distance in rows:
         steamid = steamid32_to_steamid(str(steamid32))
         name = get_steam_user_name(steamid)
-        result += f'**{rank}. {name}** : {distance}\n'
+        result += f'**{rank}. {name}** {distance}\n'
         rank += 1
 
     # Close the cursor and connection
