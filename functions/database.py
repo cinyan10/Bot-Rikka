@@ -1,5 +1,5 @@
 from datetime import timedelta
-
+from functions.steam import *
 from pymysql import Connection
 from config import DB_HOST, DB_PORT, DB_PASSWORD, DB_USER
 import mysql.connector
@@ -83,7 +83,7 @@ def reset_user_steam(discord_id, steam_id):
         cursor.close()
 
 
-def retrieve_user_name(steamid_32):
+def get_steam_user_name(steamid_32):
     cursor = connection.cursor()
     connection.select_db('firstjoin')
     cursor.execute(
@@ -118,9 +118,12 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
 
     # Print the results
     result = ''
-    for steam_id, distance in rows:
-        result += f'SteamID32: {steam_id}, Distance: {distance}\n'
-
+    rank = 1
+    for steamid32, distance in rows:
+        steamid = steamid32_to_steamid(str(steamid32))
+        name = get_steam_user_name(steamid)
+        result += f'**{rank}. {name}** : {distance}\n'
+        rank += 1
     # Close the cursor and connection
     cursor.close()
     conn.close()

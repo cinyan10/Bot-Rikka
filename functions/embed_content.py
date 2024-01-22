@@ -10,10 +10,10 @@ from functions.database import *
 def user_info(discord_id) -> discord.Embed:
 
     steamid = retrieve_steam_id(discord_id)
-    steamid64 = convert_steamid_to_steamid64(steamid)
+    steamid64 = steamid_to_steamid64(steamid)
     steamid32 = steamid64_to_steamid32(steamid64)
 
-    name = retrieve_user_name(steamid)
+    name = get_steam_user_name(steamid)
     joindate = format_string_to_datetime(retrieve_join_date(steamid))
     lastseen = format_string_to_datetime(retrieve_last_seen(steamid))
     pfp_url = get_steam_pfp(steamid64)
