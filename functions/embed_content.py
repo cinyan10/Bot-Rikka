@@ -18,9 +18,12 @@ def user_info(discord_id) -> discord.Embed:
     profile_url = get_steam_profile_url(steamid64)
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
 
+    content = (f"First join: {joindate}\n"
+               f"Last seen: {lastseen}\n")
+
     embed = Embed(
         title="Info",
-        description=f"First join: <t:{joindate.timestamp()}>\nLast seen: <t:{lastseen.timestamp()}>",
+        description=content,
         colour=discord.Colour.green()
     )
     embed.set_author(name=name, icon_url=pfp_url, url=profile_url)
