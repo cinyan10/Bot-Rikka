@@ -25,7 +25,4 @@ def user_info(discord_id) -> discord.Embed:
     embed.set_author(name=name, icon_url=pfp_url, url=profile_url)
     embed.url = kzgoeu_url
 
-    if join_date and last_seen:
-        return Embed(title="Error")
-    else:
-        return embed
+    return embed
