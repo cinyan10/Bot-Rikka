@@ -1,4 +1,4 @@
-from query import *
+from functions.query import *
 f = open('../maps.txt', 'r', encoding='utf-8')
 maps = []
 for line in f.readlines():

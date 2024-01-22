@@ -1,7 +1,7 @@
 import requests
 import json
-from servers import *
-from query import query_server_simple
+from functions.servers import *
+from functions.query import query_server_simple
 from config import WEBHOOK_URL
 
 

@@ -4,5 +4,6 @@
 - [ ] leaderboard
   - [ ] jumpstats top
   - [ ] server records holder
+  - [ ] global points and gokz.cn rank 
 - [ ] stream twitch & bilibili
 - [ ] server status (cpu, memory, disk, net)

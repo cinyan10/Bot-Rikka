@@ -1,10 +1,11 @@
 from datetime import datetime, timezone
 import random
 import discord
-from discord.ext import commands, tasks
-from database import *
-from query import *
-from webhook import *
+from discord.ext import commands
+from functions.database import *
+from functions.embed_content import *
+from functions.query import *
+from functions.webhook import *
 from config import *
 import asyncio
 
@@ -93,6 +94,7 @@ async def bj_server_embeds_loop(message: discord.Message, servers):
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def sync(ctx):
+    """s"""
     await bot.tree.sync()
     await ctx.send("Sync completed!")
 
@@ -171,18 +173,10 @@ async def reset_steam(ctx, steamid: str = None):
 
 @bot.hybrid_command()
 async def info(ctx):
-    """Shows information aboutyou."""
-    user_id = ctx.author.id
-    steam_id = retrieve_steam_id(user_id)
-    name = retrieve_user_name(steam_id)
-    join_date = retrieve_join_date(steam_id)
-    last_seen = retrieve_last_seen(steam_id)
-
-    if join_date and last_seen:
-        await ctx.send(f'Player: **{name}**\nSteam ID: `{steam_id}`\nJoin Date: {join_date}\nLast Seen: {last_seen}')
-    else:
-        await ctx.send('No data found for the specified Steam ID.')
-
+    """Show your information"""
+    discord_id = ctx.author.id
+    result = user_info(discord_id)
+    await ctx.send(embed=result)
 
 # ----- Main Execution -----
 print('Bot_Rikka starting...')

@@ -34,7 +34,7 @@ def query_server_embed(server: Server) -> Embed:
                 players_str += f"\n{player['name']} - {format_seconds(player['duration'])}"
 
             embed = Embed(
-                title=f'{info['map']} - {tier}',
+                title=f'{info['map']} - T{tier}',
                 description=players_str,
                 color=0x58b9ff,
             )
@@ -51,7 +51,7 @@ def query_server_embed(server: Server) -> Embed:
         )
 
 
-def query_server_details(server: Server):  # NOQA
+def query_server_details(server: Server) -> str:  # NOQA
     try:
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
@@ -92,7 +92,7 @@ def query_server_simple(server):  # NOQA
             players_str = ''
             for player in players['players']:
                 content += f"`{player['name']}`  "
-                players_str += f"`{player['name']}`"
+                players_str += f"`{player['name'].replace('`', '')}`"
             if players_str != '':
                 content += "\n"
         return content
@@ -119,7 +119,7 @@ def fetch_map_tier(map_name: str):
         return None
 
 
-def query_all_servers():
+def query_all_servers() -> str:
     info_data = ''
     for s in SERVER_LIST:
         info_data += query_server_simple(s)
