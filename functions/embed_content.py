@@ -5,6 +5,7 @@ from functions.steam import *
 from functions.kreedz import *
 from functions.date_time import *
 from functions.database import *
+from functions.kreedz import *
 
 
 def user_info(discord_id) -> discord.Embed:

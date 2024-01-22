@@ -3,6 +3,8 @@ from functions.steam import *
 from pymysql import Connection
 from config import DB_HOST, DB_PORT, DB_PASSWORD, DB_USER
 import mysql.connector
+from functions.kreedz import *
+
 
 # About Database Functions
 connection = Connection(
@@ -122,15 +124,16 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
     rank = 1
     for steamid32, distance in rows:
         steamid = steamid32_to_steamid(str(steamid32))
+        kzgoeu_url = get_kzgoeu_profile_url(steamid, mode)
         name = get_steam_user_name(steamid)
-        result += f'**{rank}. {name}** {distance}\n'
+        formatted_distance = distance / 10000  # Convert distance to float with four decimal places
+        result += f'**{rank}. {name}** - {formatted_distance:.4f}\n'
         rank += 1
 
     # Close the cursor and connection
     cursor.close()
     conn.close()
     return result
-
 
 
 def get_total_playtime(steamid32):
