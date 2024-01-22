@@ -100,8 +100,14 @@ async def bj_server_embeds_loop(message: discord.Message, servers):
 
 async def jstop_embeds_loop(message: discord.Message):
     while True:
-        embed = get_jstop()
-        await message.edit(embed=embed)
+        embeds = []
+        embed1 = get_jstop(20, 'kzt')
+        embed2 = get_jstop(10, 'skz')
+        embed3 = get_jstop(10, 'vnl')
+        embeds.append(embed1)
+        embeds.append(embed2)
+        embeds.append(embed3)
+        await message.edit(embeds=embeds)
         await asyncio.sleep(60)
 
 

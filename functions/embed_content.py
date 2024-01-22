@@ -43,10 +43,10 @@ def user_info(discord_id) -> discord.Embed:
     return embed
 
 
-def get_jstop() -> discord.Embed:
-    content = query_jumpstats_top()
+def get_jstop(limit: int, mode: str) -> discord.Embed:
+    content = query_jumpstats_top(limit, mode)
     embed = Embed(
-        title="Jumpstats Top",
+        title="Jumpstats Top" + mode.capitalize(),
         description=content,
         colour=discord.Colour.green()
     )

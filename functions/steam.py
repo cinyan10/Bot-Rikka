@@ -63,7 +63,8 @@ def steamid32_to_steamid64(steamid32):
     :return: A SteamID64 (a 64-bit integer)
     """
     steamid64_base = 76561197960265728
-    steamid64 = steamid32 + steamid64_base
+    steamid32_int = int(steamid32)
+    steamid64 = steamid32_int + steamid64_base
     return steamid64
 
 

@@ -101,11 +101,12 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
 
     # Prepare the SQL query
     query = f'''
-    SELECT j.SteamID32, j.Distance
+    SELECT j.SteamID32, MAX(j.Distance) as MaxDistance
     FROM Jumpstats j
     JOIN Players p ON j.SteamID32 = p.SteamID32
     WHERE j.JumpType = 0 AND j.Mode = {KZ_MODES[mode]} AND p.Cheater != 1
-    ORDER BY j.Distance DESC
+    GROUP BY j.SteamID32
+    ORDER BY MaxDistance DESC
     LIMIT {limit}
     '''
 
@@ -116,7 +117,7 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
     # Fetch the results
     rows = cursor.fetchall()
 
-    # Print the results
+    # Process the results
     result = ''
     rank = 1
     for steamid32, distance in rows:
@@ -124,10 +125,12 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
         name = get_steam_user_name(steamid)
         result += f'**{rank}. {name}** : {distance}\n'
         rank += 1
+
     # Close the cursor and connection
     cursor.close()
     conn.close()
     return result
+
 
 
 def get_total_playtime(steamid32):
@@ -165,3 +168,8 @@ def get_total_playtime(steamid32):
     playtime_str = f"{total_hours} hours, {total_minutes} minutes, {total_seconds} seconds"
 
     return playtime_str
+
+
+if __name__ == "__main__":
+    rs = query_jumpstats_top(20)
+    print(rs)
