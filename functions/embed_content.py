@@ -17,7 +17,7 @@ def user_info(discord_id) -> discord.Embed:
     pfp_url = get_steam_pfp(steamid64)
     profile_url = get_steam_profile_url(steamid64)
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
-    country = get_steam_user_country(steamid64)
+    country = get_steam_user_country(steamid64).lower()
 
     content = (
         f"**steamID**: `{steamid}`\n"
