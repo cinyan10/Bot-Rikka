@@ -89,6 +89,8 @@ async def send_six_embeds(ctx):
 
     # Get the channel using its ID
     destination_channel = bot.get_channel(GUANGZHOU_CHANNEL_ID)
+    # Remove any potential None values from the embeds list
+    embeds = [e for e in embeds if e]
     # Send the list of embeds as a single message
     await destination_channel.send(embeds=embeds)
 
