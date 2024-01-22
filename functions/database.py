@@ -127,7 +127,7 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
         kzgoeu_url = get_kzgoeu_profile_url(steamid, mode)
         name = get_steam_user_name(steamid)
         formatted_distance = distance / 10000  # Convert distance to float with four decimal places
-        result += f'**{rank}. {name}** - {formatted_distance:.4f}\n'
+        result += f'[{rank}. {name}]({kzgoeu_url}) - {formatted_distance:.4f}\n'
         rank += 1
 
     # Close the cursor and connection
