@@ -5,11 +5,9 @@ import random
 import discord
 from discord.ext import commands
 from database import *
-from dc_util.tool import get_or_send_message
 from query import *
 from webhook import *
 from config import *
-from dc_util import tool
 import asyncio
 
 # Constants
@@ -31,15 +29,39 @@ async def on_ready():
     guangzhou_channel = bot.get_channel(GUANGZHOU_CHANNEL_ID)
     beijing_channel = bot.get_channel(BEIJING_CHANNEL_ID)
 
-    ms_server_list = get_or_send_message(server_list_channel)
-    ms_guangzhou = get_or_send_message(guangzhou_channel)
-    ms_beijing = get_or_send_message(beijing_channel)
+    # Check if a message already exists in the channel
+    async for message in server_list_channel.history(limit=1):
+        # If there's an existing message, use that message for the loop
+        existing_message = message
+        break
+    else:
+        # If no existing message, send a new one and use that for the loop
+        embed = discord.Embed(title='AXE SERVER LIST', description='Loading')
+        existing_message = await server_list_channel.send(embed=embed)
+
+    async for message_2 in guangzhou_channel.history(limit=1):
+        # If there's an existing message, use that message for the loop
+        existing_message_2 = message_2
+        break
+    else:
+        # If no existing message, send a new one and use that for the loop
+        embed = discord.Embed(title='广州 SERVER LIST', description='Loading')
+        existing_message_2 = await guangzhou_channel.send(embed=embed)
+
+    async for message_3 in beijing_channel.history(limit=1):
+        # If there's an existing message, use that message for the loop
+        existing_message_3 = message_3
+        break
+    else:
+        # If no existing message, send a new one and use that for the loop
+        embed = discord.Embed(title='北京 SERVER LIST', description='Loading')
+        existing_message_3 = await beijing_channel.send(embed=embed)
 
     # Start the dynamic embed loop
-    await server_list_embed_loop(ms_server_list)
+    await server_list_embed_loop(existing_message)
 
-    await server_embeds_loop(SERVER_LIST[:6], bot.get_channel(GUANGZHOU_CHANNEL_ID), ms_guangzhou)
-    await server_embeds_loop(SERVER_LIST[6:], bot.get_channel(BEIJING_CHANNEL_ID), ms_beijing)
+    await server_embeds_loop(SERVER_LIST[:6], existing_message_2)
+    await server_embeds_loop(SERVER_LIST[6:], existing_message_3)
 
 
 async def server_list_embed_loop(message):
@@ -61,7 +83,7 @@ async def server_list_embed_loop(message):
         await asyncio.sleep(60)
 
 
-async def server_embeds_loop(server_list: list[Server], channel: discord.TextChannel, message: discord.Message):
+async def server_embeds_loop(server_list: list[Server], message: discord.Message):
     embeds = []
     while True:
         for s in server_list:
@@ -91,7 +113,6 @@ async def ping(ctx):
 
 
 # ----- Command Group: Server Commands -----
-
 
 
 @bot.hybrid_command()
