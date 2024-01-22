@@ -11,6 +11,7 @@ def user_info(discord_id) -> discord.Embed:
 
     steamid = retrieve_steam_id(discord_id)
     steamid64 = convert_steamid_to_steamid64(steamid)
+    steamid32 = steamid64_to_steamid32(steamid64)
 
     name = retrieve_user_name(steamid)
     joindate = format_string_to_datetime(retrieve_join_date(steamid))
@@ -19,13 +20,15 @@ def user_info(discord_id) -> discord.Embed:
     profile_url = get_steam_profile_url(steamid64)
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
     country = get_steam_user_country(steamid64).lower()
+    total_playtime = get_total_playtime(steamid32)
 
     content = (
         f":flag_{country}: **{name}**\n"
         f"**steamID**: `{steamid}`\n"
         f"**steamID64**: `{steamid64}`\n"
-        f"**First join**: {joindate}\n"
-        f"**Last seen**: {lastseen}\n"
+        f"**First Join**: {joindate}\n"
+        f"**Last Seen**: {lastseen}\n"
+        f"**Playtime**: {total_playtime}\n"
     )
 
     embed = Embed(

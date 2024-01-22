@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from pymysql import Connection
 from config import DB_HOST, DB_PORT, DB_PASSWORD, DB_USER
 import mysql.connector
@@ -13,13 +15,14 @@ connection = Connection(
 KZ_MODES = {'kzt': 2, 'skz': 1, 'vnl': 0}
 
 db_config = {
-        'user': DB_USER,
-        'password': DB_PASSWORD,
-        'host': DB_HOST,
-        'database': 'gokz',
-        'raise_on_warnings': True,
-        'port': DB_PORT,
-    }
+    'user': DB_USER,
+    'password': DB_PASSWORD,
+    'host': DB_HOST,
+    'database': 'gokz',
+    'raise_on_warnings': True,
+    'port': DB_PORT,
+}
+
 
 def retrieve_steam_id(discord_id):
     cursor = connection.cursor()
@@ -122,4 +125,41 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
     cursor.close()
     conn.close()
     return result
+
+
+def get_total_playtime(steamid32):
+    # Connect to the database
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    # Prepare the SQL query to sum all runtimes for a given SteamID32
+    query = '''
+    SELECT SUM(Runtime)
+    FROM Times
+    WHERE SteamID32 = %s
+    '''
+
+    # Execute the query
+    cursor.execute(query, (steamid32,))
+
+    # Fetch the result
+    result = cursor.fetchone()
+    total_runtime_milliseconds = int(result[0]) if result[0] is not None else 0
+
+    # Close the cursor and connection
+    cursor.close()
+    conn.close()
+
+    # Convert the total runtime from milliseconds to a timedelta object
+    total_runtime = timedelta(milliseconds=total_runtime_milliseconds)
+
+    # Format the timedelta to a string in the format of hours:minutes:seconds
+    # Note: This will only show the hours contained in one day if you have more than 24 hours of playtime
+    # For showing total hours exceeding 24, you can calculate it by (total_runtime.days * 24 + total_runtime.seconds // 3600)
+    total_hours = total_runtime.days * 24 + total_runtime.seconds // 3600
+    total_minutes = (total_runtime.seconds // 60) % 60
+    total_seconds = total_runtime.seconds % 60
+    playtime_str = f"{total_hours} hours, {total_minutes} minutes, {total_seconds} seconds"
+
+    return playtime_str
 

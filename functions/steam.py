@@ -72,8 +72,38 @@ def get_steam_user_country(steamid64):
         return "black"
 
 
+def steamid32_to_steamid64(steamid32):
+    """
+    Converts a SteamID32 to a SteamID64.
+
+    :param steamid32: A SteamID32 (a 32-bit integer)
+    :return: A SteamID64 (a 64-bit integer)
+    """
+    steamid64_base = 76561197960265728
+    steamid64 = steamid32 + steamid64_base
+    return steamid64
+
+
+def steamid64_to_steamid32(steamid64):
+    """
+    Converts a SteamID64 to a SteamID32.
+
+    :param steamid64: A SteamID64 (a 64-bit integer)
+    :return: A SteamID32 (a 32-bit integer)
+    """
+    steamid64_base = 76561197960265728
+    steamid32 = steamid64 - steamid64_base
+    return steamid32
+
+
+# Example usage
+
+
+# Example usage
+
+
 if __name__ == '__main__':
-    steamid = 'STEAM_1:0:530988200'  # Replace this with the actual SteamID
-    steamid64 = convert_steamid_to_steamid64(steamid)
-    country = get_steam_user_country(steamid64)
-    print(f"User's country: {country}")
+    # Example usage:
+    steamid64_example = 76561199022242128
+    steamid32_converted = steamid64_to_steamid32(steamid64_example)
+    print(steamid32_converted)
