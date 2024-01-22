@@ -5,6 +5,7 @@ from discord.ext import commands
 from database import *
 from query import *
 from webhook import *
+from config import *
 
 # Constants
 COMMAND_PREFIX = "!"
