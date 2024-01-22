@@ -28,11 +28,12 @@ def user_info(discord_id) -> discord.Embed:
     embed = Embed(
         title="Info",
         description=content,
-        colour=discord.Colour.green()
+        colour=discord.Colour.green(),
+        timestamp=lastseen.timestamp(),
     )
     embed.set_author(name=name, icon_url=pfp_url, url=profile_url)
     embed.url = kzgoeu_url
     embed.set_image(url=pfp_url)
-    embed.set_footer()
+    embed.set_footer(text="last play in server:")
 
     return embed
