@@ -53,7 +53,7 @@ def query_server_simple(server):  # NOQA
         content = (f"[**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}**](http://redirect.axekz.com/{server.id}):  "
                    f"*{info['map']}* "
                    f'**T{tier}**  '
-                   f"`{info['player_count']}/{info['max_players']}\n`")
+                   f"{info['player_count']}/{info['max_players']}\n")
 
         if players:
             players_str = ''
