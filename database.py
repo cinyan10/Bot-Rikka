@@ -1,6 +1,8 @@
 from pymysql import Connection
 from config import DB_HOST, DB_PORT, DB_PASSWORD, DB_USER
 
+# About Database Functions
+
 connection = Connection(
     host=DB_HOST,
     port=int(DB_PORT),
