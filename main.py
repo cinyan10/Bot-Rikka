@@ -61,7 +61,7 @@ async def on_ready():
     await server_list_embed_loop(existing_message)
 
     await gz_server_embeds_loop(existing_message_2)
-    await gz_server_embeds_loop(existing_message_3)
+    await bj_server_embeds_loop(existing_message_3)
 
 
 async def server_list_embed_loop(message):
