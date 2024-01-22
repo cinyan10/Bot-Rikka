@@ -34,14 +34,14 @@ def query_server_embed(server: Server) -> Embed:
                 players_str += f"\n{player['name']} - {format_seconds(player['duration'])}"
 
             embed = Embed(
-                title=f'Author {info['map']} - {tier}',
+                title=f'{info['map']} - {tier}',
                 description=players_str,
                 color=0x58b9ff,
             )
 
             embed.set_author(name=f"{info['server_name']}    {info['player_count']}/{info['max_players']}")
             embed.url = f'http://redirect.axekz.com/{server.id}'
-            embed.set_image(url=f"https://github.com/KZGlobalTeam/map-images/blob/master/images/{info['map']}.jpg")
+            embed.set_image(url=f"https://raw.githubusercontent.com/KZGlobalTeam/map-images/master/images/{info['map']}.jpg")
 
             return embed
     except Exception as e:
