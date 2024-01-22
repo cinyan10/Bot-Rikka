@@ -20,7 +20,7 @@ def user_info(discord_id) -> discord.Embed:
     country = get_steam_user_country(steamid64).lower()
 
     content = (
-        f"{name}  :flag{country}:"
+        f"{name}  :flag_{country}:\n"
         f"**steamID**: `{steamid}`\n"
         f"**steamID64**: `{steamid64}`\n"
         f"**First join**: {joindate}\n"
