@@ -23,6 +23,7 @@ bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents)
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
+    await bot.get_channel(PRINT_CHANNEL_ID).send(content="I'm successfully started!!")
 
     # Fetch the channel using the stored channel ID
     server_list_channel = bot.get_channel(SERVER_LIST_CHANNEL_ID)
