@@ -175,7 +175,7 @@ async def reset_steam(ctx, steamid: str = None):
 async def gokzcn(ctx, steamid: str = None, mode: str = 'kzt'):
     """Show your gokz.cn info"""
     discord_id = ctx.author.id
-    result = get_gokzcn_info(discord_id, steamid, mode)
+    result = get_gokzcn_info(discord_id, mode, steamid)
     await ctx.send(embed=result)
 
 

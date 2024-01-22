@@ -33,5 +33,6 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
 
 
 if __name__ == "__main__":
-    pass
+    rs = get_gokzcn_info(steamid='STEAM_1:0:530988200')
+    print(rs)
 
