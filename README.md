@@ -1,5 +1,19 @@
 # discord-bot
 
+### Todos
+
+- [x] info
+  - [x] embedded
+  - [x] show steam profile picture
+  - [ ] kz global stats
+- [ ] leaderboard
+  - [ ] jumpstats top
+  - [ ] server records holder
+  - [ ] global points and gokz.cn rank 
+- [ ] stream twitch & bilibili
+- [ ] server status (cpu, memory, disk, net)
+  - [ ] alert when memory usage too high
+
 ```markdown
 > [!CAUTION]
 > Reading this project will definitely waste your precious time!!!

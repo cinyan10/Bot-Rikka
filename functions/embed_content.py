@@ -4,6 +4,7 @@ from functions.database import *
 from functions.steam import *
 from functions.kreedz import *
 from functions.date_time import *
+from functions.database import *
 
 
 def user_info(discord_id) -> discord.Embed:
@@ -35,5 +36,15 @@ def user_info(discord_id) -> discord.Embed:
     embed.set_author(name=f"{name}", icon_url=pfp_url, url=profile_url)
     embed.url = kzgoeu_url
     embed.set_image(url=pfp_url)
+
+    return embed
+
+
+def get_jstop() -> discord.Embed:
+    content = query_jumpstats_top()
+    embed = Embed(
+        title="Jumpstats Top",
+        description=content
+    )
 
     return embed
