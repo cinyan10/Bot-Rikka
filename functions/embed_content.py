@@ -47,7 +47,7 @@ def user_info(discord_id) -> discord.Embed:
 def get_jstop(limit: int, mode: str) -> discord.Embed:
     content = query_jumpstats_top(limit, mode)
     embed = Embed(
-        title="JUMPSTATS TOP" + mode.upper(),
+        title="JUMPSTATS TOP " + mode.upper(),
         description=content,
         colour=discord.Colour.green()
     )
