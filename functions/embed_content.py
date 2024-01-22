@@ -28,10 +28,10 @@ def user_info(discord_id) -> discord.Embed:
 
     embed = Embed(
         title="Info",
-        description=content,
+        description=content + f"  :flag_{country}:",
         colour=discord.Colour.green(),
     )
-    embed.set_author(name=f"{name}  :flag_{country}:", icon_url=pfp_url, url=profile_url)
+    embed.set_author(name=f"{name}", icon_url=pfp_url, url=profile_url)
     embed.url = kzgoeu_url
     embed.set_image(url=pfp_url)
 
