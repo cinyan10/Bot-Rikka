@@ -52,8 +52,8 @@ def query_server_simple(server):  # NOQA
                 tier = 'T0'
         content = (f"[**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}**](http://redirect.axekz.com/{server.id}):  "
                    f"*{info['map']}* "
-                   f'T{tier}  '
-                   f"{info['player_count']}/{info['max_players']}\n")
+                   f'**T{tier}**  '
+                   f"`{info['player_count']}/{info['max_players']}\n`")
 
         if players:
             players_str = ''
@@ -86,25 +86,14 @@ def fetch_map_tier(map_name: str):
         return None
 
 
-def query_server_embed():
+def query_all_servers():
     info_data = ''
     for s in server_list:
         info_data += query_server_simple(s)
 
-    payload = {
-        "content": "",
-        "embeds": [
-            {
-                "title": "SERVER LIST",
-                "description": info_data,
-                "color": 0x60FFFF,  # Hex color code, e.g., red
-                "footer": {"text": "Timestamp"},
-            }
-        ]
-    }
-    return payload
+    return info_data
 
 
 if __name__ == "__main__":
-    rs = query_server_embed()
+    rs = query_all_servers()
     print(rs, type(rs))

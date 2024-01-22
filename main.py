@@ -1,4 +1,5 @@
 # main.py
+from datetime import datetime, timezone
 import random
 
 import discord
@@ -25,10 +26,10 @@ async def on_ready():
 # ---- Loop
 
 
-@bot.command()
+@bot.hybrid_command()
 async def start_dynamic_embed(ctx):
     # Replace this with your initial embedded message content
-    embed = discord.Embed(title='Dynamic Message', description='Initial content')
+    embed = discord.Embed(title='AXE SERVER LIST', description='Loading')
 
     # Send the initial embedded message and store the message object
     message = await ctx.send(embed=embed)
@@ -40,8 +41,14 @@ async def start_dynamic_embed(ctx):
 async def dynamic_embed_loop(message):
     while True:
         # Function that updates the content of the embedded message
-        new_content = query_server_details(server_list[0])
-        embed = discord.Embed(title='Dynamic Message', description=new_content)
+        current_datetime = datetime.now(timezone.utc)
+        new_content = query_all_servers()
+        embed = discord.Embed(
+            title='AXE SERVER LIST',
+            description=new_content,
+            colour=0x60FFFF,
+            timestamp=current_datetime
+        )
 
         # Edit the embedded message with the new content
         await message.edit(embed=embed)
