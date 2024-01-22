@@ -39,13 +39,16 @@ def query_server_embed(server: Server) -> Embed:
                 color=0x58b9ff,
             )
 
-            embed.set_author(name=f"{info['server_name']}    {info['player_count']}/{info['max_players']}", icon_url='author_icon_url')
+            embed.set_author(name=f"{info['server_name']}    {info['player_count']}/{info['max_players']}")
             embed.url = f'http://redirect.axekz.com/{server.id}'
             embed.set_image(url=f"https://github.com/KZGlobalTeam/map-images/blob/master/images/{info['map']}.jpg")
 
             return embed
     except Exception as e:
         print(f"Error: {e}")
+        return Embed(
+            title="Error"
+        )
 
 
 def query_server_details(server: Server):  # NOQA
