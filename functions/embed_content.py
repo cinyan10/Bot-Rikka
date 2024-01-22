@@ -17,6 +17,7 @@ def user_info(discord_id) -> discord.Embed:
     pfp_url = get_steam_pfp(steamid64)
     profile_url = get_steam_profile_url(steamid64)
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
+    country = get_steam_user_country(steamid64)
 
     content = (
         f"**steamID**: `{steamid}`\n"
@@ -30,7 +31,7 @@ def user_info(discord_id) -> discord.Embed:
         description=content,
         colour=discord.Colour.green(),
     )
-    embed.set_author(name=name, icon_url=pfp_url, url=profile_url)
+    embed.set_author(name=f"{name}  :flag_{country}:", icon_url=pfp_url, url=profile_url)
     embed.url = kzgoeu_url
     embed.set_image(url=pfp_url)
 

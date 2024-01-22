@@ -55,8 +55,25 @@ def get_steam_profile_url(steamid64):
     return f"{base_url}{steamid64}"
 
 
+def get_steam_user_country(steamid64):
+    url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
+    params = {
+        'key': STEAM_API_KEY,
+        'steamids': steamid64
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    try:
+        country = data['response']['players'][0]['loccountrycode']
+        return country
+    except (KeyError, IndexError):
+        return "black"
+
+
 if __name__ == '__main__':
     steamid = 'STEAM_1:0:530988200'  # Replace this with the actual SteamID
     steamid64 = convert_steamid_to_steamid64(steamid)
-    profile_url = get_steam_profile_url(steamid64)
-    print(profile_url)
+    country = get_steam_user_country(steamid64)
+    print(f"User's country: {country}")

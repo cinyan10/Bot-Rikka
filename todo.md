@@ -7,3 +7,4 @@
   - [ ] global points and gokz.cn rank 
 - [ ] stream twitch & bilibili
 - [ ] server status (cpu, memory, disk, net)
+  - [ ] alert when memory usage too high
