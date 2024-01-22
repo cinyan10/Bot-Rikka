@@ -83,7 +83,7 @@ async def send_six_embeds(ctx):
     # Create a list to store the embeds
     embeds = []
     # Create six embeds and add them to the list
-    for s in server_list[:7]:
+    for s in server_list[:6]:
         embed = query_server_embed(s)
         embeds.append(embed)
 

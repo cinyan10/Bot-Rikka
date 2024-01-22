@@ -31,7 +31,7 @@ def query_server_embed(server: Server) -> Embed:
 
             players_str = ''
             for player in players['players']:
-                players += f"\n{player['name']} - {format_seconds(player['duration'])}"
+                players_str += f"\n{player['name']} - {format_seconds(player['duration'])}"
 
             embed = Embed(
                 title=f'Author {info['map']} - {tier}',
