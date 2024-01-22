@@ -1,4 +1,4 @@
-import json
+from discord import Embed
 from valve.source import a2s
 from servers import *
 import requests
@@ -16,6 +16,36 @@ def format_seconds(seconds):
         return "{}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds))
     else:
         return "{:02}:{:02}".format(int(minutes), int(seconds))
+
+
+def query_server_embed(server: Server) -> Embed:
+    try:
+        with a2s.ServerQuerier((server.ip, server.port)) as s:
+            info = s.info()
+            players = s.players()
+            try:
+                tier = maps_tier[info['map']]
+            except Exception:
+                print("Can not get server tier")
+                tier = 'T0'
+
+            players_str = ''
+            for player in players['players']:
+                players += f"\n{player['name']} - {format_seconds(player['duration'])}"
+
+            embed = Embed(
+                title=f'Author {info['map']} - {tier}',
+                description=players_str,
+                color=0x58b9ff,
+            )
+
+            embed.set_author(name=f"{info['server_name']}    {info['player_count']}/{info['max_players']}", icon_url='author_icon_url')
+            embed.url = f'http://redirect.axekz.com/{server.id}'
+            embed.set_image(url=f"https://github.com/KZGlobalTeam/map-images/blob/master/images/{info['map']}.jpg")
+
+            return embed
+    except Exception as e:
+        print(f"Error: {e}")
 
 
 def query_server_details(server: Server):  # NOQA

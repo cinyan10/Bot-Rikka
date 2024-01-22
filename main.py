@@ -78,6 +78,22 @@ async def ping(ctx):
 
 
 # ----- Command Group: Server Commands -----
+@bot.command()
+async def send_six_embeds(ctx):
+    # Create a list to store the embeds
+    embeds = []
+    # Create six embeds and add them to the list
+    for s in server_list:
+        embed = query_server_embed(s)
+        embeds.append(embed)
+
+    # Get the channel using its ID
+    destination_channel = bot.get_channel(GUANGZHOU_CHANNEL_ID)
+    # Send the list of embeds as a single message
+    await destination_channel.send(embeds=embeds)
+
+# Replace DESTINATION_CHANNEL_ID, 'author_icon_url', 'https://example.com/embed_url', and 'image_url' with the actual values
+
 
 
 @bot.hybrid_command()

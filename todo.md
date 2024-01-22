@@ -1,0 +1,8 @@
+- [ ] info
+  - [ ] embedded
+  - [ ] show steam profile picture
+- [ ] leaderboard
+  - [ ] jumpstats top
+  - [ ] server records holder
+- [ ] stream twitch & bilibili
+- [ ] server status (cpu, memory, disk, net)
