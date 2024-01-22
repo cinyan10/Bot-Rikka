@@ -65,6 +65,7 @@ def query_server_simple(server):  # NOQA
         return content
     except Exception as e:
         print(f"Error: {e}")
+        return ""
 
 
 def fetch_map_tier(map_name: str):
@@ -85,6 +86,25 @@ def fetch_map_tier(map_name: str):
         return None
 
 
+def query_server_embed():
+    info_data = ''
+    for s in server_list:
+        info_data += query_server_simple(s)
+
+    payload = {
+        "content": "",
+        "embeds": [
+            {
+                "title": "SERVER LIST",
+                "description": info_data,
+                "color": 0x60FFFF,  # Hex color code, e.g., red
+                "footer": {"text": "Timestamp"},
+            }
+        ]
+    }
+    return payload
+
+
 if __name__ == "__main__":
-    rs = query_server_simple(server_list[1])
+    rs = query_server_embed()
     print(rs, type(rs))
