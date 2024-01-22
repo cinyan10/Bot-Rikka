@@ -36,7 +36,7 @@ async def on_ready():
         break
     else:
         # If no existing message, send a new one and use that for the loop
-        embed = discord.Embed(title='AXE SERVER LIST', description='Loading')
+        embed = discord.Embed(title='AXE SERVER LIST', description='Loading...')
         existing_message = await server_list_channel.send(embed=embed)
 
     async for message_2 in guangzhou_channel.history(limit=1):
@@ -45,7 +45,7 @@ async def on_ready():
         break
     else:
         # If no existing message, send a new one and use that for the loop
-        embed = discord.Embed(title='广州 SERVER LIST', description='Loading')
+        embed = discord.Embed(title='广州 SERVER LIST', description='Loading...')
         existing_message_2 = await guangzhou_channel.send(embed=embed)
 
     async for message_3 in beijing_channel.history(limit=1):
@@ -54,14 +54,14 @@ async def on_ready():
         break
     else:
         # If no existing message, send a new one and use that for the loop
-        embed = discord.Embed(title='北京 SERVER LIST', description='Loading')
+        embed = discord.Embed(title='北京 SERVER LIST', description='Loading...')
         existing_message_3 = await beijing_channel.send(embed=embed)
 
     # Start the dynamic embed loop
     await server_list_embed_loop(existing_message)
 
-    await server_embeds_loop(SERVER_LIST[:6], existing_message_2)
-    await server_embeds_loop(SERVER_LIST[6:], existing_message_3)
+    await gz_server_embeds_loop(existing_message_2)
+    await gz_server_embeds_loop(existing_message_3)
 
 
 async def server_list_embed_loop(message):
@@ -83,10 +83,21 @@ async def server_list_embed_loop(message):
         await asyncio.sleep(60)
 
 
-async def server_embeds_loop(server_list: list[Server], message: discord.Message):
+async def gz_server_embeds_loop(message: discord.Message):
     embeds = []
     while True:
-        for s in server_list:
+        for s in SERVER_LIST[:6]:
+            embed = query_server_embed(s)
+            embeds.append(embed)
+
+        await message.edit(embeds=embeds)
+        await asyncio.sleep(60)
+
+
+async def bj_server_embeds_loop(message: discord.Message):
+    embeds = []
+    while True:
+        for s in SERVER_LIST[6:]:
             embed = query_server_embed(s)
             embeds.append(embed)
 
