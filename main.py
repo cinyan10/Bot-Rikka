@@ -53,6 +53,7 @@ async def get_or_create_message(channel, title, description):
     embed = discord.Embed(title=title, description=description)
     return await channel.send(embed=embed)
 
+
 async def server_list_embed_loop(message):
     while True:
         # Function that updates the content of the embedded message
@@ -71,11 +72,13 @@ async def server_list_embed_loop(message):
         # Wait for one minute before the next update
         await asyncio.sleep(60)
 
+
 async def gz_server_embeds_loop(message: discord.Message, servers):
     while True:
         embeds = [query_server_embed(s) for s in servers]
         await message.edit(embeds=embeds)
         await asyncio.sleep(60)
+
 
 async def bj_server_embeds_loop(message: discord.Message, servers):
     while True:
