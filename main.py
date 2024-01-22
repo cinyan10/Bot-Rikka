@@ -176,7 +176,7 @@ async def gokzcn(ctx, steamid: str = None, mode: str = 'kzt'):
     """Show your gokz.cn info"""
     discord_id = ctx.author.id
     steamid = discordid_to_steamid(discord_id)
-    result = get_gokzcn_info(discord_id, mode, steamid)
+    result = get_gokzcn_info(discord_id, mode=mode, steamid=steamid)
     await ctx.send(embed=result)
 
 
