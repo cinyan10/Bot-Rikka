@@ -2,7 +2,7 @@ import discord
 from discord import Embed
 from functions.database import *
 from functions.steam import *
-from kreedz import *
+from functions.kreedz import *
 
 
 def user_info(discord_id) -> discord.Embed:
