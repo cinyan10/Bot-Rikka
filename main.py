@@ -83,7 +83,7 @@ async def send_six_embeds(ctx):
     # Create a list to store the embeds
     embeds = []
     # Create six embeds and add them to the list
-    for s in server_list:
+    for s in server_list[:7]:
         embed = query_server_embed(s)
         embeds.append(embed)
 
@@ -93,7 +93,6 @@ async def send_six_embeds(ctx):
     await destination_channel.send(embeds=embeds)
 
 # Replace DESTINATION_CHANNEL_ID, 'author_icon_url', 'https://example.com/embed_url', and 'image_url' with the actual values
-
 
 
 @bot.hybrid_command()
