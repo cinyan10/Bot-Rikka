@@ -19,10 +19,10 @@ def user_info(discord_id) -> discord.Embed:
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
 
     content = (
-        f"steamID: {steamid}\n"
-        f"steamID64: {steamid64}\n"
-        f"First join: {joindate}\n"
-        f"Last seen: {lastseen}\n"
+        f"**steamID**: `{steamid}`\n"
+        f"**steamID64**: `{steamid64}`\n"
+        f"First join: `{joindate}`\n"
+        f"Last seen: `{lastseen}`\n"
     )
 
     embed = Embed(
