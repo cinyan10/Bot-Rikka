@@ -7,7 +7,7 @@ from config import WEBHOOK_URL
 
 def send_webhook():
     info_data = ''
-    for s in server_list:
+    for s in SERVER_LIST:
         info_data += query_server_simple(s)
 
     payload = {

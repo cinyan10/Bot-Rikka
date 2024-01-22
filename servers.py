@@ -1,13 +1,13 @@
 def find_server_by_name(server_name_short):
     """find a server by short name"""
-    for server in server_list:
+    for server in SERVER_LIST:
         if server_name_short == server.name_short:
             return server
 
 
 def find_server_by_id(server_id):
     """find a server by id"""
-    for server in server_list:
+    for server in SERVER_LIST:
         if server.id == server_id:
             return server
 
@@ -26,7 +26,7 @@ class Server:
         self.port = port
 
 
-server_list = [
+SERVER_LIST = [
     Server('GOKZ GuangZhou #1', 'GOKZ 广州#1', '广州1', 1, '43.139.56.16', 10001),
     Server('GOKZ GuangZhou #2', 'GOKZ 广州#2', '广州2', 2, '43.139.56.16', 10002),
     Server('GOKZ GuangZhou #3', 'GOKZ 广州#3', '广州3', 3, '43.139.56.16', 10003),
@@ -43,5 +43,5 @@ server_list = [
 
 
 if __name__ == '__main__':
-    server = server_list[0]
+    server = SERVER_LIST[0]
     print(server.ip)

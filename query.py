@@ -121,7 +121,7 @@ def fetch_map_tier(map_name: str):
 
 def query_all_servers():
     info_data = ''
-    for s in server_list:
+    for s in SERVER_LIST:
         info_data += query_server_simple(s)
 
     return info_data

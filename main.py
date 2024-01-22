@@ -19,6 +19,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents)
 
 
+# AUTO FUNCTIONS
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
@@ -37,11 +38,13 @@ async def on_ready():
         existing_message = await channel.send(embed=embed)
 
     # Start the dynamic embed loop
-    await dynamic_embed_loop(existing_message)
+    await server_list_embed_loop(existing_message)
+
+    await server_embeds_loop(SERVER_LIST[:6], bot.get_channel(GUANGZHOU_CHANNEL_ID))
+    await server_embeds_loop(SERVER_LIST[6:], bot.get_channel(BEIJING_CHANNEL_ID))
 
 
-# ---- Loop
-async def dynamic_embed_loop(message):
+async def server_list_embed_loop(message):
     while True:
         # Function that updates the content of the embedded message
         current_datetime = datetime.now(timezone.utc)
@@ -60,7 +63,19 @@ async def dynamic_embed_loop(message):
         await asyncio.sleep(60)
 
 
+async def server_embeds_loop(server_list: list[Server], channel: discord.TextChannel):
+    embeds = []
+    while True:
+        for s in server_list:
+            embed = query_server_embed(s)
+            embeds.append(embed)
+
+        await channel.send(embeds=embeds)
+        await asyncio.sleep(60)
+
+
 # ----- Command Group: Basic Commands -----
+
 
 @bot.command()
 @commands.has_permissions(administrator=True)
@@ -78,35 +93,19 @@ async def ping(ctx):
 
 
 # ----- Command Group: Server Commands -----
-@bot.command()
-async def send_six_embeds(ctx):
-    # Create a list to store the embeds
-    embeds = []
-    # Create six embeds and add them to the list
-    for s in server_list[:6]:
-        embed = query_server_embed(s)
-        embeds.append(embed)
 
-    # Get the channel using its ID
-    destination_channel = bot.get_channel(GUANGZHOU_CHANNEL_ID)
-    # Remove any potential None values from the embeds list
-    embeds = [e for e in embeds if e]
-    # Send the list of embeds as a single message
-    await destination_channel.send(embeds=embeds)
-
-# Replace DESTINATION_CHANNEL_ID, 'author_icon_url', 'https://example.com/embed_url', and 'image_url' with the actual values
 
 
 @bot.hybrid_command()
 async def server(ctx, content: str = None):   # NOQA
     """query server info by name or id
     Parameters:
-        content (str, optional): input the server name(e.g. 广州1) or id. it will show all server_list info if it's None
+        content (str, optional): input the server name(e.g. 广州1) or id. it will show all SERVER_LIST info if it's None
     """
-    # if content = None, query all server_list info
+    # if content = None, query all SERVER_LIST info
     result = ''
     if not content:
-        for s in server_list:
+        for s in SERVER_LIST:
             result += query_server_simple(s)
         await ctx.send(result)
         return
