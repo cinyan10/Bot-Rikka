@@ -6,6 +6,7 @@ from functions.database import *
 from functions.embed_content import *
 from functions.query import *
 from functions.webhook import *
+from functions.gokzcn import *
 from config import *
 import asyncio
 
@@ -16,8 +17,6 @@ COMMAND_PREFIX = "!"
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents)
-
-# AUTO FUNCTIONS
 
 
 async def generic_embed_loop(channel_id, title, update_function, update_interval=60):
@@ -173,10 +172,18 @@ async def reset_steam(ctx, steamid: str = None):
 
 
 @bot.hybrid_command()
-async def info(ctx):
+async def gokzcn(ctx, steamid: str = None, mode: str = 'kzt'):
+    """Show your gokz.cn info"""
+    discord_id = ctx.author.id
+    result = get_gokzcn_info(discord_id, steamid, mode)
+    await ctx.send(embed=result)
+
+
+@bot.hybrid_command()
+async def info(ctx, steamid: str = None):
     """Show your information"""
     discord_id = ctx.author.id
-    result = user_info(discord_id)
+    result = user_info(discord_id, steamid)
     await ctx.send(embed=result)
 
 # ----- Main Execution -----

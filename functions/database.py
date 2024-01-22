@@ -26,7 +26,7 @@ db_config = {
 }
 
 
-def retrieve_steam_id(discord_id):
+def discordid_to_steamid(discord_id):
     cursor = connection.cursor()
     connection.select_db('discord')
     cursor.execute(

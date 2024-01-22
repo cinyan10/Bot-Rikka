@@ -8,9 +8,10 @@ from functions.database import *
 from functions.kreedz import *
 
 
-def user_info(discord_id) -> discord.Embed:
+def user_info(discord_id, steamid=None) -> discord.Embed:
 
-    steamid = retrieve_steam_id(discord_id)
+    if steamid is None:
+        steamid = discordid_to_steamid(discord_id)
     steamid64 = steamid_to_steamid64(steamid)
     steamid32 = steamid64_to_steamid32(steamid64)
 
