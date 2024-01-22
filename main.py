@@ -1,11 +1,13 @@
 # main.py
 import random
+
 import discord
 from discord.ext import commands
 from database import *
 from query import *
 from webhook import *
 from config import *
+import asyncio
 
 # Constants
 COMMAND_PREFIX = "!"
@@ -16,7 +18,40 @@ intents.message_content = True
 bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents)
 
 
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user.name}')
+
+# ---- Loop
+
+
+@bot.command()
+async def start_dynamic_embed(ctx):
+    # Replace this with your initial embedded message content
+    embed = discord.Embed(title='Dynamic Message', description='Initial content')
+
+    # Send the initial embedded message and store the message object
+    message = await ctx.send(embed=embed)
+
+    # Start a loop that updates the embedded message every minute
+    await dynamic_embed_loop(message)
+
+
+async def dynamic_embed_loop(message):
+    while True:
+        # Function that updates the content of the embedded message
+        new_content = query_server_details(server_list[0])
+        embed = discord.Embed(title='Dynamic Message', description=new_content)
+
+        # Edit the embedded message with the new content
+        await message.edit(embed=embed)
+
+        # Wait for one minute before the next update
+        await asyncio.sleep(60)
+
+
 # ----- Command Group: Basic Commands -----
+
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def sync(ctx):
@@ -39,12 +74,12 @@ async def ping(ctx):
 async def server(ctx, content: str = None):   # NOQA
     """query server info by name or id
     Parameters:
-        content (str, optional): input the server name(e.g. 广州1) or id. it will show all servers info if it's None
+        content (str, optional): input the server name(e.g. 广州1) or id. it will show all server_list info if it's None
     """
-    # if content = None, query all servers info
+    # if content = None, query all server_list info
     result = ''
     if not content:
-        for s in servers:
+        for s in server_list:
             result += query_server_simple(s)
         await ctx.send(result)
         return

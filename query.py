@@ -86,5 +86,5 @@ def fetch_map_tier(map_name: str):
 
 
 if __name__ == "__main__":
-    rs = query_server_simple(servers[1])
+    rs = query_server_simple(server_list[1])
     print(rs, type(rs))
