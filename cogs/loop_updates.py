@@ -39,5 +39,5 @@ class LoopUpdates(commands.Cog):
         await loop_task_4
 
 
-def setup(bot):
-    bot.add_cog(LoopUpdates(bot))
+async def setup(bot):
+    await bot.add_cog(LoopUpdates(bot))
