@@ -1,6 +1,7 @@
+import os
+import discord
 from discord.ext import commands
-from functions.gokzcn import *
-from config import *
+from config import TOKEN
 import asyncio
 
 # Initialize bot
@@ -14,10 +15,15 @@ async def on_ready():
     print(f'Logged in as {bot.user.name}')
 
 
+# Define 'load' as an async function
 async def load():
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
-            await bot.load_extension(f'cogs.{filename[:-3]}')
+            cog_name = f'cogs.{filename[:-3]}'
+            try:
+                await bot.load_extension(cog_name)
+            except commands.ExtensionFailed as e:
+                print(f'Failed to load extension {cog_name}.', e)
 
 
 async def main():
