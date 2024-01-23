@@ -7,6 +7,10 @@ class SettingCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print("SettingCommands Cog loaded")
+
     @commands.hybrid_command(name="setting")
     async def setting(self, ctx, language=None, kz_mode=None):
         """
@@ -16,10 +20,6 @@ class SettingCommands(commands.Cog):
             await set_language(ctx, language)
         if kz_mode:
             await set_kz_mode(ctx, kz_mode)
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print("JumpStats Cog loaded")
 
 
 async def setup(bot):

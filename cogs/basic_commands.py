@@ -9,7 +9,6 @@ class BasicCommands(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Logged in as {self.bot.user.name}')
         print("basic_commands cog loaded")
 
         async def sync():

@@ -1,5 +1,4 @@
 from discord.ext import commands
-
 from dc_utils.firstjoin import find_player
 from functions.database import reset_user_steam, bind_user_steam, discord_id_to_steamid
 from functions.embed_content import user_info

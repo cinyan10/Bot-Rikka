@@ -2,7 +2,7 @@ import mysql.connector
 from config import db_config
 
 
-def set_language(ctx, lang):
+async def set_language(ctx, lang):
     discord_id = ctx.author.id  # Get the Discord ID of the user
     query = "UPDATE discord.users SET language = %s WHERE discord_id = %s"
 
@@ -11,13 +11,13 @@ def set_language(ctx, lang):
             with conn.cursor() as cursor:
                 cursor.execute(query, (lang, discord_id))
                 conn.commit()
-                ctx.send(f"Language set to {lang} for user {ctx.author.name}")
+                await ctx.send(f"Language set to {lang} for user {ctx.author.name}")
     except mysql.connector.Error as err:
         print(f"Error: {err}")
-        ctx.send("Failed to update language.")
+        await ctx.send("Failed to update language.")
 
 
-def set_kz_mode(ctx, kz_mode):
+async def set_kz_mode(ctx, kz_mode):
     discord_id = ctx.author.id  # Get the Discord ID of the user
     query = "UPDATE discord.users SET kz_mode = %s WHERE discord_id = %s"
 
@@ -26,7 +26,7 @@ def set_kz_mode(ctx, kz_mode):
             with conn.cursor() as cursor:
                 cursor.execute(query, (kz_mode, discord_id))
                 conn.commit()
-                ctx.send(f"KZ mode set to {kz_mode} for user {ctx.author.name}")
+                await ctx.send(f"KZ mode set to {kz_mode} for user {ctx.author.name}")
     except mysql.connector.Error as err:
         print(f"Error: {err}")
-        ctx.send("Failed to update KZ mode.")
+        await ctx.send("Failed to update KZ mode.")
