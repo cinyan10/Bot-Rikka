@@ -1,7 +1,6 @@
 from datetime import datetime, timezone
 import random
 from discord.ext import commands
-
 from dc_utils.firstjoin.firstjoin import find_player
 from functions.embed_content import *
 from functions.query import *
@@ -10,6 +9,7 @@ from functions.gokzcn import *
 from config import *
 import asyncio
 from pymysql.err import IntegrityError
+import os
 
 # Constants
 COMMAND_PREFIX = "!"
@@ -57,8 +57,17 @@ async def on_ready():
     await loop_task_4
 
 
-bot.load_extension('jumpstats')
-bot.load_extension('setting')     # Load the cog
+async def load():
+    for filename in os.listdir('./cogs'):
+        if filename.endswith('.py'):
+            await bot.load_extension(f'cogs.{filename[:-3]}')
+
+
+async def main():
+    await load()
+    await bot.start(TOKEN)
+
+asyncio.run(main())
 
 
 async def get_or_create_message(channel, title, description):
@@ -165,7 +174,7 @@ async def server(ctx, content: str = None):   # NOQA
 
 @bot.hybrid_command()
 async def servers(ctx):
-    """get server infos in bot-commands channel as webhook"""
+    """get server infos in bot-cogs channel as webhook"""
     send_webhook()
     await ctx.send("Server List Sent!")
 
