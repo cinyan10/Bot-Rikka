@@ -31,7 +31,7 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
     info_embed = Embed(title=f"bilibili: {player_data['bili_name']}", description=content, colour=discord.Colour.yellow(), url=bili_url)
     info_embed.set_author(name=player_data['name'], icon_url=player_data['avatar'], url=player_data['url'])
 
-    return info_embed
+    return {'embed': info_embed, 'player_data': player_data}
 
 
 def get_discord_role_from_data(skill_score, ranking):
