@@ -1,19 +1,9 @@
 import mysql.connector
-from config import DB_HOST, DB_PORT, DB_PASSWORD, DB_USER
 from functions.steam import *
 from functions.kreedz import *
 from datetime import timedelta
 import asyncio
-
-# Global constants
-db_config = {
-    'user': DB_USER,
-    'password': DB_PASSWORD,
-    'host': DB_HOST,
-    'database': 'gokz',
-    'raise_on_warnings': True,
-    'port': DB_PORT,
-}
+from config import *
 
 KZ_MODES = {'kzt': 2, 'skz': 1, 'vnl': 0}
 
@@ -64,15 +54,15 @@ def bind_user_steam(discord_id, steam_id, ctx):
         asyncio.create_task(ctx.send(message))
         return
 
-    steamid32 = convert_steam_id(steam_id, 'steamid32')
-    steamid64 = convert_steam_id(steam_id, 'steamid64')
-    steamid_formatted = convert_steam_id(steam_id, 'steamid')
-    insert_query = 'INSERT INTO discord.users (discord_id, steamid, steamid32, steamid64) VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE steamid = VALUES(steamid), steamid32 = VALUES(steamid32), steamid64 = VALUES(steamid64)'
+    steamid32 = convert_steamid(steam_id, 'steamid32')
+    steamid64 = convert_steamid(steam_id, 'steamid')
+    steamid_formatted = convert_steamid(steam_id, 'steamid')
+    insert_query = 'INSERT INTO discord.users (discord_id, steamid, steamid32, steamid) VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE steamid = VALUES(steamid), steamid32 = VALUES(steamid32), steamid = VALUES(steamid)'
     execute_query(insert_query, (discord_id, steamid_formatted, steamid32, steamid64), commit=True)
 
 
 def reset_user_steam(discord_id):
-    update_query = 'UPDATE discord.users SET steamid = NULL, steamid32 = NULL, steamid64 = NULL WHERE discord_id = %s'
+    update_query = 'UPDATE discord.users SET steamid = NULL, steamid32 = NULL, steamid = NULL WHERE discord_id = %s'
     execute_query(update_query, (discord_id,), commit=True)
 
 
@@ -108,7 +98,7 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
     result = ''
     rank = 1
     for steamid32, distance in rows:
-        steamid = steamid32_to_steamid(str(steamid32))
+        steamid = convert_steamid(steamid32, 'steamid')
         kzgoeu_url = get_kzgoeu_profile_url(steamid, mode)
         name = get_steam_user_name(steamid)
         formatted_distance = distance / 10000  # Convert distance to float with four decimal places

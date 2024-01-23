@@ -1,0 +1,2 @@
+Jumpstats
+Sync Strafes SteamID32 Pre Mode Max JumpType JumpID IsBlockJump Distance Created Block Airtime

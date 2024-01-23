@@ -24,7 +24,7 @@ class LoopUpdates(commands.Cog):
         existing_message = await get_or_create_message(server_list_channel, 'AXE SERVER LIST', 'Loading...')
         existing_message_2 = await get_or_create_message(guangzhou_channel, '广州 SERVER LIST', 'Loading...')
         existing_message_3 = await get_or_create_message(beijing_channel, '北京 SERVER LIST', 'Loading...')
-        existing_message_4 = await get_or_create_message(jstop_channel, 'Jumpstats Top', 'Loading...')
+        existing_message_4 = await get_or_create_message(jstop_channel, 'LocalStats Top', 'Loading...')
 
         # Start the dynamic embed loop
         loop_task_1 = asyncio.create_task(server_list_embed_loop(existing_message))

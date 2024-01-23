@@ -1,9 +1,26 @@
 import mysql.connector
 from discord import Embed
 from config import *
+from functions.db_operate.gokz import get_jspb
+from functions.steam import convert_steamid
+from functions.steam_embed import steam_embed
 
 db_config['database'] = 'gokz'
 JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump', 'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']
+
+
+def embed_ljpb(kz_mode, steamid, is_block_jump) -> Embed:
+    steamid32 = convert_steamid(steamid, 'steamid32')
+    ljpb_data: dict = get_jspb(steamid32, kz_mode, is_block_jump, 0)
+
+    ljpb_embed = steam_embed(
+        steamid,
+        title=f'LJPB: {ljpb_data[0]}',
+    )
+    for key, value in ljpb_data:
+        ljpb_embed.add_field(name=key, value=value, inline=True)
+
+    return ljpb_embed
 
 
 def jumptype_str_to_int(dictionary, search_value):
@@ -28,10 +45,10 @@ def get_player_rank_by_distance(steamid32, mode, jumptype):
 
         query = """
         SELECT COUNT(*) + 1 AS rank
-        FROM gokz.Jumpstats
+        FROM gokz.LocalStats
         WHERE Mode = %s AND JumpType = %s AND Distance > (
             SELECT Distance
-            FROM gokz.Jumpstats
+            FROM gokz.LocalStats
             WHERE SteamID32 = %s AND Mode = %s AND JumpType = %s
         )
         """
@@ -66,10 +83,10 @@ class PlayJumpStats:
         try:
             query = """
             SELECT COUNT(*) + 1 AS rank
-            FROM gokz.Jumpstats
+            FROM gokz.LocalStats
             WHERE Mode = %s AND JumpType = %s AND Distance > (
                 SELECT MAX(Distance)
-                FROM gokz.Jumpstats
+                FROM gokz.LocalStats
                 WHERE SteamID32 = %s AND Mode = %s AND JumpType = %s
             )
             """
