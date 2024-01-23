@@ -20,7 +20,6 @@ def user_info(discord_id, steamid=None) -> discord.Embed:
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
     country = get_country_code(get_country_from_steamid32(steamid32)).lower()
     total_playtime = get_total_playtime(steamid32)
-    year, month, day = calculate_time_difference(joindate)
 
     content = (
         f":flag_{country}: **{name}**\n"
@@ -28,7 +27,6 @@ def user_info(discord_id, steamid=None) -> discord.Embed:
         f"**steamID64**: `{steamid64}`\n"
         f"**First Join**: {joindate}\n"
         f"**Last Seen**: {lastseen}\n"
-        f"**Already**: {year} years {month} months {day} days\n"
         f"**Playtime**: {total_playtime}\n"
     )
 
