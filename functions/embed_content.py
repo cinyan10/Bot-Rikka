@@ -2,7 +2,7 @@ import discord
 from discord import Embed
 from functions.database import *
 from functions.kreedz import *
-from functions.misc import format_string_to_datetime, get_country_code, calculate_time_difference
+from functions.misc import format_string_to_datetime, get_country_code
 
 
 def user_info(discord_id, steamid=None) -> discord.Embed:
