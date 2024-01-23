@@ -27,10 +27,10 @@ db_config = {
 
 
 def discordid_to_steamid(discord_id):
-    cursor = connection.cursor()
+    cursor = connection.cursor()76561198191378249
     connection.select_db('discord')
     cursor.execute(
-        'SELECT steamid_32 FROM users WHERE discord_id = %s',
+        'SELECT steamid FROM users WHERE discord_id = %s',
         (discord_id,)
     )
     result = cursor.fetchone()
@@ -104,12 +104,12 @@ def reset_user_steam(discord_id, steamid):
         cursor.close()
 
 
-def get_steam_user_name(steamid_32):
+def get_steam_user_name(steamid):
     cursor = connection.cursor()
     connection.select_db('firstjoin')
     cursor.execute(
         'SELECT name FROM firstjoin WHERE auth = %s',
-        (steamid_32,)
+        (steamid,)
     )
     result = cursor.fetchone()
     cursor.close()
