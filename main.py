@@ -58,19 +58,6 @@ async def on_ready():
     await loop_task_4
 
 
-async def load():
-    for filename in os.listdir('./cogs'):
-        if filename.endswith('.py'):
-            await bot.load_extension(f'cogs.{filename[:-3]}')
-
-
-async def main():
-    await load()
-    await bot.start(TOKEN)
-
-asyncio.run(main())
-
-
 async def get_or_create_message(channel, title, description):
     async for message in channel.history(limit=1):
         # If there's an existing message, use that message
