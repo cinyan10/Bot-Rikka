@@ -1,22 +1,11 @@
-import asyncio
-from datetime import timedelta
-from functions.steam import *
-from pymysql import Connection
-from config import DB_HOST, DB_PORT, DB_PASSWORD, DB_USER
 import mysql.connector
+from config import DB_HOST, DB_PORT, DB_PASSWORD, DB_USER
+from functions.steam import *
 from functions.kreedz import *
+from datetime import timedelta
+import asyncio
 
-
-# About Database Functions
-connection = Connection(
-    host=DB_HOST,
-    port=int(DB_PORT),
-    user=DB_USER,
-    password=DB_PASSWORD,
-)
-
-KZ_MODES = {'kzt': 2, 'skz': 1, 'vnl': 0}
-
+# Global constants
 db_config = {
     'user': DB_USER,
     'password': DB_PASSWORD,
@@ -26,119 +15,70 @@ db_config = {
     'port': DB_PORT,
 }
 
+KZ_MODES = {'kzt': 2, 'skz': 1, 'vnl': 0}
 
+
+# Database utility function
+def execute_query(query, params=(), fetch_one=False, commit=False):
+    with mysql.connector.connect(**db_config) as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(query, params)
+            if commit:
+                conn.commit()
+                return
+            return cursor.fetchone() if fetch_one else cursor.fetchall()
+
+
+# Function definitions
 def get_country_from_steamid32(steamid32):
-    connection = mysql.connector.connect(**db_config)
-    cursor = connection.cursor()
-
-    try:
-        cursor.execute("SELECT country FROM gokz.Players WHERE steamid32 = %s", (steamid32,))
-        result = cursor.fetchone()
-        return result[0] if result else None
-    except mysql.connector.Error as err:
-        print(f"Error: {err}")
-        return None
-    finally:
-        cursor.close()
-        connection.close()
+    query = "SELECT country FROM gokz.Players WHERE steamid32 = %s"
+    result = execute_query(query, (steamid32,), fetch_one=True)
+    return result[0] if result else None
 
 
 def discord_id_to_steamid(discord_id):
-    cursor = connection.cursor()
-    connection.select_db('discord')
-    cursor.execute(
-        'SELECT steamid FROM users WHERE discord_id = %s',
-        (discord_id,)
-    )
-    result = cursor.fetchone()
-    cursor.close()
+    query = 'SELECT steamid FROM discord.users WHERE discord_id = %s'
+    result = execute_query(query, (discord_id,), fetch_one=True)
     return result[0] if result else None
 
 
 def retrieve_join_date(steam_id):
-    cursor = connection.cursor()
-    connection.select_db('firstjoin')
-    cursor.execute(
-        'SELECT joindate FROM firstjoin WHERE auth = %s',
-        (steam_id,)
-    )
-    result = cursor.fetchone()
-    cursor.close()
-
+    query = 'SELECT joindate FROM firstjoin WHERE auth = %s'
+    result = execute_query(query, (steam_id,), fetch_one=True)
     return result[0] if result else None
 
 
-# Function to retrieve last_seen from firstjoin table by steamid
 def retrieve_last_seen(steam_id):
-    cursor = connection.cursor()
-    connection.select_db('firstjoin')
-    cursor.execute(
-        'SELECT lastseen FROM firstjoin WHERE auth = %s',
-        (steam_id,)
-    )
-    result = cursor.fetchone()
-    cursor.close()
+    query = 'SELECT lastseen FROM firstjoin WHERE auth = %s'
+    result = execute_query(query, (steam_id,), fetch_one=True)
     return result[0] if result else None
 
 
 def bind_user_steam(discord_id, steam_id, ctx):
-    cursor = connection.cursor()
-    connection.select_db('discord')
-
-    # Check if the SteamID is already bound to another user
-    cursor.execute('SELECT discord_id FROM users WHERE steamid = %s AND discord_id != %s', (steam_id, discord_id))
-    existing_user_id = cursor.fetchone()
+    existing_user_query = 'SELECT discord_id FROM discord.users WHERE steamid = %s AND discord_id != %s'
+    existing_user_id = execute_query(existing_user_query, (steam_id, discord_id), fetch_one=True)
 
     if existing_user_id:
         existing_user = ctx.bot.get_user(existing_user_id[0])
-        if existing_user:
-            asyncio.create_task(ctx.send(f"The SteamID is already bound to {existing_user.mention}"))
-        else:
-            asyncio.create_task(ctx.send("The SteamID is already bound to another user."))
-        cursor.close()
+        message = f"The SteamID is already bound to {existing_user.mention}" if existing_user else "The SteamID is already bound to another user."
+        asyncio.create_task(ctx.send(message))
         return
 
-    # Convert to all SteamID formats
     steamid32 = convert_steam_id(steam_id, 'steamid32')
     steamid64 = convert_steam_id(steam_id, 'steamid64')
     steamid_formatted = convert_steam_id(steam_id, 'steamid')
-
-    try:
-        cursor.execute(
-            'INSERT INTO users (discord_id, steamid, steamid32, steamid64) '
-            'VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE '
-            'steamid = VALUES(steamid), steamid32 = VALUES(steamid32), steamid64 = VALUES(steamid64)',
-            (discord_id, steamid_formatted, steamid32, steamid64)
-        )
-    finally:
-        connection.commit()
-        cursor.close()
+    insert_query = 'INSERT INTO discord.users (discord_id, steamid, steamid32, steamid64) VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE steamid = VALUES(steamid), steamid32 = VALUES(steamid32), steamid64 = VALUES(steamid64)'
+    execute_query(insert_query, (discord_id, steamid_formatted, steamid32, steamid64), commit=True)
 
 
 def reset_user_steam(discord_id):
-    cursor = connection.cursor()
-    connection.select_db('discord')
-
-    try:
-        # Set steamid, steamid32, and steamid64 to NULL
-        cursor.execute(
-            'UPDATE users SET steamid = NULL, steamid32 = NULL, steamid64 = NULL WHERE discord_id = %s',
-            (discord_id,)
-        )
-    finally:
-        connection.commit()
-        cursor.close()
+    update_query = 'UPDATE discord.users SET steamid = NULL, steamid32 = NULL, steamid64 = NULL WHERE discord_id = %s'
+    execute_query(update_query, (discord_id,), commit=True)
 
 
 def get_steam_user_name(steamid):
-    cursor = connection.cursor()
-    connection.select_db('firstjoin')
-    cursor.execute(
-        'SELECT name FROM firstjoin WHERE auth = %s',
-        (steamid,)
-    )
-    result = cursor.fetchone()
-    cursor.close()
+    query = 'SELECT name FROM firstjoin WHERE auth = %s'
+    result = execute_query(query, (steamid,), fetch_one=True)
     return result[0] if result else None
 
 

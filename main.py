@@ -217,6 +217,7 @@ async def info(ctx, steamid: str = None):
     discord_id = ctx.author.id
     result = user_info(discord_id, steamid)
     await ctx.send(embed=result)
+    
 
 # ----- Main Execution -----
 print('Bot_Rikka starting...')

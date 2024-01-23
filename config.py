@@ -12,6 +12,15 @@ DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_PORT = os.getenv('DB_PORT')
 DB_USER = os.getenv('DB_USER')
 
+db_config = {
+            'user': DB_USER,
+            'password': DB_PASSWORD,
+            'host': DB_HOST,
+            'database': '',
+            'port': int(DB_PORT)
+        }
+
+
 GUILD_ID = 1042847878894321824
 
 # CHANNEL_ID
@@ -22,5 +31,10 @@ TEST_CHANNEL_ID = 1192695338616762398
 PRINT_CHANNEL_ID = 1199047537500356750
 JSTOP_CLIENT_ID = 1199000627859173457
 
+
 # STEAM
 STEAM_API_KEY = os.getenv('STEAM_API_KEY')
+
+EXA_STEAM = "STEAM_1:0:530988200"
+EXA_STEAMID32 = '1061976400'
+EXA_STEAMID64 = "76561199022242128"
