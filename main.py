@@ -1,8 +1,6 @@
 from datetime import datetime, timezone
 import random
-import discord
 from discord.ext import commands
-from functions.database import *
 from functions.embed_content import *
 from functions.query import *
 from functions.webhook import *
@@ -177,7 +175,8 @@ async def reset_steam(ctx):
 async def gokzcn(ctx, steamid: str = None, mode: str = 'kzt'):
     """Show your gokz.cn info"""
     discord_id = ctx.author.id
-    steamid = discordid_to_steamid(discord_id)
+    if steamid is None:
+        steamid = discord_id_to_steamid(discord_id)
     result = get_gokzcn_info(discord_id, mode=mode, steamid=steamid)
     await ctx.send(embed=result)
 

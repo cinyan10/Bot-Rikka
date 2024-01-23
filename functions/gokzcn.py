@@ -1,15 +1,15 @@
 import discord
 import requests
-from discord import Embed, File, Message
+from discord import Embed
 
-from functions.database import discordid_to_steamid
+from functions.database import discord_id_to_steamid
 from functions.steam import steamid_to_steamid64
 
 
 def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
     player_data = None
     if steamid is None:
-        steamid = discordid_to_steamid(steamid)
+        steamid = discord_id_to_steamid(discord_id)
     steamid64 = steamid_to_steamid64(steamid)
     gokzcn_url = f"http://gokz.cn/api/rankings?page_size=1&search_text={steamid64}&mode={mode}"
     response = requests.get(gokzcn_url)
@@ -35,4 +35,3 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
 if __name__ == "__main__":
     rs = get_gokzcn_info(steamid='STEAM_1:0:530988200')
     print(rs)
-

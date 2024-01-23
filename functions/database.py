@@ -43,7 +43,7 @@ def get_country_from_steamid32(steamid32):
         connection.close()
 
 
-def discordid_to_steamid(discord_id):
+def discord_id_to_steamid(discord_id):
     cursor = connection.cursor()
     connection.select_db('discord')
     cursor.execute(

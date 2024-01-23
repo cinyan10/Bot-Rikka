@@ -8,7 +8,7 @@ from functions.misc import format_string_to_datetime, get_country_code
 def user_info(discord_id, steamid=None) -> discord.Embed:
 
     if steamid is None:
-        steamid = discordid_to_steamid(discord_id)
+        steamid = discord_id_to_steamid(discord_id)
     steamid64 = convert_steam_id(steamid, 'steamid64')
     steamid32 = convert_steam_id(steamid, 'steamid32')
 
