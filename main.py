@@ -11,6 +11,7 @@ import asyncio
 from pymysql.err import IntegrityError
 import os
 
+
 # Constants
 COMMAND_PREFIX = "!"
 
