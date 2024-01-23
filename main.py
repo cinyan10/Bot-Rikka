@@ -1,6 +1,8 @@
 from datetime import datetime, timezone
 import random
 from discord.ext import commands
+
+from dc_utils.firstjoin.firstjoin import find_player
 from functions.embed_content import *
 from functions.query import *
 from functions.webhook import *
@@ -221,6 +223,12 @@ async def info(ctx, steamid: str = None):
     discord_id = ctx.author.id
     result = user_info(discord_id, steamid)
     await ctx.send(embed=result)
+
+
+@bot.hybrid_command()
+async def find(ctx, name: str):
+    """find a player by name"""
+    await find_player(ctx, name)
     
 
 # ----- Main Execution -----

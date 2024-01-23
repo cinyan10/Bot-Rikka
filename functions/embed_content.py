@@ -5,10 +5,12 @@ from functions.kreedz import *
 from functions.misc import format_string_to_datetime, get_country_code
 
 
-def user_info(discord_id, steamid=None) -> discord.Embed:
+def user_info(discord_id=None, steamid=None) -> discord.Embed:
 
     if steamid is None:
         steamid = discord_id_to_steamid(discord_id)
+    else:
+        steamid = convert_steam_id(str(steamid), 'steamid')
     steamid64 = convert_steam_id(steamid, 'steamid64')
     steamid32 = convert_steam_id(steamid, 'steamid32')
 
