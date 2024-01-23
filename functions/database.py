@@ -27,7 +27,7 @@ db_config = {
 
 
 def discordid_to_steamid(discord_id):
-    cursor = connection.cursor()76561198191378249
+    cursor = connection.cursor()
     connection.select_db('discord')
     cursor.execute(
         'SELECT steamid FROM users WHERE discord_id = %s',
