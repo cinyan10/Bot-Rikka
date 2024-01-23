@@ -14,9 +14,16 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
 
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        coro = bot.load_extension(f'cogs.{filename[:-3]}')
-        asyncio.run(coro)
 
-bot.run(TOKEN)
+async def load():
+    for filename in os.listdir('./cogs'):
+        if filename.endswith('.py'):
+            await bot.load_extension(f'cogs.{filename[:-3]}')
+
+
+async def main():
+    await load()
+    await bot.start(TOKEN)
+
+asyncio.run(main())
+
