@@ -54,6 +54,15 @@ def get_discord_role_from_data(skill_score, ranking):
 
 
 async def assign_role_to_user(guild, discord_id, role_name):
+    try:
+        member = await guild.fetch_member(discord_id)
+    except discord.NotFound:
+        print(f"Member with ID {discord_id} not found in the guild.")
+        return
+    except discord.HTTPException as e:
+        print(f"HTTP request failed: {e}")
+        return
+
     member = guild.get_member(discord_id)
     if not member:
         print(f"Member with ID {discord_id} not found.")
