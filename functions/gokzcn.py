@@ -1,9 +1,8 @@
 import discord
 import requests
 from discord import Embed
-
 from functions.database import discord_id_to_steamid
-from functions.steam import steamid_to_steamid64, convert_steam_id
+from functions.steam import convert_steam_id
 
 
 def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
@@ -24,7 +23,7 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
 
     bili_url = f"https://space.bilibili.com/{player_data['bili_id']}"
     content = (
-        f'Mode: {mode.upper()}'
+        f'Mode: {mode.upper()}\n'
         f'Rank: {player_data["ranking"]}\n'
         f'Skill Score: {player_data["point_skill"]}\n'
     )
