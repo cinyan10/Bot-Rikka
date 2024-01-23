@@ -16,6 +16,7 @@ async def on_ready():
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
+        coro = bot.load_extension(f'cogs.{filename[:-3]}')
+        asyncio.run(coro)
 
 bot.run(TOKEN)
