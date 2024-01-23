@@ -12,8 +12,8 @@ def user_info(discord_id, steamid=None) -> discord.Embed:
 
     if steamid is None:
         steamid = discordid_to_steamid(discord_id)
-    steamid64 = steamid_to_steamid64(steamid)
-    steamid32 = steamid64_to_steamid32(steamid64)
+    steamid64 = convert_steam_id(steamid, 'steamid64')
+    steamid32 = convert_steam_id(steamid, 'steamid32')
 
     name = get_steam_user_name(steamid)
     joindate = format_string_to_datetime(retrieve_join_date(steamid))
