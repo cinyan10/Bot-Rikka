@@ -9,6 +9,7 @@ from functions.webhook import *
 from functions.gokzcn import *
 from config import *
 import asyncio
+from pymysql.err import IntegrityError
 
 # Constants
 COMMAND_PREFIX = "!"
@@ -151,8 +152,17 @@ async def servers(ctx):
 async def bind_steam(ctx, steamid: str):
     """Bind your steamid, steamid can be any type"""
     user_id = ctx.author.id
-    bind_user_steam(user_id, steamid, ctx)
-    await ctx.send('Steam ID bound successfully!')
+    try:
+        bind_user_steam(user_id, steamid)
+        await ctx.send('Steam ID bound successfully!')
+    except IntegrityError as e:
+        # Check for duplicate entry error
+        if 'Duplicate entry' in str(e) and 'steamid_32' in str(e):
+            await ctx.send('This Steam ID is already bound to another user.')
+        else:
+            await ctx.send('An error occurred while binding the Steam ID.')
+    except Exception as e:
+        await ctx.send(f'An unexpected error occurred: {e}')
 
 
 @bot.hybrid_command()
