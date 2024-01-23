@@ -21,12 +21,12 @@ bot = commands.Bot(command_prefix=COMMAND_PREFIX, intents=intents)
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
-    await bot.get_channel(PRINT_CHANNEL_ID).send(content="I'm successfully started!!")
+    await bot.get_channel(TEST_CHANNEL_ID).send(content="I'm successfully started!!")
 
     async def sync():
         """s"""
         await bot.tree.sync()
-        await bot.get_channel(PRINT_CHANNEL_ID).send(content="Sync completed!")
+        await bot.get_channel(TEST_CHANNEL_ID).send(content="Sync completed!")
 
     await sync()
 
