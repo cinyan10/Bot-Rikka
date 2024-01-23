@@ -1,0 +1,43 @@
+import asyncio
+from discord.ext import commands
+from config import *
+from dc_utils.serverinfo import server_list_embed_loop, gz_server_embeds_loop, bj_server_embeds_loop, jstop_embeds_loop
+from functions.misc import get_or_create_message
+from functions.servers import SERVER_LIST
+
+
+class LoopUpdates(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('LoopUpdates loaded')
+        await self.bot.get_channel(TEST_CHANNEL_ID).send(content="I'm successfully started!!")
+
+        server_list_channel = self.bot.get_channel(SERVER_LIST_CHANNEL_ID)
+        guangzhou_channel = self.bot.get_channel(GUANGZHOU_CHANNEL_ID)
+        beijing_channel = self.bot.get_channel(BEIJING_CHANNEL_ID)
+        jstop_channel = self.bot.get_channel(JSTOP_CLIENT_ID)
+
+        # Check if a message already exists in the channel
+        existing_message = await get_or_create_message(server_list_channel, 'AXE SERVER LIST', 'Loading...')
+        existing_message_2 = await get_or_create_message(guangzhou_channel, '广州 SERVER LIST', 'Loading...')
+        existing_message_3 = await get_or_create_message(beijing_channel, '北京 SERVER LIST', 'Loading...')
+        existing_message_4 = await get_or_create_message(jstop_channel, 'Jumpstats Top', 'Loading...')
+
+        # Start the dynamic embed loop
+        loop_task_1 = asyncio.create_task(server_list_embed_loop(existing_message))
+        loop_task_2 = asyncio.create_task(gz_server_embeds_loop(existing_message_2, SERVER_LIST[:6]))
+        loop_task_3 = asyncio.create_task(bj_server_embeds_loop(existing_message_3, SERVER_LIST[6:]))
+        loop_task_4 = asyncio.create_task(jstop_embeds_loop(existing_message_4))
+
+        # Wait for all loop tasks to complete
+        await loop_task_1
+        await loop_task_2
+        await loop_task_3
+        await loop_task_4
+
+
+def setup(bot):
+    bot.add_cog(LoopUpdates(bot))

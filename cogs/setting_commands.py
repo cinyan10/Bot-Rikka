@@ -1,8 +1,9 @@
 from discord.ext import commands
-from dc_utils.setting.setting import *
+
+from dc_utils.setting import set_language, set_kz_mode
 
 
-class Setting(commands.Cog):
+class SettingCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -22,4 +23,4 @@ class Setting(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Setting(bot))
+    bot.add_cog(SettingCommands(bot))
