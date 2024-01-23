@@ -1,4 +1,14 @@
 from datetime import datetime
+import pycountry
+
+
+def get_country_code(country_name):
+    try:
+        country = pycountry.countries.get(name=country_name)
+        return country.alpha_2 if country else None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
 
 
 def format_string_to_datetime(date_string):
@@ -15,8 +25,6 @@ def format_string_to_datetime(date_string):
     return datetime_obj
 
 
-if __name__ == '__main__':
-    date_str = "2022年12月02日 - 02:04:32"
-    formatted_datetime = format_string_to_datetime(date_str)
-    timestamp = formatted_datetime.timestamp()
-    print(timestamp)
+if __name__ == "__main__":
+    rs = get_country_code("china")
+    print(rs)

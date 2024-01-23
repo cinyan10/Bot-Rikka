@@ -1,11 +1,8 @@
 import discord
 from discord import Embed
 from functions.database import *
-from functions.steam import *
 from functions.kreedz import *
-from functions.date_time import *
-from functions.database import *
-from functions.kreedz import *
+from functions.misc import format_string_to_datetime
 
 
 def user_info(discord_id, steamid=None) -> discord.Embed:
@@ -21,7 +18,7 @@ def user_info(discord_id, steamid=None) -> discord.Embed:
     pfp_url = get_steam_pfp(steamid64)
     profile_url = get_steam_profile_url(steamid64)
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
-    country = get_steam_user_country(steamid64).lower()
+    country = get_country_from_steamid32(steamid32).lower()
     total_playtime = get_total_playtime(steamid32)
 
     content = (

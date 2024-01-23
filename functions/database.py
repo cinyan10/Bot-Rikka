@@ -27,6 +27,22 @@ db_config = {
 }
 
 
+def get_country_from_steamid32(steamid32):
+    connection = mysql.connector.connect(**db_config)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SELECT country FROM gokz.Players WHERE steamid32 = %s", (steamid32,))
+        result = cursor.fetchone()
+        return result[0] if result else None
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return None
+    finally:
+        cursor.close()
+        connection.close()
+
+
 def discordid_to_steamid(discord_id):
     cursor = connection.cursor()
     connection.select_db('discord')
