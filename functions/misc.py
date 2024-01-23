@@ -25,10 +25,7 @@ def format_string_to_datetime(date_string):
     return datetime_obj
 
 
-def calculate_time_difference(join_date_str):
-    # Convert the provided join date string to a datetime object
-    join_date = datetime.strptime(join_date_str, '%Y-%m-%d %H:%M:%S')
-
+def calculate_time_difference(join_date):
     # Get the current date and time
     current_date = datetime.now()
 
