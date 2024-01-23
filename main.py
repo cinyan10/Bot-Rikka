@@ -38,7 +38,7 @@ async def get_or_create_message(channel, title, description):
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
-    await bot.get_channel(PRINT_CHANNEL_ID).send(content="I'm successfully started!!")
+    await bot.get_channel(TEST_CHANNEL_ID).send(content="I'm successfully started!!")
 
     # Tasks for updating embeds
     tasks = [
@@ -85,8 +85,18 @@ async def bj_server_embeds_loop(message: discord.Message, servers):
 
 
 def jstop_embed_update():
-    embeds = [get_jstop(20, 'kzt'), get_jstop(10, 'skz'), get_jstop(10, 'vnl')]
-    return embeds
+    embeds = []
+
+    # Add embeds from get_jstop, ensure they are in a list
+    for mode in ['kzt', 'skz', 'vnl']:
+        result = get_jstop(10, mode)
+        if isinstance(result, discord.Embed):
+            embeds.append(result)  # If result is a single Embed, add it to the list
+        elif isinstance(result, list):
+            embeds.extend(result)  # If result is a list of Embeds, extend the list
+
+    # Limit the number of embeds to 10
+    return embeds[:10]
 
 
 # ----- Command Group: Basic Commands -----
