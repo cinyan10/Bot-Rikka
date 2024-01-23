@@ -13,12 +13,12 @@ def embed_ljpb(kz_mode, steamid, is_block_jump) -> Embed:
     steamid32 = convert_steamid(steamid, 'steamid32')
     ljpb_data: dict = get_jspb(steamid32, kz_mode, is_block_jump, 0)
 
-    ljpb_embed = steam_embed(
-        steamid,
-        title=f'LJPB: {ljpb_data[0]}',
-    )
-    for key, value in ljpb_data:
-        ljpb_embed.add_field(name=key, value=value, inline=True)
+    ljpb_embed = steam_embed(steamid, title='LJPB')
+    if ljpb_data:
+        for key, value in ljpb_data:
+            ljpb_embed.add_field(name=key, value=value, inline=True)
+    else:
+        print('no ljpb_data')
 
     return ljpb_embed
 
@@ -115,5 +115,5 @@ class PlayJumpStats:
 
 
 if __name__ == '__main__':
-    rank = get_player_rank_by_distance(EXA_STEAMID32, 'kzt', 0)
-    print(f"The player's rank is: {rank}")
+    rs = embed_ljpb(2, EXA_STEAMID64, False)
+    print(rs)

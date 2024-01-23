@@ -2,10 +2,12 @@ import requests
 from config import *
 
 
-def get_steam_username(steamid):
-    steamid = convert_steamid(steamid, 'steamid')
+def get_steam_username(steamid64):
+    # Replace with your Steam Web API key
     api_key = STEAM_API_KEY
-    api_url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={api_key}&steamids={steamid}"
+
+    # Define the Steam Web API URL
+    api_url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={api_key}&steamids={steamid64}"
 
     try:
         # Send a GET request to the Steam Web API
@@ -29,9 +31,8 @@ def get_steam_username(steamid):
 
 
 # Function to get Steam user's profile picture by their SteamID64
-def get_steam_pfp(steamid):
+def get_steam_pfp(steamid64):
     # Construct the API Request URL
-    steamid64 = convert_steamid(steamid, 'steamid64')
     url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
     parameters = {
         'key': STEAM_API_KEY,  # Your Steam Web API key
@@ -138,8 +139,10 @@ def convert_steamid(source_id, target_type):
 
 
 if __name__ == '__main__':
-    # Example usage
-    source_id = '76561199022242128'  # This can be any of SteamID, SteamID32, or SteamID64
-    target_type = 'steamid'  # Can be 'steamid', 'steamid32', or 'steamid'
-    converted_id = convert_steamid(source_id, target_type)
-    print(converted_id)
+    steamid64 = EXA_STEAMID64  # Replace with the desired SteamID64
+    username = get_steam_username(steamid64)
+
+    if username:
+        print(f"Steam Username for SteamID64 {steamid64}: {username}")
+    else:
+        print("Unable to fetch the Steam username.")
