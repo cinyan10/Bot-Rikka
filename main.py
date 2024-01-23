@@ -153,7 +153,7 @@ async def bind_steam(ctx, steamid: str):
     """Bind your steamid, steamid can be any type"""
     user_id = ctx.author.id
     try:
-        bind_user_steam(user_id, steamid)
+        bind_user_steam(user_id, steamid, ctx)
         await ctx.send('Steam ID bound successfully!')
     except IntegrityError as e:
         # Check for duplicate entry error
