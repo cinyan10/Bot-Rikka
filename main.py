@@ -55,6 +55,10 @@ async def on_ready():
     await loop_task_4
 
 
+bot.load_extension('jumpstats')
+bot.load_extension('setting')     # Load the cog
+
+
 async def get_or_create_message(channel, title, description):
     async for message in channel.history(limit=1):
         # If there's an existing message, use that message
@@ -198,7 +202,7 @@ async def gokzcn(ctx, steamid: str = None, mode: str = 'kzt'):
     discord_id = ctx.author.id
     if steamid is None:
         steamid = discord_id_to_steamid(discord_id)
-    result = get_gokzcn_info(discord_id=discord_id, mode='kzt', steamid=steamid)
+    result = get_gokzcn_info(discord_id=discord_id, mode=mode, steamid=steamid)
     embed_info = result['embed']
     player_data = result['player_data']
 

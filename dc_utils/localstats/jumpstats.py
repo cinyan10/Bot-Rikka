@@ -6,10 +6,6 @@ db_config['database'] = 'gokz'
 JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump', 'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']
 
 
-def get_ljpb(ctx, mode, steamid) -> Embed:
-    discord_id = ctx.author.id
-
-
 def jumptype_str_to_int(dictionary, search_value):
     for key, value in dictionary.items():
         if value == search_value:
@@ -89,12 +85,13 @@ class PlayJumpStats:
             connection.close()
 
     def pb(self, count=1, jumptype=0):
-        js_datas = self.js_query(10)
+        js_datas = self.js_query(count, jumptype)
 
         content = ''
         num = 1
         for js_data in js_datas:
             content += f'{num}. {fm_distance(js_data['Distance'])}'
+            num += 1
         embed = Embed(title=f'**{JUMP_TYPE[jumptype].upper()} PB**')
 
         return embed

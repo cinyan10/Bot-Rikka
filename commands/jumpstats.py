@@ -1,7 +1,7 @@
 from discord.ext import commands
 
 
-class JumpStats(commands.Cog):
+class Jumpstats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -10,13 +10,12 @@ class JumpStats(commands.Cog):
         """
         Get your lj pb or other's lj pb
         """
-        result = get_ljpb(ctx, mode, steamid)
-        await ctx.send(embed=result)
+        await ctx.send('')
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("JumpStats Cog loaded")
+        print(" Cog loaded")
 
 
 def setup(bot):
-    bot.add_cog(JumpStats(bot))
+    bot.add_cog((bot))
