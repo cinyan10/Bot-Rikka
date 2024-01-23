@@ -3,14 +3,14 @@ import requests
 from discord import Embed
 
 from functions.database import discord_id_to_steamid
-from functions.steam import steamid_to_steamid64
+from functions.steam import steamid_to_steamid64, convert_steam_id
 
 
 def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
     player_data = None
     if steamid is None:
         steamid = discord_id_to_steamid(discord_id)
-    steamid64 = steamid_to_steamid64(steamid)
+    steamid64 = convert_steam_id(steamid, 'steamid64')
     gokzcn_url = f"http://gokz.cn/api/rankings?page_size=1&search_text={steamid64}&mode={mode}"
     response = requests.get(gokzcn_url)
 
