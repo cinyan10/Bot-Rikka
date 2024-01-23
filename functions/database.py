@@ -43,13 +43,13 @@ def discord_id_to_steamid(discord_id):
 
 
 def retrieve_join_date(steam_id):
-    query = 'SELECT joindate FROM firstjoin WHERE auth = %s'
+    query = 'SELECT joindate FROM firstjoin.firstjoin WHERE auth = %s'
     result = execute_query(query, (steam_id,), fetch_one=True)
     return result[0] if result else None
 
 
 def retrieve_last_seen(steam_id):
-    query = 'SELECT lastseen FROM firstjoin WHERE auth = %s'
+    query = 'SELECT lastseen FROM firstjoin.firstjoin WHERE auth = %s'
     result = execute_query(query, (steam_id,), fetch_one=True)
     return result[0] if result else None
 
@@ -77,7 +77,7 @@ def reset_user_steam(discord_id):
 
 
 def get_steam_user_name(steamid):
-    query = 'SELECT name FROM firstjoin WHERE auth = %s'
+    query = 'SELECT name FROM firstjoin.firstjoin WHERE auth = %s'
     result = execute_query(query, (steamid,), fetch_one=True)
     return result[0] if result else None
 
