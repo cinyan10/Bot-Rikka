@@ -34,6 +34,38 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
     return info_embed
 
 
+def get_discord_role_from_data(skill_score, ranking):
+    if ranking <= 10:
+        return "Legend"
+    elif skill_score >= 8.0:
+        return "Master"
+    elif skill_score >= 7.5:
+        return "Professional"
+    elif skill_score >= 7.0:
+        return "Expert"
+    elif skill_score >= 6.0:
+        return "Skilled"
+    elif skill_score >= 5.0:
+        return "Intermediate"
+    elif skill_score >= 4.0:
+        return "Beginner"
+    else:
+        return "New"
+
+
+async def assign_role_to_user(guild, discord_id, role_name):
+    member = guild.get_member(discord_id)
+    if not member:
+        print(f"Member with ID {discord_id} not found.")
+        return
+
+    role = discord.utils.get(guild.roles, name=role_name)
+    if not role:
+        print(f"Role '{role_name}' not found.")
+        return
+
+    await member.add_roles(role)
+
+
 if __name__ == "__main__":
-    rs = get_gokzcn_info(steamid='STEAM_1:0:530988200')
-    print(rs)
+    pass

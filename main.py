@@ -199,6 +199,14 @@ async def gokzcn(ctx, steamid: str = None, mode: str = 'kzt'):
     if steamid is None:
         steamid = discord_id_to_steamid(discord_id)
     result = get_gokzcn_info(discord_id, mode=mode, steamid=steamid)
+
+    guild = bot.get_guild(GUILD_ID)
+    embed_info = get_gokzcn_info(discord_id=discord_id, mode='kzt', steamid=None)
+    skill_score = embed_info.player_data['point_skill']
+    ranking = embed_info.player_data['ranking']
+    role_name = get_discord_role_from_data(skill_score, ranking)
+
+    await assign_role_to_user(guild, discord_id, role_name)
     await ctx.send(embed=result)
 
 
