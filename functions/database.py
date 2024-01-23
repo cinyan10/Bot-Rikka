@@ -1,3 +1,4 @@
+import asyncio
 from datetime import timedelta
 from functions.steam import *
 from pymysql import Connection
@@ -64,14 +65,27 @@ def retrieve_last_seen(steam_id):
     return result[0] if result else None
 
 
-def bind_user_steam(discord_id, steamid):
+def bind_user_steam(discord_id, steam_id, ctx):
     cursor = connection.cursor()
     connection.select_db('discord')
 
+    # Check if the SteamID is already bound to another user
+    cursor.execute('SELECT discord_id FROM users WHERE steamid = %s AND discord_id != %s', (steam_id, discord_id))
+    existing_user_id = cursor.fetchone()
+
+    if existing_user_id:
+        existing_user = ctx.bot.get_user(existing_user_id[0])
+        if existing_user:
+            asyncio.create_task(ctx.send(f"The SteamID is already bound to {existing_user.mention}"))
+        else:
+            asyncio.create_task(ctx.send("The SteamID is already bound to another user."))
+        cursor.close()
+        return
+
     # Convert to all SteamID formats
-    steamid32 = convert_steam_id(steamid, 'steamid32')
-    steamid64 = convert_steam_id(steamid, 'steamid64')
-    steamid_formatted = convert_steam_id(steamid, 'steamid')
+    steamid32 = convert_steam_id(steam_id, 'steamid32')
+    steamid64 = convert_steam_id(steam_id, 'steamid64')
+    steamid_formatted = convert_steam_id(steam_id, 'steamid')
 
     try:
         cursor.execute(
@@ -85,19 +99,15 @@ def bind_user_steam(discord_id, steamid):
         cursor.close()
 
 
-def reset_user_steam(discord_id, steamid):
+def reset_user_steam(discord_id):
     cursor = connection.cursor()
     connection.select_db('discord')
 
-    # Convert to all SteamID formats
-    steamid32 = convert_steam_id(steamid, 'steamid32')
-    steamid64 = convert_steam_id(steamid, 'steamid64')
-    steamid_formatted = convert_steam_id(steamid, 'steamid')
-
     try:
+        # Set steamid, steamid32, and steamid64 to NULL
         cursor.execute(
-            'UPDATE users SET steamid = %s, steamid32 = %s, steamid64 = %s WHERE discord_id = %s',
-            (steamid_formatted, steamid32, steamid64, discord_id)
+            'UPDATE users SET steamid = NULL, steamid32 = NULL, steamid64 = NULL WHERE discord_id = %s',
+            (discord_id,)
         )
     finally:
         connection.commit()
