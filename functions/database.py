@@ -85,22 +85,20 @@ def bind_user_steam(discord_id, steamid):
         cursor.close()
 
 
-def reset_user_steam(discord_id, steam_id):
+def reset_user_steam(discord_id, steamid):
     cursor = connection.cursor()
     connection.select_db('discord')
+
+    # Convert to all SteamID formats
+    steamid32 = convert_steam_id(steamid, 'steamid32')
+    steamid64 = convert_steam_id(steamid, 'steamid64')
+    steamid_formatted = convert_steam_id(steamid, 'steamid')
+
     try:
-        if steam_id is not None:
-            # Update the main table, setting the steam ID to the new value
-            cursor.execute(
-                'UPDATE users SET steamid_32 = %s WHERE discord_id = %s',
-                (steam_id, discord_id)
-            )
-        else:
-            # Update the main table, setting the steam ID to NULL
-            cursor.execute(
-                'UPDATE users SET steamid_32 = NULL WHERE discord_id = %s',
-                (discord_id,)
-            )
+        cursor.execute(
+            'UPDATE users SET steamid = %s, steamid32 = %s, steamid64 = %s WHERE discord_id = %s',
+            (steamid_formatted, steamid32, steamid64, discord_id)
+        )
     finally:
         connection.commit()
         cursor.close()
