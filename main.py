@@ -18,16 +18,17 @@ async def on_ready():
 # Define 'load' as an async function
 async def load():
     for filename in os.listdir('./cogs'):
-        if filename.endswith('.py'):
+        if filename.endswith('.py') and not filename.startswith('__'):
             cog_name = f'cogs.{filename[:-3]}'
             try:
                 await bot.load_extension(cog_name)
             except commands.ExtensionFailed as e:
-                print(f'Failed to load extension {cog_name}.', e)
+                print(f'Failed to load extension {cog_name}: {e}')
 
 
 async def main():
     await load()
     await bot.start(TOKEN)
 
-asyncio.run(main())
+if __name__ == '__main__':
+    asyncio.run(main())
