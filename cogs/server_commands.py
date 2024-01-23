@@ -36,5 +36,5 @@ class ServerCommands(commands.Cog):
         await ctx.send("Server List Sent!")
 
 
-def setup(bot):
-    bot.add_cog(ServerCommands(bot))
+async def setup(bot):
+    await bot.add_cog(ServerCommands(bot))

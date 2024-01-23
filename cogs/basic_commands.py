@@ -32,5 +32,5 @@ class BasicCommands(commands.Cog):
         await ctx.send("Sync completed!")
 
 
-def setup(bot):
-    bot.add_cog(BasicCommands(bot))
+async def setup(bot):
+    await bot.add_cog(BasicCommands(bot))

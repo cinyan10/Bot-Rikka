@@ -10,5 +10,5 @@ class Jumpstats(commands.Cog):
         print("Jumpstats Cog loaded")
 
 
-def setup(bot):
-    bot.add_cog(Jumpstats(bot))
+async def setup(bot):
+    await bot.add_cog(Jumpstats(bot))
