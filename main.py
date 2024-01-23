@@ -1,16 +1,16 @@
-from datetime import datetime, timezone
 import random
 from discord.ext import commands
 from dc_utils.firstjoin.firstjoin import find_player
+from dc_utils.gameserver.serverinfo import server_list_embed_loop, gz_server_embeds_loop, bj_server_embeds_loop, \
+    jstop_embeds_loop
 from functions.embed_content import *
+from functions.misc import get_or_create_message
 from functions.query import *
 from functions.webhook import *
 from functions.gokzcn import *
 from config import *
 import asyncio
 from pymysql.err import IntegrityError
-import os
-
 
 # Constants
 COMMAND_PREFIX = "!"
@@ -57,61 +57,6 @@ async def on_ready():
     await loop_task_3
     await loop_task_4
 
-
-async def get_or_create_message(channel, title, description):
-    async for message in channel.history(limit=1):
-        # If there's an existing message, use that message
-        return message
-
-    # If no existing message, send a new one
-    embed = discord.Embed(title=title, description=description)
-    return await channel.send(embed=embed)
-
-
-async def server_list_embed_loop(message):
-    while True:
-        # Function that updates the content of the embedded message
-        current_datetime = datetime.now(timezone.utc)
-        new_content = query_all_servers()
-        embed = discord.Embed(
-            title='AXE SERVER LIST',
-            description=new_content,
-            colour=0x60FFFF,
-            timestamp=current_datetime
-        )
-
-        # Edit the embedded message with the new content
-        await message.edit(embed=embed)
-
-        # Wait for one minute before the next update
-        await asyncio.sleep(60)
-
-
-async def gz_server_embeds_loop(message: discord.Message, servers):
-    while True:
-        embeds = [query_server_embed(s) for s in servers]
-        await message.edit(embeds=embeds)
-        await asyncio.sleep(60)
-
-
-async def bj_server_embeds_loop(message: discord.Message, servers):
-    while True:
-        embeds = [query_server_embed(s) for s in servers]
-        await message.edit(embeds=embeds)
-        await asyncio.sleep(60)
-
-
-async def jstop_embeds_loop(message: discord.Message):
-    while True:
-        embeds = []
-        embed1 = get_jstop(20, 'kzt')
-        embed2 = get_jstop(10, 'skz')
-        embed3 = get_jstop(10, 'vnl')
-        embeds.append(embed1)
-        embeds.append(embed2)
-        embeds.append(embed3)
-        await message.edit(embeds=embeds)
-        await asyncio.sleep(60)
 
 # ----- Command Group: Basic Commands -----
 
