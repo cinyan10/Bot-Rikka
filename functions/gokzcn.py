@@ -23,8 +23,11 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
         print(f"Failed to retrieve data: {response.status_code}")
 
     bili_url = f"https://space.bilibili.com/{player_data['bili_id']}"
-    content = (f'Rank: {player_data["ranking"]}\n'
-               f'Skill Score: {player_data["point_skill"]}\n')
+    content = (
+        f'Mode: {mode.upper()}'
+        f'Rank: {player_data["ranking"]}\n'
+        f'Skill Score: {player_data["point_skill"]}\n'
+    )
 
     info_embed = Embed(title=f"bilibili: {player_data['bili_name']}", description=content, colour=discord.Colour.yellow(), url=bili_url)
     info_embed.set_author(name=player_data['name'], icon_url=player_data['avatar'], url=player_data['url'])
