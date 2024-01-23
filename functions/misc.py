@@ -25,6 +25,25 @@ def format_string_to_datetime(date_string):
     return datetime_obj
 
 
+def calculate_time_difference(join_date_str):
+    # Convert the provided join date string to a datetime object
+    join_date = datetime.strptime(join_date_str, '%Y-%m-%d %H:%M:%S')
+
+    # Get the current date and time
+    current_date = datetime.now()
+
+    # Calculate the difference between the current date and the join date
+    delta = current_date - join_date
+
+    # Calculate years, months, and days
+    years = delta.days // 365
+    months = (delta.days % 365) // 30
+    days = delta.days % 30
+
+    return years, months, days
+
+
 if __name__ == "__main__":
-    rs = get_country_code("china")
-    print(rs)
+    join_date_str = '2022-12-02 02:04:32'
+    years, months, days = calculate_time_difference(join_date_str)
+    print(f"Years: {years}, Months: {months}, Days: {days}")
