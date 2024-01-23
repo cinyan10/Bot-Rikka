@@ -88,6 +88,8 @@ async def bj_server_embeds_loop(message: discord.Message, servers):
 def jstop_embed_update():
     embeds = [get_jstop(20, 'kzt'), get_jstop(10, 'skz'), get_jstop(10, 'vnl')]
     return embeds
+
+
 # ----- Command Group: Basic Commands -----
 
 
@@ -146,26 +148,16 @@ async def servers(ctx):
 
 
 @bot.hybrid_command()
-async def bind_steam(ctx, steam_id: str):
-    """bind your steamid32"""
+async def bind_steam(ctx, steamid: str):
+    """Bind your steamid, steamid can be any type"""
     user_id = ctx.author.id
-
-    # Insert or update user binding in the database
-    cursor = connection.cursor()
-    connection.select_db('discord')
-    cursor.execute(
-        'INSERT INTO users (discord_id, steamid_32) '
-        'VALUES (%s, %s) ON DUPLICATE KEY UPDATE steamid_32 = VALUES(steamid_32)',
-        (user_id, steam_id)
-    )
-    connection.commit()
-    cursor.close()
+    bind_user_steam(user_id, steamid)
     await ctx.send('Steam ID bound successfully!')
 
 
 @bot.hybrid_command()
 async def reset_steam(ctx, steamid: str = None):
-    """resets the steamid"""
+    """Resets the steamid"""
     user_id = ctx.author.id
     reset_user_steam(user_id, steamid)
     await ctx.send('Your Steam ID has been reset.')

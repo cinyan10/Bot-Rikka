@@ -122,7 +122,64 @@ def steamid_to_steamid32(steamid):
     return steamid32
 
 
+def convert_steam_id(source_id, target_type):
+    """
+    Converts between SteamID, SteamID32, and SteamID64.
+
+    :param source_id: The source SteamID in any format.
+    :param target_type: The target format type ('steamid', 'steamid32', 'steamid64').
+    :return: The converted SteamID in the target format.
+    """
+    def steamid_to_steamid64(steamid):
+        parts = steamid.split(':')
+        y = int(parts[1])
+        z = int(parts[2])
+        return z * 2 + y + 76561197960265728
+
+    def steamid64_to_steamid(steamid64):
+        steamid64_base = 76561197960265728
+        z = (steamid64 - steamid64_base) // 2
+        y = (steamid64 - steamid64_base) % 2
+        return f"STEAM_1:{y}:{z}"
+
+    def steamid32_to_steamid64(steamid32):
+        return steamid32 + 76561197960265728
+
+    def steamid64_to_steamid32(steamid64):
+        return steamid64 - 76561197960265728
+
+    # Format source SteamID if it starts with STEAM_0
+    if source_id.startswith("STEAM_0"):
+        source_id = "STEAM_1" + source_id[7:]
+
+    # Detect source SteamID format
+    if ':' in source_id:  # STEAM_X:Y:Z format
+        source_format = 'steamid'
+        steamid64 = steamid_to_steamid64(source_id)
+    elif source_id.isdigit():
+        if len(source_id) > 10:  # SteamID64 format
+            source_format = 'steamid64'
+            steamid64 = int(source_id)
+        else:  # SteamID32 format
+            source_format = 'steamid32'
+            steamid64 = steamid32_to_steamid64(int(source_id))
+    else:
+        raise ValueError("Invalid SteamID format")
+
+    # Convert to target format
+    if target_type == 'steamid':
+        return steamid64_to_steamid(steamid64) if source_format != 'steamid' else source_id
+    elif target_type == 'steamid32':
+        return steamid64_to_steamid32(steamid64) if source_format != 'steamid32' else int(source_id)
+    elif target_type == 'steamid64':
+        return steamid64 if source_format != 'steamid64' else int(source_id)
+    else:
+        raise ValueError("Invalid target format type")
+
+
 if __name__ == '__main__':
-    steamid64_example = 76561199022242128
-    steamid_converted = steamid64_to_steamid(steamid64_example)
-    print(steamid_converted)
+    # Example usage
+    source_id = '76561199022242128'  # This can be any of SteamID, SteamID32, or SteamID64
+    target_type = 'steamid64'  # Can be 'steamid', 'steamid32', or 'steamid64'
+    converted_id = convert_steam_id(source_id, target_type)
+    print(converted_id)

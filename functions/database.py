@@ -64,6 +64,27 @@ def retrieve_last_seen(steam_id):
     return result[0] if result else None
 
 
+def bind_user_steam(discord_id, steamid):
+    cursor = connection.cursor()
+    connection.select_db('discord')
+
+    # Convert to all SteamID formats
+    steamid32 = convert_steam_id(steamid, 'steamid32')
+    steamid64 = convert_steam_id(steamid, 'steamid64')
+    steamid_formatted = convert_steam_id(steamid, 'steamid')
+
+    try:
+        cursor.execute(
+            'INSERT INTO users (discord_id, steamid, steamid32, steamid64) '
+            'VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE '
+            'steamid = VALUES(steamid), steamid32 = VALUES(steamid32), steamid64 = VALUES(steamid64)',
+            (discord_id, steamid_formatted, steamid32, steamid64)
+        )
+    finally:
+        connection.commit()
+        cursor.close()
+
+
 def reset_user_steam(discord_id, steam_id):
     cursor = connection.cursor()
     connection.select_db('discord')
