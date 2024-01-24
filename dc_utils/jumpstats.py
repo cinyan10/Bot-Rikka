@@ -24,11 +24,11 @@ def embed_ljpb(kz_mode, steamid, is_block_jump) -> Embed:
     return ljpb_embed
 
 
-def embed_jspb(kz_mode, steamid) -> Embed:
+def embed_jspb(kz_mode: str, steamid) -> Embed:
     steamid32 = convert_steamid(steamid, 'steamid32')
     jspb_data: dict = get_jspb(steamid32, kz_mode)
 
-    title = f'Jump Stats: {jspb_data['Mode']}'
+    title = f'Jump Stats: {kz_mode.upper()}'
     jspb_embed = steam_embed(
         steamid,
         title=title

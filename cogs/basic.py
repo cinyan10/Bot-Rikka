@@ -1,6 +1,5 @@
 import random
 from discord.ext import commands
-from config import TEST_CHANNEL_ID
 
 
 class Basic(commands.Cog):
@@ -14,7 +13,6 @@ class Basic(commands.Cog):
         async def sync():
             """s"""
             await self.bot.tree.sync()
-            await self.bot.get_channel(TEST_CHANNEL_ID).send(content="Sync completed!")
 
         await sync()
 
