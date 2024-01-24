@@ -92,6 +92,7 @@ def convert_steamid(source_id, target_type):
     :param target_type: The target format type ('steamid', 'steamid32', 'steamid64').
     :return: The converted SteamID in the target format.
     """
+    source_id = str(source_id)
 
     def steamid_to_steamid64(steamid):
         parts = steamid.split(':')
