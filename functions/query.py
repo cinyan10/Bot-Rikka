@@ -26,7 +26,6 @@ def query_server_embed(server: Server) -> Embed:
             try:
                 tier = maps_tier[info['map']]
             except Exception:
-                print("Can not get server tier")
                 tier = 'T0'
 
             players_str = ''

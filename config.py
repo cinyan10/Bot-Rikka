@@ -31,6 +31,8 @@ JSTOP_CLIENT_ID = 1199000627859173457
 
 # STEAM
 STEAM_API_KEY = os.getenv('STEAM_API_KEY')
+GROUP_ID = '43691138'
+GROUP_URL = "https://steamcommunity.com/groups/axekz/memberslistxml/?xml=1"
 
 # GOKZ
 JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump', 'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']

@@ -1,5 +1,6 @@
 import requests
 from config import *
+import xml.etree.ElementTree as element_tree  # NOQA
 
 
 def get_steam_username(steamid64):
@@ -139,6 +140,48 @@ def convert_steamid(source_id, target_type):
         raise ValueError("Invalid target format type")
 
 
+def is_user_in_steam_group(steamid64):
+    page = 1
+    while True:
+        group_url = f"{GROUP_URL}&p={page}"
+        try:
+            response = requests.get(group_url)
+            if response.status_code != 200:
+                print(f"Failed to retrieve group members, status code: {response.status_code}")
+                return False
+
+            root = element_tree.fromstring(response.content)
+            members = root.find('members')
+
+            if members is None:
+                print("Members list not found in XML.")
+                return False
+
+            for member in members:
+                if member.text == steamid64:
+                    return True
+
+            # Check if there's a next page
+            nextPage = root.find('nextPage')
+            if nextPage is None or nextPage.text == "":
+                break
+
+            page += 1
+
+        except requests.RequestException as e:
+            print(f"Error making request: {e}")
+            return False
+        except element_tree.ParseError as e:
+            print(f"XML Parsing Error: {e}")
+            return False
+
+    return False
+
+
 if __name__ == '__main__':
-    username = get_steam_username(STEAMID64)
-    print(username)
+    group_url = "https://steamcommunity.com/groups/axekz/memberslistxml/?xml=1"
+    steamid64 = '76561199022242128'  # Replace with an actual SteamID64
+    if is_user_in_steam_group(steamid64):
+        print("User is in the group.")
+    else:
+        print("User is not in the group.")
