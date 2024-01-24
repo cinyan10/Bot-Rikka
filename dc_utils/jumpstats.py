@@ -13,9 +13,8 @@ def embed_ljpb(kz_mode, steamid, is_block_jump) -> Embed:
     steamid32 = convert_steamid(steamid, 'steamid32')
     ljpb_data: dict = get_jspb(steamid32, kz_mode, is_block_jump, 0)
 
-    ljpb_embed = steam_embed(
-        steamid,
-        title=f'LJPB: {ljpb_data['Distance']}',
+    ljpb_embed = Embed(
+        title='LJPB'
     )
     for key, value in ljpb_data:
         ljpb_embed.add_field(name=key, value=value, inline=True)
