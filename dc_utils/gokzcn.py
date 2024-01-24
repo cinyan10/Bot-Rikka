@@ -27,7 +27,7 @@ def gokzcn_rank(mode='kzt') -> Embed:
     count = 0
     for player in ranking[:30]:
         count += 1
-        content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: {player[2]} - cnRank: {player[1]}\n'
+        content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: **{player[2]}** - cnRank: **{player[1]}**\n'
 
     rank_embed = Embed(title="SERVER GOKZ.CN Ranking", description=content, colour=discord.Colour.blue())
 

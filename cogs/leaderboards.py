@@ -1,7 +1,16 @@
+import asyncio
+import discord
 from discord.ext import commands
 from config import GOKZCN_CHANNEL_ID
 from dc_utils.gokzcn import gokzcn_rank
 from datetime import datetime
+
+from functions.embed_content import get_jstop
+
+
+class PaginationView(discord.ui.View):
+    def send(self, ctx):
+        pass
 
 
 class Leaderboards(commands.Cog):
@@ -44,6 +53,46 @@ class Leaderboards(commands.Cog):
 
         except Exception as e:
             await ctx.send(f"An error occurred: {str(e)}")
+
+    @commands.hybrid_command()
+    async def test_page(self, ctx):
+        # Define the content for each page
+        pages = [
+            get_jstop(20, 'kzt'),
+            get_jstop(20, 'skz'),
+            get_jstop(20, 'kzt'),
+        ]
+
+        # Initialize the current page index
+        current_page = 0
+
+        # Send the initial page
+        message = await ctx.send(embed=pages[current_page])
+
+        # Define reaction buttons for navigation
+        navigation_buttons = ['⬅️', '➡️']
+
+        # Add reaction buttons to the message
+        for button in navigation_buttons:
+            await message.add_reaction(button)
+
+        def check(reaction, user):
+            return user == ctx.author and str(reaction.emoji) in navigation_buttons
+
+        while True:
+            try:
+                reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)
+
+                if str(reaction.emoji) == '➡️':
+                    current_page = (current_page + 1) % len(pages)
+                elif str(reaction.emoji) == '⬅️':
+                    current_page = (current_page - 1) % len(pages)
+
+                await message.edit(embed=pages[current_page])
+                await message.remove_reaction(reaction, user)
+
+            except asyncio.TimeoutError:
+                break
 
 
 async def setup(bot: commands):
