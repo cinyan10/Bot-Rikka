@@ -83,4 +83,6 @@ class PlayJumpStats:
 
 
 if __name__ == '__main__':
+    ljpb_data: dict = get_jspb(EXA_STEAMID32, 'kzt', False, 0)
+    print(ljpb_data)
     pass

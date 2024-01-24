@@ -16,7 +16,7 @@ db_config = {
             'user': DB_USER,
             'password': DB_PASSWORD,
             'host': DB_HOST,
-            'port': int(DB_PORT)
+            'port': DB_PORT
         }
 
 GUILD_ID = 1042847878894321824
