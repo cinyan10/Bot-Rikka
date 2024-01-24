@@ -22,7 +22,7 @@ def steam_embed(steamid, title=None, description=None, timestamp=None):
     username = get_steam_username(steamid64)
     embed.set_author(name=username, icon_url=pfp_url, url=profile_url)
 
-    return embed, pfp_url, profile_url, username
+    return embed
 
 
 if __name__ == '__main__':
