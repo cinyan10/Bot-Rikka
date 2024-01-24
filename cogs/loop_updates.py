@@ -1,4 +1,8 @@
 import asyncio
+from datetime import datetime
+
+import discord
+from discord import Embed
 from discord.ext import commands
 from config import *
 from dc_utils.serverinfo import server_list_embed_loop, gz_server_embeds_loop, bj_server_embeds_loop, jstop_embeds_loop
@@ -13,7 +17,7 @@ class LoopUpdates(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('LoopUpdates loaded')
-        await self.bot.get_channel(TEST_CHANNEL_ID).send(content="I'm successfully started!!")
+        await self.bot.get_channel(TEST_CHANNEL_ID).send(embed=Embed(description="I'm successfully started!!", colour=discord.Colour.green(), timestamp=datetime.now()))
 
         server_list_channel = self.bot.get_channel(SERVER_LIST_CHANNEL_ID)
         guangzhou_channel = self.bot.get_channel(GUANGZHOU_CHANNEL_ID)
