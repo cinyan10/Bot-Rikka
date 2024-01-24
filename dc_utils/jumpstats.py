@@ -15,7 +15,7 @@ def embed_ljpb(kz_mode, steamid, is_block_jump) -> Embed:
 
     ljpb_embed = steam_embed(
         steamid,
-        title=f'LJPB: {ljpb_data[0]}',
+        title=f'LJPB: {ljpb_data['Distance']}',
     )
     for key, value in ljpb_data:
         ljpb_embed.add_field(name=key, value=value, inline=True)
@@ -33,38 +33,6 @@ def jumptype_str_to_int(dictionary, search_value):
 def fm_distance(distance: int) -> str:
     formatted_distance = distance / 10000  # Convert distance to float with four decimal places
     return f'{formatted_distance:.4f}'
-
-
-def get_player_rank_by_distance(steamid32, mode, jumptype):
-    connection = None
-    cursor = None
-
-    try:
-        connection = mysql.connector.connect(**db_config)
-        cursor = connection.cursor()
-
-        query = """
-        SELECT COUNT(*) + 1 AS rank
-        FROM gokz.LocalStats
-        WHERE Mode = %s AND JumpType = %s AND Distance > (
-            SELECT Distance
-            FROM gokz.LocalStats
-            WHERE SteamID32 = %s AND Mode = %s AND JumpType = %s
-        )
-        """
-        cursor.execute(query, (mode, jumptype, steamid32, mode, jumptype))
-        result = cursor.fetchone()
-        return result[0] if result else None
-
-    except mysql.connector.Error as err:
-        print(f"Error: {err}")
-        return None
-
-    finally:
-        if cursor:
-            cursor.close()
-        if connection:
-            connection.close()
 
 
 class PlayJumpStats:
@@ -115,5 +83,4 @@ class PlayJumpStats:
 
 
 if __name__ == '__main__':
-    rank = get_player_rank_by_distance(EXA_STEAMID32, 'kzt', 0)
-    print(f"The player's rank is: {rank}")
+    pass
