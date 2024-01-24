@@ -13,6 +13,7 @@ class Leaderboards(commands.Cog):
 
     @commands.hybrid_command()
     async def update_gokzcn_rank(self, ctx):
+        """update the gokzcn_rank in channel"""
         last_message = None
         try:
             # Get the channel by channel ID
@@ -32,7 +33,7 @@ class Leaderboards(commands.Cog):
 
             if not last_message:
                 # If there are no messages, send a new message
-                await channel.send(content)
+                await channel.send(embed=content)
                 await ctx.send(f"New message sent to #{channel.name}.")
             else:
                 # If there is an existing message, edit it
