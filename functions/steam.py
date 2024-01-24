@@ -97,7 +97,7 @@ def convert_steamid(source_id, target_type):
         parts = steamid.split(':')
         y = int(parts[1])
         z = int(parts[2])
-        return z * 2 + y + 76561197960265728
+        return f'{z * 2 + y + 76561197960265728}'
 
     def steamid64_to_steamid(steamid64):
         steamid64_base = 76561197960265728
@@ -106,10 +106,10 @@ def convert_steamid(source_id, target_type):
         return f"STEAM_1:{y}:{z}"
 
     def steamid32_to_steamid64(steamid32):
-        return steamid32 + 76561197960265728
+        return str(steamid32 + 76561197960265728)
 
     def steamid64_to_steamid32(steamid64):
-        return steamid64 - 76561197960265728
+        return str(steamid64 - 76561197960265728)
 
     # Format source SteamID if it starts with STEAM_0
     if source_id.startswith("STEAM_0"):
