@@ -25,7 +25,7 @@ class LocalStats(commands.Cog):
         await ctx.send(embed=rs)
 
     @commands.hybrid_command(name="jspb")
-    async def ljpb(self, ctx, kz_mode='kzt', steamid=None, is_block_jump=False):
+    async def jspb(self, ctx, kz_mode='kzt', steamid=None, is_block_jump=False):
         pass
 
 
