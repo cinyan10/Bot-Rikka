@@ -1,50 +1,5 @@
 # discord-bot
 
-### Todo
-
-- [x] info
-  - [x] embedded
-  - [x] show steam profile picture
-  - [ ] kz global stats
-  
-- [x] leaderboard
-  - [x] jumpstats top
-  - [ ] server records holder
-  - [ ] global points
-  - [ ] gokz.cn rank 
-  
-- [ ] bilibili
-
-  - [ ] bind bilibili
-  - [ ] stream bool
-  - [ ] video bool
-
-- [ ] Server Role
-
-  - [ ] rank by skill point
-
-    > Top 10: **Legend**
-    >
-    > 8.0+: **Master**
-    >
-    > 7.5+: **Professional**
-    >
-    > 7.0+: **Expert**
-    >
-    > 6.0+: **Skilled**
-
-- [ ] stream twitch
-
-- [ ] server status (cpu, memory, disk, net)
-  - [ ] alert when memory usage too high
-
-- [ ] memes generator
-
-- [ ] whitelist
-
-  - [ ] plugin
-  - [ ] question in discord
-
 
 ```markdown
 > [!CAUTION]
