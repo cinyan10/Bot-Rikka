@@ -3,6 +3,7 @@ from config import GOKZCN_CHANNEL_ID
 from dc_utils.gokzcn import gokzcn_rank
 from datetime import datetime
 
+
 class Leaderboards(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
