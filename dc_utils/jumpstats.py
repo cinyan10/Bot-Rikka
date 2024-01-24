@@ -33,6 +33,8 @@ def embed_jspb(kz_mode, steamid) -> Embed:
         steamid,
         title=title
     )
+    for jump_type, dist in jspb_data.items():
+        jspb_embed.add_field(name=JUMPSTATS[jump_type], value=dist / 10000.0, inline=True)
 
     return jspb_embed
 
