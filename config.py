@@ -32,8 +32,13 @@ JSTOP_CLIENT_ID = 1199000627859173457
 # STEAM
 STEAM_API_KEY = os.getenv('STEAM_API_KEY')
 
+# GOKZ
+JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump', 'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']
+JUMPSTATS = ['Distance', 'IsBlockJump', 'Block', 'Mode', 'JumpType', 'Strafes', 'Sync', 'Pre', 'Max', 'Airtime', 'JumpID', 'Created']
+KZ_MODES = ['vnl', 'skz', 'kzt']
+
 # SOME CONFIG FOR TESTING
 STEAMID = "STEAM_1:0:530988200"
 STEAMID32 = '1061976400'
 STEAMID64 = "76561199022242128"
-DISCORDID = '434525118425726977'
+DISCORD_ID = '434525118425726977'

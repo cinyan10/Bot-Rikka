@@ -140,5 +140,5 @@ def convert_steamid(source_id, target_type):
 
 
 if __name__ == '__main__':
-    username = get_steam_username(EXA_STEAMID64)
+    username = get_steam_username(STEAMID64)
     print(username)

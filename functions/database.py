@@ -1,5 +1,4 @@
 import mysql.connector
-from config import DB_HOST, DB_PORT, DB_PASSWORD, DB_USER
 from functions.steam import *
 from functions.kreedz import *
 from datetime import timedelta

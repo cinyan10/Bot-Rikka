@@ -1,5 +1,5 @@
 import mysql.connector
-from config import * # Import the db_config module
+from config import *
 
 
 # Function to query kz_mode by discord_id
@@ -31,7 +31,7 @@ def get_kz_mode(discord_id):
 
 if __name__ == "__main__":
     # Example usage:
-    discord_id_to_query = DISCORDID
+    discord_id_to_query = DISCORD_ID
     kz_mode = get_kz_mode(discord_id_to_query)
 
     if kz_mode is not None:

@@ -3,8 +3,7 @@ from dc_utils.firstjoin import find_player
 from dc_utils.setting import set_language, set_kz_mode
 from functions.database import reset_user_steam, bind_user_steam, discord_id_to_steamid
 from functions.embed_content import user_info
-from functions.gokzcn import get_gokzcn_info, assign_role_to_user, get_discord_role_from_data
-from config import GUILD_ID
+from functions.gokzcn import get_gokzcn_info
 from pymysql.err import IntegrityError
 
 
@@ -43,14 +42,6 @@ class KzInfo(commands.Cog):
             steamid = discord_id_to_steamid(discord_id)
         result = get_gokzcn_info(discord_id=discord_id, mode=mode, steamid=steamid)
         embed_info = result['embed']
-        player_data = result['player_data']
-
-        guild = self.bot.get_guild(GUILD_ID)
-        skill_score = player_data['point_skill']
-        ranking = player_data['ranking']
-        role_name = get_discord_role_from_data(skill_score, ranking)
-
-        await assign_role_to_user(guild, discord_id, role_name)
         await ctx.send(embed=embed_info)
 
     @commands.hybrid_command()

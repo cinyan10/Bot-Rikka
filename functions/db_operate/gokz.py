@@ -1,12 +1,8 @@
 import mysql.connector
 from config import *
 
-db_config['database'] = 'gokz'
-KZ_MODES = ['vnl', 'skz', 'kzt']
-JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump', 'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']
 
-
-def get_jspb(steamid32, kz_mode, is_block_jump, jump_type) -> dict:
+def get_ljpb(steamid32, kz_mode, is_block_jump, jump_type) -> dict:
     connection = None
     cursor = None
 
@@ -61,13 +57,16 @@ def get_jspb(steamid32, kz_mode, is_block_jump, jump_type) -> dict:
             connection.close()
 
 
+def get_jspb(kz_mode, steamid) -> dict:
+    pass
+
 if __name__ == "__main__":
     # Example usage (assuming db_config is imported from your config module):
     steamid32 = EXA_STEAMID32  # Replace with the desired SteamID32
     kz_mode = "kzt"  # Replace with the desired kz_mode
     is_block_jump = False  # Set to True or False as needed
     jump_type = 0  # Replace with the desired JumpType
-    best_jump_data = get_jspb(steamid32, kz_mode, is_block_jump, jump_type)
+    best_jump_data = get_ljpb(steamid32, kz_mode, is_block_jump, jump_type)
 
     if best_jump_data:
         print("Player's Best Jump Data:")

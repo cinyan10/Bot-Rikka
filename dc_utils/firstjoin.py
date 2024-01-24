@@ -1,5 +1,3 @@
-from discord import Embed
-from config import *
 from functions.db_operate.firstjoin import *
 from functions.embed_content import user_info
 
