@@ -4,7 +4,7 @@ from functions.servers import SERVER_LIST
 from functions.webhook import send_webhook
 
 
-class ServerCommands(commands.Cog):
+class ServerInfo(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -37,4 +37,4 @@ class ServerCommands(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(ServerCommands(bot))
+    await bot.add_cog(ServerInfo(bot))

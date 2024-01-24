@@ -1,5 +1,6 @@
 from discord.ext import commands
 from dc_utils.firstjoin import find_player
+from dc_utils.setting import set_language, set_kz_mode
 from functions.database import reset_user_steam, bind_user_steam, discord_id_to_steamid
 from functions.embed_content import user_info
 from functions.gokzcn import get_gokzcn_info, assign_role_to_user, get_discord_role_from_data
@@ -7,7 +8,7 @@ from config import GUILD_ID
 from pymysql.err import IntegrityError
 
 
-class UtilityCommands(commands.Cog):
+class KzInfo(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -64,6 +65,16 @@ class UtilityCommands(commands.Cog):
         """find a player by name"""
         await find_player(ctx, name)
 
+    @commands.hybrid_command(name="setting")
+    async def setting(self, ctx, language=None, kz_mode=None):
+        """
+        Get your lj pb or other's lj pb
+        """
+        if language:
+            await set_language(ctx, language)
+        if kz_mode:
+            await set_kz_mode(ctx, kz_mode)
+
 
 async def setup(bot):
-    await bot.add_cog(UtilityCommands(bot))
+    await bot.add_cog(KzInfo(bot))
