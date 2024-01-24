@@ -26,5 +26,4 @@ def steam_embed(steamid, title=None, description=None, timestamp=None):
 
 
 if __name__ == '__main__':
-    embed, pfp_url, profile_url, username = steam_embed(EXA_STEAM)
-    print(embed, pfp_url, profile_url, username)
+    pass

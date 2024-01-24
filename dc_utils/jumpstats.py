@@ -7,18 +7,24 @@ from functions.steam_embed import steam_embed
 
 db_config['database'] = 'gokz'
 JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump', 'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']
+JUMPSTATS = ['Distance', 'IsBlockJump', 'Block', 'Mode', 'JumpType', 'Strafes', 'Sync', 'Pre', 'Max', 'Airtime', 'JumpID', 'Created']
 
 
 def embed_ljpb(kz_mode, steamid, is_block_jump) -> Embed:
     steamid32 = convert_steamid(steamid, 'steamid32')
     ljpb_data: dict = get_jspb(steamid32, kz_mode, is_block_jump, 0)
 
+    if is_block_jump:
+        title = f'LJPB {ljpb_data['Block']} Block Jump'
+    else:
+        title = f'LJPB {ljpb_data['Distance']}'
     ljpb_embed = steam_embed(
         steamid,
-        title=f'LJPB: {ljpb_data['Distance']}',
+        title=title
     )
-    for key, value in ljpb_data.items():
-        ljpb_embed.add_field(name=key, value=value, inline=True)
+
+    for key in JUMPSTATS:
+        ljpb_embed.add_field(name=key, value=ljpb_data[key], inline=True)
 
     return ljpb_embed
 

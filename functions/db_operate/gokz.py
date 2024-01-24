@@ -2,7 +2,7 @@ import mysql.connector
 from config import *
 
 db_config['database'] = 'gokz'
-KZ_MODES = {'kzt': 2, 'skz': 1, 'vnl': 0}
+KZ_MODES = ['vnl', 'skz', 'kzt']
 JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump', 'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']
 
 
@@ -29,7 +29,7 @@ def get_jspb(steamid32, kz_mode, is_block_jump, jump_type) -> dict:
 
         # Set is_block_jump to 1 if it is True, otherwise set it to 0
         is_block_jump_value = 1 if is_block_jump else 0
-        mode = KZ_MODES.get(kz_mode)
+        mode = KZ_MODES.index(kz_mode)
         # Execute the SQL query with the provided parameters
         cursor.execute(query, (steamid32, mode, is_block_jump_value, is_block_jump_value, jump_type))
 
@@ -44,14 +44,15 @@ def get_jspb(steamid32, kz_mode, is_block_jump, jump_type) -> dict:
             result['Distance'] = result['Distance'] / 10000.0
             result['JumpType'] = JUMP_TYPE[result['JumpType']]
             result['Airtime'] = result['Airtime'] / 10000.0
+            result['Mode'] = KZ_MODES[result['Mode']].upper()
             return result  # Returns the full jump data as a dictionary
         else:
             print('No valid data')
-            return None
+            return {}
 
     except mysql.connector.Error as e:
         print(f"Error: {e}")
-        return None
+        return {}
 
     finally:
         if cursor:
