@@ -3,6 +3,7 @@ import requests
 from discord import Embed
 from functions.database import discord_id_to_steamid
 from functions.steam import convert_steamid
+from config import *
 
 
 def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
@@ -34,7 +35,27 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
     return {'embed': info_embed, 'player_data': player_data}
 
 
-def get_discord_role_from_data(skill_score, ranking):
+def fetch_playerdata(steamid64, mode='kzt'):
+    try:
+        url = f"http://gokz.cn/api/rankings?page_size=1&search_text={steamid64}&mode={mode}"
+        response = requests.get(url)
+        "STEAM_1:0:120327391"
+        if response.status_code == 200:
+            # Parse and return the JSON response
+            try:
+                return response.json()['data']['list'][0]
+            except IndexError:
+                print("Couldn't find this player")
+                return None
+        else:
+            print(f"Request failed with status code {response.status_code}")
+            return None
+    except requests.exceptions.RequestException as e:
+        print(f"Request error: {e}")
+        return None
+
+
+def get_rank(skill_score, ranking):
     if ranking <= 10:
         return "Legend"
     elif skill_score >= 8.0:
@@ -54,4 +75,5 @@ def get_discord_role_from_data(skill_score, ranking):
 
 
 if __name__ == "__main__":
-    pass
+    rs = fetch_playerdata("STEAM_1:0:120327391")
+    print(rs)

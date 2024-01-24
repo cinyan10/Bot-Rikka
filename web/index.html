@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Whitelist Manager</title>
+</head>
+<body>
+    <h1>Update Whitelist</h1>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    <form method="post">
+        <label for="steamid">SteamID:</label>
+        <input type="text" id="steamid" name="steamid" required>
+        <button type="submit">Update Whitelist</button>
+    </form>
+</body>
+</html>
