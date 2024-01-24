@@ -17,7 +17,7 @@ def embed_ljpb(kz_mode, steamid, is_block_jump) -> Embed:
         steamid,
         title=f'LJPB: {ljpb_data['Distance']}',
     )
-    for key, value in ljpb_data:
+    for key, value in ljpb_data.items():
         ljpb_embed.add_field(name=key, value=value, inline=True)
 
     return ljpb_embed
