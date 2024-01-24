@@ -36,3 +36,7 @@ class Leaderboards(commands.Cog):
 
         except Exception as e:
             await ctx.send(f"An error occurred: {str(e)}")
+
+
+async def setup(bot: commands):
+    await bot.add_cog(Leaderboards(bot))
