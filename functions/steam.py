@@ -91,6 +91,7 @@ def convert_steamid(source_id, target_type):
     :param target_type: The target format type ('steamid', 'steamid32', 'steamid64').
     :return: The converted SteamID in the target format.
     """
+
     def steamid_to_steamid64(steamid):
         parts = steamid.split(':')
         y = int(parts[1])
@@ -139,10 +140,5 @@ def convert_steamid(source_id, target_type):
 
 
 if __name__ == '__main__':
-    steamid64 = EXA_STEAMID64  # Replace with the desired SteamID64
-    username = get_steam_username(steamid64)
-
-    if username:
-        print(f"Steam Username for SteamID64 {steamid64}: {username}")
-    else:
-        print("Unable to fetch the Steam username.")
+    username = get_steam_username(EXA_STEAMID64)
+    print(username)
