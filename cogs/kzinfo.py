@@ -76,5 +76,5 @@ class KzInfo(commands.Cog):
             await set_kz_mode(ctx, kz_mode)
 
 
-async def setup(bot):
-    await bot.add_cog(KzInfo(bot))
+def setup(bot):
+    bot.add_cog(KzInfo(bot))
