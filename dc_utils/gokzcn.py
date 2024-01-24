@@ -9,13 +9,12 @@ from functions.gokzcn import fetch_playerdata
 
 def gokzcn_rank(mode='kzt') -> Embed:
     players: list = get_whitelisted_players()
-    print(players)
     ranking = []
 
     count = 0
     for steamid in players:
         count += 1
-        print("loading", count, '/',len(players))
+        print("loading", count, '/', len(players))
         steamid64 = convert_steamid(steamid, 'steamid64')
         data = fetch_playerdata(steamid64, mode=mode)
         if data:
@@ -26,7 +25,7 @@ def gokzcn_rank(mode='kzt') -> Embed:
 
     content = ''
     count = 0
-    for player in ranking:
+    for player in ranking[:100]:
         count += 1
         content += f'[**{count}. {player[0]}**]({player[3]} - Skill: {player[2]} - cnRank: {player[1]})'
 
