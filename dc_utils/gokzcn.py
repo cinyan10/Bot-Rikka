@@ -12,7 +12,7 @@ def gokzcn_rank(mode='kzt') -> Embed:
     ranking = []
 
     count = 0
-    for steamid in players[:50]:
+    for steamid in players[:70]:
         count += 1
         print("loading", count, '/', len(players))
         steamid64 = convert_steamid(steamid, 'steamid64')
@@ -27,7 +27,7 @@ def gokzcn_rank(mode='kzt') -> Embed:
     count = 0
     for player in ranking[:50]:
         count += 1
-        content += f'[**{count}. {player[0]}**]({player[3]} - Skill: {player[2]} - cnRank: {player[1]})'
+        content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: {player[2]} - cnRank: {player[1]}'
 
     rank_embed = Embed(title="SERVER GOKZ.CN Ranking", description=content, colour=discord.Colour.blue())
 
