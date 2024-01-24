@@ -1,7 +1,7 @@
 from discord.ext import commands
 from config import GOKZCN_CHANNEL_ID
 from dc_utils.gokzcn import gokzcn_rank
-
+from datetime import datetime
 
 class Leaderboards(commands.Cog):
     def __init__(self, bot):
@@ -38,6 +38,7 @@ class Leaderboards(commands.Cog):
             else:
                 # If there is an existing message, edit it
                 await last_message.edit(embed=content)
+                await last_message.edit(content=datetime.now())
                 await ctx.send(f"Message edited in #{channel.name}.")
 
         except Exception as e:
