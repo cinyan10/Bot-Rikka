@@ -3,7 +3,7 @@ from discord.ext import commands
 from config import TEST_CHANNEL_ID
 
 
-class BasicCommands(commands.Cog):
+class Basic(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -31,5 +31,5 @@ class BasicCommands(commands.Cog):
         await ctx.send("Sync completed!")
 
 
-def setup(bot):
-    bot.add_cog(BasicCommands(bot))
+async def setup(bot):
+    await bot.add_cog(Basic(bot))
