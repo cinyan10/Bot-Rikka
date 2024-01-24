@@ -21,6 +21,7 @@ formatter = logging.Formatter('[{asctime}] [{levelname:<8}] {name}: {message}', 
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
+discord.utils.setup_logging(handler=handler, formatter=formatter, level=logging.INFO)
 
 # Initialize bot
 intents = discord.Intents.default()
