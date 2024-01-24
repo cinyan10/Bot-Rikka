@@ -9,7 +9,7 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
     player_data = None
     if steamid is None:
         steamid = discord_id_to_steamid(discord_id)
-    steamid64 = convert_steamid(steamid, 'steamid')
+    steamid64 = convert_steamid(steamid, 'steamid64')
     gokzcn_url = f"http://gokz.cn/api/rankings?page_size=1&search_text={steamid64}&mode={mode}"
     response = requests.get(gokzcn_url)
 

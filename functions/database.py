@@ -1,9 +1,20 @@
 import mysql.connector
+from config import DB_HOST, DB_PORT, DB_PASSWORD, DB_USER
 from functions.steam import *
 from functions.kreedz import *
 from datetime import timedelta
 import asyncio
-from config import *
+
+
+# Global constants
+db_config = {
+    'user': DB_USER,
+    'password': DB_PASSWORD,
+    'host': DB_HOST,
+    'database': 'gokz',
+    'raise_on_warnings': True,
+    'port': DB_PORT,
+}
 
 KZ_MODES = {'kzt': 2, 'skz': 1, 'vnl': 0}
 

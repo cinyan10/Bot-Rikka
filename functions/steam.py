@@ -55,27 +55,27 @@ def get_steam_pfp(steamid64):
         return f'Error: {response.status_code}'
 
 
-def get_steam_profile_url(steamid):
-    steamid64 = convert_steamid(steamid, 'steamid')
+def get_steam_profile_url(steamid64):
     """
     Constructs the URL to a Steam user's profile page using their SteamID64.
 
-    :param steamid: A SteamID64 of the user
+    :param steamid64: A SteamID64 of the user
     :return: The URL to the user's Steam profile page
     """
     base_url = "https://steamcommunity.com/profiles/"
     return f"{base_url}{steamid64}"
 
 
-def get_steam_user_country(steamid):
-    steamid64 = convert_steamid(steamid, 'steamid64')
+def get_steam_user_country(steamid64):
     url = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
     params = {
         'key': STEAM_API_KEY,
         'steamids': steamid64
     }
+
     response = requests.get(url, params=params)
     data = response.json()
+
     try:
         country = data['response']['players'][0]['loccountrycode']
         return country
@@ -88,7 +88,7 @@ def convert_steamid(source_id, target_type):
     Converts between SteamID, SteamID32, and SteamID64.
 
     :param source_id: The source SteamID in any format.
-    :param target_type: The target format type ('steamid', 'steamid32', 'steamid').
+    :param target_type: The target format type ('steamid', 'steamid32', 'steamid64').
     :return: The converted SteamID in the target format.
     """
     def steamid_to_steamid64(steamid):
@@ -119,7 +119,7 @@ def convert_steamid(source_id, target_type):
         steamid64 = steamid_to_steamid64(source_id)
     elif source_id.isdigit():
         if len(source_id) > 10:  # SteamID64 format
-            source_format = 'steamid'
+            source_format = 'steamid64'
             steamid64 = int(source_id)
         else:  # SteamID32 format
             source_format = 'steamid32'
@@ -132,8 +132,8 @@ def convert_steamid(source_id, target_type):
         return steamid64_to_steamid(steamid64) if source_format != 'steamid' else source_id
     elif target_type == 'steamid32':
         return steamid64_to_steamid32(steamid64) if source_format != 'steamid32' else int(source_id)
-    elif target_type == 'steamid':
-        return steamid64 if source_format != 'steamid' else int(source_id)
+    elif target_type == 'steamid64':
+        return steamid64 if source_format != 'steamid64' else int(source_id)
     else:
         raise ValueError("Invalid target format type")
 

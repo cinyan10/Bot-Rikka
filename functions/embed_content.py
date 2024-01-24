@@ -11,7 +11,7 @@ def user_info(discord_id=None, steamid=None) -> discord.Embed:
         steamid = discord_id_to_steamid(discord_id)
     else:
         steamid = convert_steamid(str(steamid), 'steamid')
-    steamid64 = convert_steamid(steamid, 'steamid')
+    steamid64 = convert_steamid(steamid, 'steamid64')
     steamid32 = convert_steamid(steamid, 'steamid32')
 
     name = get_steam_user_name(steamid)
