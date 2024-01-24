@@ -37,7 +37,7 @@ class Leaderboards(commands.Cog):
                 await ctx.send(f"New message sent to #{channel.name}.")
             else:
                 # If there is an existing message, edit it
-                await last_message.edit(content=content)
+                await last_message.edit(embed=content)
                 await ctx.send(f"Message edited in #{channel.name}.")
 
         except Exception as e:
