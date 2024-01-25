@@ -1,14 +1,7 @@
-import discord
 from discord import Embed, Message
 from discord.ext import commands
 from config import GOKZCN_CHANNEL_ID
 from dc_utils.gokzcn import gokzcn_rank
-from datetime import datetime
-
-
-class PaginationView(discord.ui.View):
-    def send(self, ctx):
-        pass
 
 
 class Leaderboards(commands.Cog):
@@ -47,7 +40,7 @@ class Leaderboards(commands.Cog):
                 await send_ms.edit(embed=Embed(title="Done", description=f"Ranking send in {channel.name}", color=0x60FFFF))
             else:
                 # If there is an existing message, edit it
-                await last_message.edit(embed=content)
+                await last_message.edit(content='', embed=content)
                 await send_ms.edit(embed=Embed(title="Done", description=f"Ranking updated in {channel.name}", color=0x60FFFF))
 
         except Exception as e:

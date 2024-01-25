@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import discord
 from discord import Embed
 from functions.db_operate.firstjoin import *
@@ -29,7 +31,7 @@ def gokzcn_rank(mode='kzt') -> Embed:
         count += 1
         content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: **{player[2]}** - cnRank: **{player[1]}**\n'
 
-    rank_embed = Embed(title="SERVER GOKZ.CN Ranking", description=content, colour=discord.Colour.blue())
+    rank_embed = Embed(title="SERVER GOKZ.CN Ranking", description=content, colour=discord.Colour.blue(), timestamp=datetime.now())
 
     return rank_embed
 
