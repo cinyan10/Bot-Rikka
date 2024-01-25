@@ -1,11 +1,49 @@
-original_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+from functions.database import get_playtime
+from functions.db_operate.firstjoin import get_whitelisted_players
+from functions.steam import convert_steamid
+from config import db_config
+import mysql.connector
 
-# Define the size of each sublist
-chunk_size = 20
 
-# Use a list comprehension to create sublists
-sublists = [original_list[i:i+chunk_size] for i in range(0, len(original_list), chunk_size)]
+def update_total(steamid, total):
+    # Establish a MySQL database connection using your db_config
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
 
-# Print the sublists
-for sublist in sublists:
-    print(sublist)
+    # Retrieve the name and timestamps (last_accountuse) from firstjoin.firstjoin based on the auth (steamid)
+    cursor.execute("SELECT name, timestamps FROM firstjoin WHERE auth = %s", (steamid,))
+    player_data = cursor.fetchone()
+
+    if player_data:
+        playername, last_accountuse = player_data
+        # Check if the steamid already exists in the mostactive table
+        cursor.execute("SELECT * FROM mostactive WHERE steamid = %s", (steamid,))
+        existing_data = cursor.fetchone()
+
+        if existing_data:
+            # If the steamid exists in mostactive, update the values
+            cursor.execute("UPDATE mostactive SET playername = %s, last_accountuse = %s, total = %s WHERE steamid = %s",
+                           (playername, last_accountuse, total, steamid))
+        else:
+            # If the steamid doesn't exist in mostactive, insert the data
+            cursor.execute("INSERT INTO mostactive (playername, last_accountuse, steamid, total) VALUES (%s, %s, %s, %s)",
+                           (playername, last_accountuse, steamid, total))
+
+        # Commit changes and close the database connection
+        conn.commit()
+        conn.close()
+    else:
+        # If the steamid doesn't exist in firstjoin.firstjoin, handle the case as needed (e.g., raise an error or log a message)
+        conn.close()
+        raise Exception(f"SteamID {steamid} not found in firstjoin.firstjoin table")
+
+
+steamids = get_whitelisted_players()
+count = 0
+for steamid in steamids:
+    count = count + 1
+    print(f"{count}/{len(steamids)} {steamid}")
+    steamid32 = convert_steamid(steamid, "steamid32")
+    total = get_playtime(steamid32)
+    seconds = total[0] * 3600 + total[1] * 60 + total[2]
+    update_total(steamid, seconds)

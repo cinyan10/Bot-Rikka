@@ -1,8 +1,9 @@
+from datetime import datetime
 
 import discord
 from discord import Embed
 from functions.steam import *
-from functions.database import get_total_playtime
+from functions.database import get_playtime
 from functions.db_operate.firstjoin import get_whitelisted_players
 from functions.steam import convert_steamid
 
@@ -18,7 +19,7 @@ def get_playtime_rank() -> list[Embed]:
         print(f"{count}/{len(steamids)} {steamid}")
         steamid32 = convert_steamid(steamid, 'steamid32')
         steamid64 = convert_steamid(steamid, 'steamid64')
-        playtime = get_total_playtime(steamid32)
+        playtime = get_playtime(steamid32)
         name = get_steam_username(steamid64)
         url = get_steam_profile_url(steamid64)
         datas.append([name, steamid64, playtime, url])
@@ -34,6 +35,9 @@ def get_playtime_rank() -> list[Embed]:
             count += 1
             content += f'[**{count}. {player[0]}**]({player[3]}) - Play Time: **{player[2][0]}h, {player[2][1]}m, {player[2][2]}s**\n'
         embeds.append(Embed(description=content, colour=discord.Colour.blue()))
+
+    embeds[0].title = 'Playtime Ranking'
+    embeds[-1].timestamp = datetime.now()
 
     return embeds
 

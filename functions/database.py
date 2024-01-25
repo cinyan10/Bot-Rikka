@@ -139,7 +139,7 @@ def query_jumpstats_top(limit: int = 10, mode: str = 'kzt') -> str:
     return result
 
 
-def get_total_playtime(steamid32):
+def get_playtime(steamid32):
     # Connect to the database
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
@@ -176,5 +176,5 @@ def get_total_playtime(steamid32):
 
 
 if __name__ == "__main__":
-    rs = get_total_playtime(STEAMID32)
+    rs = get_playtime(STEAMID32)
     print(rs[0], rs[1], rs[2])

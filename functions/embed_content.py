@@ -21,7 +21,7 @@ def user_info(discord_id=None, steamid=None) -> discord.Embed:
     profile_url = get_steam_profile_url(steamid64)
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
     country = get_country_code(get_country_from_steamid32(steamid32)).lower()
-    total_playtime = get_total_playtime(steamid32)
+    total_playtime = get_playtime(steamid32)
 
     content = (
         f":flag_{country}: **{name}**\n"
