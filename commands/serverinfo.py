@@ -31,7 +31,7 @@ class ServerInfo(commands.Cog):
 
     @commands.hybrid_command()
     async def servers(self, ctx):
-        """get server infos in bot-cogs channel as webhook"""
+        """get server infos in bot-commands channel as webhook"""
         send_webhook()
         await ctx.send("Server List Sent!")
 
