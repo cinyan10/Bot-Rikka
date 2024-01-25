@@ -1,10 +1,8 @@
-# discord-bot
+# bot-rikka
 
+## CAUTION
 
-```markdown
-> [!CAUTION]
-> Reading this project will definitely waste your precious time!!!
-```
+⚠️ **Viewing this project will definitely waste your time!!!**
 
 requirements:
 
