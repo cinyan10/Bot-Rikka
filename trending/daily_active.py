@@ -119,7 +119,7 @@ def insert_player_counts_to_table(day_players, total_players):
             "INSERT INTO online_day (date, day_players, day_whitelisted, day_un_whitelisted, total_players, total_whitelisted, total_un_whitelisted) "
             "VALUES (%s, %s, %s, %s, %s, %s, %s)"
         )
-        cursor.execute(insert_query, (current_date, day_players["day_players"], day_players["whitelisted"], day_players["un_whitelisted"], total_players["total_players"], total_players["total_whitelisted"], total_players["total_un_whitelisted"]))
+        cursor.execute(insert_query, (current_date, day_players['day_players'], day_players['whitelisted'], day_players['un_whitelisted'], total_players['total_players'], total_players['total_whitelisted'], total_players['total_un_whitelisted']))
 
         # Commit the changes to the database
         conn.commit()
@@ -153,9 +153,9 @@ def differ_yesterday(players_count, total_players):
             total_whitelisted = yesterday_data[2]
 
             # Calculate the differences
-            day_players_difference = day_players - players_count["day_players"]
-            day_whitelisted_difference = day_whitelisted - players_count["whitelisted"]
-            total_difference = total_whitelisted - total_players["total_players"]
+            day_players_difference = day_players - players_count['day_players']
+            day_whitelisted_difference = day_whitelisted - players_count['whitelisted']
+            total_difference = total_whitelisted - total_players['total_players']
 
             return [day_players_difference, day_whitelisted_difference, total_difference]
 
@@ -181,17 +181,17 @@ def send_discord_webhook(player_counts, total_count, differs) -> None:
         "fields": [
             {
                 "name": "Active Player",
-                "value": f"**{player_counts["day_players"]}** ({differs[0]})",
+                "value": f"**{player_counts['day_players']}** ({differs[0]})",
                 "inline": True
             },
             {
                 "name": "WL Player",
-                "value": f"**{player_counts["whitelisted"]}** ({differs[1]})",
+                "value": f"**{player_counts['whitelisted']}** ({differs[1]})",
                 "inline": True
             },
             {
                 "name": "Total Player",
-                "value": f"**{total_count["total_players"]}** ({differs[2]})",
+                "value": f"**{total_count['total_players']}** ({differs[2]})",
                 "inline": True
             },
         ]

@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-
+import pytz
 import mysql.connector
 from datetime import datetime, timedelta
 import requests
@@ -114,7 +114,7 @@ def insert_player_counts_to_table(player_counts):
         )
 
         cursor.execute(insert_query, (
-            one_month_ago_str, player_counts["total"], player_counts["whitelisted"], player_counts["un_whitelisted"]))
+            one_month_ago_str, player_counts['total'], player_counts['whitelisted'], player_counts['un_whitelisted']))
 
         # Commit the changes to the database
         connection.commit()
@@ -130,21 +130,21 @@ def send_discord_webhook(player_counts):
     embed_payload = {
         "title": "Last Month's player count",
         "color": 0x00ff00,  # Green color
-        "timestamp": str(datetime.now()),
+        "timestamp": str(datetime.now(pytz.timezone("UTC"))),
         "fields": [
             {
                 "name": "Total",
-                "value": str(player_counts["total"]),
+                "value": str(player_counts['total']),
                 "inline": True
             },
             {
                 "name": "Whitelisted",
-                "value": str(player_counts["whitelisted"]),
+                "value": str(player_counts['whitelisted']),
                 "inline": True
             },
             {
                 "name": "Un-whitelisted",
-                "value": str(player_counts["un_whitelisted"]),
+                "value": str(player_counts['un_whitelisted']),
                 "inline": True
             }
         ]
