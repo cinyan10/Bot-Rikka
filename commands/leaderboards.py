@@ -8,10 +8,6 @@ class Leaderboards(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('Leaderboards Cog loaded')
-
     @commands.hybrid_command()
     async def update_gokzcn_rank(self, ctx):
         """update the gokzcn_rank in channel"""

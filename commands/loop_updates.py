@@ -17,7 +17,6 @@ class LoopUpdates(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('LoopUpdates loaded')
-        await self.bot.get_channel(TEST_CHANNEL_ID).send(embed=Embed(description="I'm successfully started!!", colour=discord.Colour.green(), timestamp=datetime.now()))
 
         server_list_channel = self.bot.get_channel(SERVER_LIST_CHANNEL_ID)
         guangzhou_channel = self.bot.get_channel(GUANGZHOU_CHANNEL_ID)

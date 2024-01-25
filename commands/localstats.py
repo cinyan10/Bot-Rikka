@@ -8,10 +8,6 @@ class LocalStats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print("LocalStats Cog loaded")
-
     @commands.hybrid_command(name="ljpb")
     async def ljpb(self, ctx, kz_mode=None, steamid=None, is_block_jump=False):
         """get your or other's long jump personal best!!"""
