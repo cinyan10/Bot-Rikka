@@ -1,5 +1,4 @@
 from datetime import datetime
-
 import discord
 from discord import Embed
 from functions.db_operate.firstjoin import *
