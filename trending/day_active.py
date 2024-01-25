@@ -1,13 +1,27 @@
+import os
+from dotenv import load_dotenv
+
 import mysql.connector
-from datetime import datetime, timedelta, date
-
-import pytz
-
-from config import db_config, TRENDING_WEBHOOK_URL
+from datetime import datetime, timedelta
 import requests
 import json
 
-db_config['database'] = 'firstjoin'
+load_dotenv()
+
+DB_HOST = os.getenv('DB_HOST')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_PORT = os.getenv('DB_PORT')
+DB_USER = os.getenv('DB_USER')
+TRENDING_WEBHOOK_URL = os.getenv('TRENDING_WEBHOOK_URL')
+
+# Define your database configuration and webhook URL
+db_config = {
+            'user': DB_USER,
+            'password': DB_PASSWORD,
+            'host': DB_HOST,
+            'port': DB_PORT,
+            'database': 'firstjoin',
+        }
 
 
 def total_players_count() -> dict:
