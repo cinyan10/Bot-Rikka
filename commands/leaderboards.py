@@ -36,7 +36,7 @@ class Leaderboards(commands.Cog):
                 await send_ms.edit(embed=Embed(title="Done", description=f"Ranking send in {channel.name}", color=0x60FFFF))
             else:
                 # If there is an existing message, edit it
-                await last_message.edit(content='', embed=embeds)
+                await last_message.edit(content='', embeds=embeds)
                 await send_ms.edit(embed=Embed(title="Done", description=f"Ranking updated in {channel.name}", color=0x60FFFF))
 
         except Exception as e:
