@@ -208,6 +208,8 @@ def send_discord_webhook(player_counts, total_count, differs) -> None:
     # Check if the request was successful (status code 200)
     if response.status_code == 200:
         print("Webhook message sent successfully.")
+    elif response.status_code == 204:
+        print("Webhook message sent successfully.")
     else:
         print(f"Failed to send webhook message. Status code: {response.status_code}")
 
