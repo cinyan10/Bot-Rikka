@@ -26,6 +26,8 @@ class Leaderboards(commands.Cog):
 
             # Get the content from the gokzcn_rank() function
             embeds = gokzcn_rank()
+            if embeds:
+                await channel.purge(limit=None)
 
             for embed in embeds:
                 await channel.send(embed=embed)
@@ -41,7 +43,8 @@ class Leaderboards(commands.Cog):
 
         ms = await ctx.send(embed=Embed(title="Loading ranking", description=f"this will take a while...", color=discord.Color.blue()))
         rs_embeds = get_playtime_rank()
-
+        if rs_embeds:
+            await channel.purge(limit=None)
         for embed in rs_embeds:
             await channel.send(embed=embed)
         await ms.edit(embed=Embed(title="Done", description=f"updated in {channel.name}", color=discord.Color.green()))
