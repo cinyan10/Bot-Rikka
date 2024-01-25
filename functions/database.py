@@ -67,7 +67,7 @@ def bind_user_steam(discord_id, steam_id, ctx):
     steamid32 = convert_steamid(steam_id, 'steamid32')
     steamid64 = convert_steamid(steam_id, 'steamid')
     steamid_formatted = convert_steamid(steam_id, 'steamid')
-    insert_query = 'INSERT INTO discord.users (discord_id, steamid, steamid32, steamid) VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE steamid = VALUES(steamid), steamid32 = VALUES(steamid32), steamid = VALUES(steamid)'
+    insert_query = 'INSERT INTO discord.users (discord_id, steamid, steamid32, steamid64) VALUES (%s, %s, %s, %s) ON DUPLICATE KEY UPDATE steamid = VALUES(steamid), steamid32 = VALUES(steamid32), steamid64 = VALUES(steamid64)'
     execute_query(insert_query, (discord_id, steamid_formatted, steamid32, steamid64), commit=True)
 
 
