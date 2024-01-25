@@ -87,6 +87,7 @@ def update_whitelist_for_users() -> None:
 
 
 def get_whitelisted_players() -> list:
+    """return a list of steamID"""
     conn = None
     cursor = None
     try:

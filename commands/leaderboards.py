@@ -1,7 +1,9 @@
+import discord
 from discord import Embed, Message
 from discord.ext import commands
-from config import GOKZCN_CHANNEL_ID
+from config import GOKZCN_CHANNEL_ID, PLAYTIME_CHANNEL_ID
 from dc_utils.gokzcn import gokzcn_rank
+from dc_utils.localstats import get_playtime_rank
 
 
 class Leaderboards(commands.Cog):
@@ -14,7 +16,6 @@ class Leaderboards(commands.Cog):
         channel = self.bot.get_channel(GOKZCN_CHANNEL_ID)
 
         send_ms: Message = await ctx.send(embed=Embed(title="Loading...", description=f"this will take a while...", color=0x60FFFF))
-        last_message = None
         try:
             # Get the channel by channel ID
 
@@ -22,10 +23,6 @@ class Leaderboards(commands.Cog):
             if channel is None:
                 await ctx.send(f"Channel with ID {GOKZCN_CHANNEL_ID} not found.")
                 return
-
-            # Try to fetch the last message in the channel
-            async for message in channel.history(limit=1):
-                last_message = message
 
             # Get the content from the gokzcn_rank() function
             embeds = gokzcn_rank()
@@ -35,17 +32,19 @@ class Leaderboards(commands.Cog):
 
             await send_ms.edit(embed=Embed(title="Done", description=f"Ranking send in {channel.name}", color=0x60FFFF))
 
-            # if not last_message:
-                # If there are no messages, send a new message
-                # await channel.send(embed=embed)
-                # await send_ms.edit(embed=Embed(title="Done", description=f"Ranking send in {channel.name}", color=0x60FFFF))
-            # else:
-            #     # If there is an existing message, edit it
-            #     await last_message.edit(content='', embeds=embeds)
-            #     await send_ms.edit(embed=Embed(title="Done", description=f"Ranking updated in {channel.name}", color=0x60FFFF))
-
         except Exception as e:
             await send_ms.edit(embed=Embed(title="Error", description=f"{e}", color=0x60FFFF))
+
+    @commands.hybrid_command()
+    async def update_playtime_rank(self, ctx):
+        channel = self.bot.get_channel(PLAYTIME_CHANNEL_ID)
+
+        ms = await ctx.send(embed=Embed(title="Loading ranking", description=f"this will take a while...", color=discord.Color.blue()))
+        rs_embeds = get_playtime_rank()
+
+        for embed in rs_embeds:
+            await channel.send(embed=embed)
+        await ms.edit(embed=Embed(title="Done", description=f"updated in {channel.name}", color=discord.Color.green()))
 
 
 async def setup(bot: commands):
