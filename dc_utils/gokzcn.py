@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import discord
 
 from discord import Embed
@@ -24,18 +26,19 @@ def gokzcn_rank(mode='kzt') -> list[Embed]:
             ranking.append(info)
 
     ranking = sorted(ranking, key=lambda x: x[2], reverse=True)
-
-    content = ''
+    chunk_size = 20
+    sublists = [ranking[i:i + chunk_size] for i in range(0, len(ranking), chunk_size)]
     count = 0
-    for player in ranking[:30]:
-        count += 1
-        content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: **{player[2]}** - cnRank: **{player[1]}**\n'
-    embeds.append(Embed(title="SERVER GOKZ.CN Ranking", description=content, colour=discord.Colour.blue()))
 
-    for player in ranking[30:60]:
-        count += 1
-        content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: **{player[2]}** - cnRank: **{player[1]}**\n'
-    embeds.append(Embed(description=content, colour=discord.Colour.blue()))
+    for sublist in sublists:
+        content = ''
+        for player in sublist:
+            count += 1
+            content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: **{player[2]}** - cnRank: **{player[1]}**\n'
+        embeds.append(Embed(description=content, colour=discord.Colour.blue()))
+
+    embeds[0].title = "SERVER GOKZ.CN RANKING"
+    embeds[-1].timestamp = datetime.now()
 
     return embeds
 
