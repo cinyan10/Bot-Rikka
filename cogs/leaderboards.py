@@ -1,11 +1,9 @@
-import asyncio
 import discord
+from discord import Embed, Message
 from discord.ext import commands
 from config import GOKZCN_CHANNEL_ID
 from dc_utils.gokzcn import gokzcn_rank
 from datetime import datetime
-
-from functions.embed_content import get_jstop
 
 
 class PaginationView(discord.ui.View):
@@ -24,10 +22,12 @@ class Leaderboards(commands.Cog):
     @commands.hybrid_command()
     async def update_gokzcn_rank(self, ctx):
         """update the gokzcn_rank in channel"""
+        channel = self.bot.get_channel(GOKZCN_CHANNEL_ID)
+
+        send_ms: Message = await ctx.send(embed=Embed(title="Loading...", description=f"this will take a while...", color=0x60FFFF))
         last_message = None
         try:
             # Get the channel by channel ID
-            channel = self.bot.get_channel(GOKZCN_CHANNEL_ID)
 
             # Check if the channel exists
             if channel is None:
@@ -44,55 +44,14 @@ class Leaderboards(commands.Cog):
             if not last_message:
                 # If there are no messages, send a new message
                 await channel.send(embed=content)
-                await ctx.send(f"New message sent to #{channel.name}.")
+                await send_ms.edit(embed=Embed(title="Done", description=f"Ranking send in {channel.name}", color=0x60FFFF))
             else:
                 # If there is an existing message, edit it
                 await last_message.edit(embed=content)
-                await last_message.edit(content=datetime.now())
-                await ctx.send(f"Message edited in #{channel.name}.")
+                await send_ms.edit(embed=Embed(title="Done", description=f"Ranking updated in {channel.name}", color=0x60FFFF))
 
         except Exception as e:
-            await ctx.send(f"An error occurred: {str(e)}")
-
-    @commands.hybrid_command()
-    async def test_page(self, ctx):
-        # Define the content for each page
-        pages = [
-            get_jstop(20, 'kzt'),
-            get_jstop(20, 'skz'),
-            get_jstop(20, 'kzt'),
-        ]
-
-        # Initialize the current page index
-        current_page = 0
-
-        # Send the initial page
-        message = await ctx.send(embed=pages[current_page])
-
-        # Define reaction buttons for navigation
-        navigation_buttons = ['⬅️', '➡️']
-
-        # Add reaction buttons to the message
-        for button in navigation_buttons:
-            await message.add_reaction(button)
-
-        def check(reaction, user):
-            return user == ctx.author and str(reaction.emoji) in navigation_buttons
-
-        while True:
-            try:
-                reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)
-
-                if str(reaction.emoji) == '➡️':
-                    current_page = (current_page + 1) % len(pages)
-                elif str(reaction.emoji) == '⬅️':
-                    current_page = (current_page - 1) % len(pages)
-
-                await message.edit(embed=pages[current_page])
-                await message.remove_reaction(reaction, user)
-
-            except asyncio.TimeoutError:
-                break
+            await send_ms.edit(embed=Embed(title="Error", description=f"{e}", color=0x60FFFF))
 
 
 async def setup(bot: commands):
