@@ -22,8 +22,8 @@ class Basic(commands.Cog):
         print(f'Logged in as {self.bot.user.name} (ID: {self.bot.user.id})')
         await self.commands_sync()
 
-        embed_description = "I'm successfully started!!"
-        embed = Embed(description=embed_description, colour=discord.Colour.green(), timestamp=datetime.now())
+        title = "I'm successfully started!!"
+        embed = Embed(title=title, colour=discord.Colour.green(), timestamp=datetime.now())
         await self.bot.get_channel(TEST_CHANNEL_ID).send(embed=embed)
 
     @commands.hybrid_command()
