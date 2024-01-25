@@ -2,7 +2,6 @@ import os
 
 import pytz
 from dotenv import load_dotenv
-
 import mysql.connector
 from datetime import datetime, timedelta, date
 import requests
