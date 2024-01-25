@@ -9,7 +9,7 @@ def find_player_by_name_partial_match(name):
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
 
-    query = f"SELECT auth FROM firstjoin WHERE name LIKE '%{name}%'"
+    query = f"SELECT auth FROM firstjoin.firstjoin WHERE name LIKE '%{name}%'"
     cursor.execute(query)
 
     results = cursor.fetchall()

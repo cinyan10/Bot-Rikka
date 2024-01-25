@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 WEBHOOK_URL = os.getenv('WEBHOOK_URL')
+TRENDING_WEBHOOK_URL = os.getenv('TRENDING_WEBHOOK_URL')
+
 
 # DATABASE
 DB_HOST = os.getenv('DB_HOST')
