@@ -65,7 +65,7 @@ def bind_user_steam(discord_id, steam_id, ctx):
         return
 
     steamid32 = convert_steamid(steam_id, 'steamid32')
-    steamid64 = convert_steamid(steam_id, 'steamid')
+    steamid64 = convert_steamid(steam_id, 'steamid64')
     steamid_formatted = convert_steamid(steam_id, 'steamid')
 
     steamid64 = int(steamid64)  # Convert 'steamid64_string' to an integer
