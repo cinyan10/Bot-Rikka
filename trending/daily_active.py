@@ -180,17 +180,17 @@ def send_discord_webhook(player_counts, total_count, differs) -> None:
         "fields": [
             {
                 "name": "Active Player",
-                "value": f"**{player_counts['day_players']}** ({differs[0]})",
+                "value": f"**{player_counts['day_players']}** ({'+' if differs[0] > 0 else ''}{differs[0]})",
                 "inline": True
             },
             {
                 "name": "WL Player",
-                "value": f"**{player_counts['whitelisted']}** ({differs[1]})",
+                "value": f"**{player_counts['whitelisted']}** ({'+' if differs[1] > 0 else ''}{differs[1]})",
                 "inline": True
             },
             {
                 "name": "Total Player",
-                "value": f"**{total_count['total_players']}** ({differs[2]})",
+                "value": f"**{total_count['total_players']}** ({'+' if differs[2] > 0 else ''}{differs[2]})",
                 "inline": True
             },
         ]
