@@ -28,15 +28,15 @@ class Leaderboards(commands.Cog):
                 last_message = message
 
             # Get the content from the gokzcn_rank() function
-            content = gokzcn_rank()
+            embeds = gokzcn_rank()
 
             if not last_message:
                 # If there are no messages, send a new message
-                await channel.send(embed=content)
+                await channel.send(embeds=embeds)
                 await send_ms.edit(embed=Embed(title="Done", description=f"Ranking send in {channel.name}", color=0x60FFFF))
             else:
                 # If there is an existing message, edit it
-                await last_message.edit(content='', embed=content)
+                await last_message.edit(content='', embed=embeds)
                 await send_ms.edit(embed=Embed(title="Done", description=f"Ranking updated in {channel.name}", color=0x60FFFF))
 
         except Exception as e:

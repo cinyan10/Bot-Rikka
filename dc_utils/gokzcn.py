@@ -1,4 +1,3 @@
-from datetime import datetime
 import discord
 
 from discord import Embed
@@ -9,7 +8,8 @@ from functions.gokzcn import fetch_playerdata
 # [[steamid, name, skill, cnRank]]
 
 
-def gokzcn_rank(mode='kzt') -> Embed:
+def gokzcn_rank(mode='kzt') -> list[Embed]:
+    embeds = []
     players: list = get_whitelisted_players()
     ranking = []
 
@@ -30,10 +30,14 @@ def gokzcn_rank(mode='kzt') -> Embed:
     for player in ranking[:30]:
         count += 1
         content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: **{player[2]}** - cnRank: **{player[1]}**\n'
+    embeds.append(Embed(title="SERVER GOKZ.CN Ranking", description=content, colour=discord.Colour.blue()))
 
-    rank_embed = Embed(title="SERVER GOKZ.CN Ranking", description=content, colour=discord.Colour.blue(), timestamp=datetime.now())
+    for player in ranking[30:60]:
+        count += 1
+        content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: **{player[2]}** - cnRank: **{player[1]}**\n'
+    embeds.append(Embed(description=content, colour=discord.Colour.blue()))
 
-    return rank_embed
+    return embeds
 
 
 if __name__ == '__main__':
