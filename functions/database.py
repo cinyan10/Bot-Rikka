@@ -171,11 +171,10 @@ def get_total_playtime(steamid32):
     total_hours = total_runtime.days * 24 + total_runtime.seconds // 3600
     total_minutes = (total_runtime.seconds // 60) % 60
     total_seconds = total_runtime.seconds % 60
-    playtime_str = f"{total_hours} hours, {total_minutes} minutes, {total_seconds} seconds"
 
-    return playtime_str
+    return total_hours, total_minutes, total_seconds
 
 
 if __name__ == "__main__":
-    rs = query_jumpstats_top(20)
-    print(rs)
+    rs = get_total_playtime(STEAMID32)
+    print(rs[0], rs[1], rs[2])

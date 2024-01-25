@@ -23,7 +23,7 @@ def get_playtime_rank() -> list[Embed]:
         url = get_steam_profile_url(steamid64)
         datas.append([name, steamid64, playtime, url])
 
-    datas = sorted(datas, key=lambda x: x[2], reverse=True)
+    datas = sorted(datas, key=lambda x: x[2][0] * 3600 + x[2][1] * 60 + x[2][2], reverse=True)
     chunk_size = 20
     sublists = [datas[i:i + chunk_size] for i in range(0, len(datas), chunk_size)]
     count = 0
@@ -32,7 +32,7 @@ def get_playtime_rank() -> list[Embed]:
         content = ''
         for player in sublist:
             count += 1
-            content += f'[**{count}. {player[0]}**]({player[3]}) - Play Time: **{player[2]}**\n'
+            content += f'[**{count}. {player[0]}**]({player[3]}) - Play Time: **{player[2][0]}h, {player[2][1]}m, {player[2][2]}s**\n'
         embeds.append(Embed(description=content, colour=discord.Colour.blue()))
 
     return embeds

@@ -29,7 +29,7 @@ def user_info(discord_id=None, steamid=None) -> discord.Embed:
         f"**steamID64**: `{steamid64}`\n"
         f"**First Join**: {joindate}\n"
         f"**Last Seen**: {lastseen}\n"
-        f"**Playtime**: {total_playtime}\n"
+        f"**Playtime**: {total_playtime[0]}h, {total_playtime[1]}m, {total_playtime[2]}s,\n"
     )
 
     embed = Embed(
