@@ -62,7 +62,7 @@ class Info(commands.Cog):
     @commands.hybrid_command(name="setting")
     async def setting(self, ctx, language=None, kz_mode=None):
         """
-        Get your lj pb or other's lj pb
+        settings
         """
         if language:
             await set_language(ctx, language)

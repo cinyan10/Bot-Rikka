@@ -153,9 +153,9 @@ def differ_yesterday(players_count, total_players):
             total_whitelisted = yesterday_data[2]
 
             # Calculate the differences
-            day_players_difference = day_players - players_count['day_players']
-            day_whitelisted_difference = day_whitelisted - players_count['whitelisted']
-            total_difference = total_whitelisted - total_players['total_players']
+            day_players_difference = players_count['day_players'] - day_players
+            day_whitelisted_difference = players_count['whitelisted'] - day_whitelisted
+            total_difference = total_players['total_players'] - total_whitelisted
 
             return [day_players_difference, day_whitelisted_difference, total_difference]
 

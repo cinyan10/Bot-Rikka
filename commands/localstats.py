@@ -33,6 +33,24 @@ class LocalStats(commands.Cog):
         rs = embed_jspb(kz_mode, steamid)
         await ctx.send(embed=rs)
 
+    def get_discord_id(mention):
+        try:
+            # Extract the user ID from the mention
+            user_id = int(mention[3:-1])  # Extract the user ID from the mention string
+            return user_id
+        except (ValueError, IndexError):
+            # Handle exceptions if the mention format is invalid
+            return None
+
+    # Example usage
+    mention = "@he/him"
+    discord_id = get_discord_id(mention)
+
+    if discord_id is not None:
+        print(f"User ID: {discord_id}")
+    else:
+        print("Invalid mention format.")
+
 
 async def setup(bot):
     await bot.add_cog(LocalStats(bot))

@@ -13,9 +13,63 @@ bot-rikka is a discord bot provide various features. Most of the codes from chat
 - query server info and send to your channel
 - query local gokz database, get LJ top etc. 
 
-<img src="assets/image-20240125194434326.png" alt="image-20240125194434326" style="zoom:50%;" />
+## To Do List
 
-<img src="assets/image-20240125194501906.png" alt="image-20240125194501906" style="zoom:50%;" />
+- [x] info
+
+  - [x] embedded
+
+  -  [x] show steam profile picture
+
+  -  [x] find player
+
+  -  [x] jspb
+
+- [ ] **kz global stats**
+
+- [x] leaderboard 
+  - [x] jstop
+  - [ ] server records holder 
+  - [ ] fun stats 
+  - [x] playtime rank
+  - [x] gokz.cn rank
+
+- [ ] compare ljpb
+
+- [ ] Server Role
+
+  > rank by skill points
+
+- [ ] twitch stream
+
+- [x] server status (cpu, memory, disk, net)
+  -  [ ] alert when memory usage too high
+
+- [ ] memes generator
+- [ ] whitelist
+  - [ ] answer button
+- [ ] **Server Trending**
+  - [x] daily active player, monthly active player
+ - [ ] **Server Charts**
+ - [ ] player location map
+ - [ ] !help with both EN | CN text
+ - [ ] ban player in server
+ - [ ] refactor some functions with class
+
+```python
+class Steam
+class KzStats
+```
+-  [x] bilibili
+  -  [x] bind bilibili
+  -  [ ] stream bool
+  -  [ ] video bool
+-  [ ] give role when user playing in server
+-  [ ] Mini Games
+   -  [ ] simulate long jump
+      -  [ ] random with local database stats
+      -  [ ] compare with others  (mini games)
+   -  [ ] Rock, Paper, Scissors
 
 ## How to Use
 
