@@ -127,7 +127,8 @@ def get_server_list() -> dict:
 
 def embeds_server_status() -> list[Embed]:
     embeds = []
-    servers = get_server_list()['result']
+    data = get_server_list()
+    servers = data['result']
     for server in servers:
         status = ServerStatus(server['id'])
         embed_data = status.embed()
