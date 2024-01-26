@@ -42,7 +42,7 @@ class LoopUpdates(commands.Cog):
         await loop_task_3
         await loop_task_4
 
-    @commands.has_permissions()
+    @commands.hybrid_command()
     async def server_status(self, ctx):
         channel = self.bot.get_channel(STATUS_CHANNEL_ID)
         embeds = embeds_server_status()
