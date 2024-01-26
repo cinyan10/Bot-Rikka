@@ -40,7 +40,7 @@ def query_server_embed(server: Server) -> Embed:
 
             embed.set_author(name=f"{info['server_name']}    {info['player_count']}/{info['max_players']}")
             embed.url = f'http://redirect.axekz.com/{server.id}'
-            embed.set_image(url=f"https://raw.githubusercontent.com/KZGlobalTeam/map-images/master/images/{info['map']}.jpg")
+            embed.set_thumbnail(url=f"https://raw.githubusercontent.com/KZGlobalTeam/map-images/master/images/{info['map']}.jpg")
 
             return embed
     except Exception as e:

@@ -179,10 +179,50 @@ def is_user_in_steam_group(steamid64):
     return False
 
 
+def get_steam_avatar_small(steamid64):
+    base_url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
+    params = {
+        "key": STEAM_API_KEY,
+        "steamids": steamid64
+    }
+
+    try:
+        response = requests.get(base_url, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        players = data.get("response", {}).get("players", [])
+        if players:
+            return players[0].get("avatar")
+        else:
+            return None
+    except requests.RequestException as e:
+        print(f"Error fetching Steam avatar: {e}")
+        return None
+
+
+def get_steam_avatar_medium(steamid64):
+    base_url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
+    params = {
+        "key": STEAM_API_KEY,
+        "steamids": steamid64
+    }
+
+    try:
+        response = requests.get(base_url, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        players = data.get("response", {}).get("players", [])
+        if players:
+            return players[0].get("avatarmedium")  # Accessing the medium avatar
+        else:
+            return None
+    except requests.RequestException as e:
+        print(f"Error fetching Steam avatar: {e}")
+        return None
+
+
 if __name__ == '__main__':
-    group_url = "https://steamcommunity.com/groups/axekz/memberslistxml/?xml=1"
-    steamid64 = '76561199022242128'  # Replace with an actual SteamID64
-    if is_user_in_steam_group(steamid64):
-        print("User is in the group.")
-    else:
-        print("User is not in the group.")
+    avatar_url = get_steam_avatar_medium(STEAMID64)
+    print(avatar_url)
