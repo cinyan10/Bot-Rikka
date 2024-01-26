@@ -44,9 +44,15 @@ def seconds_to_hms(seconds):
 
 
 def percentage_bar(percentage, bar_length=20, fill_char="■", empty_char="-"):
-    progress = int(bar_length * percentage)
+    progress = int(bar_length * percentage / 100)
     bar = "[" + fill_char * progress + empty_char * (bar_length - progress) + "]"
     return f"{bar} {percentage:.2f}%"
+
+
+def float_bar(float_num, bar_length=20, fill_char="■", empty_char="-"):
+    progress = int(bar_length * float_num)
+    bar = "[" + fill_char * progress + empty_char * (bar_length - progress) + "]"
+    return f"{bar} {float_num:.2f}"
 
 
 if __name__ == "__main__":

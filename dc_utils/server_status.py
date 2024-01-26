@@ -4,7 +4,7 @@ import requests
 from discord import Embed
 
 from config import NEZHA_TOKEN
-from functions.misc import percentage_bar
+from functions.misc import percentage_bar, float_bar
 
 
 def bytes_to_gb(bytes_value):
@@ -58,23 +58,27 @@ class ServerStatus:
 
     def embed(self) -> Embed:
         embed = Embed(title=f'{self.name} Status', timestamp=datetime.now())
+
         cpu_bar = percentage_bar(self.status_cpu)
+
         mem_percentage = self.status_mem_used / self.host_mem_total
-        memory_bar = percentage_bar(mem_percentage)
-        disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total)
+        memory_bar = float_bar(mem_percentage)
+
+        disk_bar = float_bar(self.status_disk_used / self.host_disk_total)
+
         embed.description = f"""
-        {self.host_country_code} | {self.host_platform} {self.host_platform_version}
-        **CPU**:
+        :flag_{self.host_country_code}: | {self.host_platform} {self.host_platform_version}
+        **CPU**: {self.host_cpu}
         {cpu_bar}
-        **MEM**:  {self.status_mem_used}  / {self.host_mem_total} GB
+        **MEM**:  {self.status_mem_used:.2f}  / {self.host_mem_total:.2f} GB
         {memory_bar}
-        **DISK**: {self.status_disk_used} / {self.host_disk_total} GB
+        **DISK**: {self.status_disk_used:.2f} / {self.host_disk_total:.2f} GB
         {disk_bar}
-        **NETWORK**:  IN: `{self.status_net_in_speed}`  OUT:`{self.status_net_out_speed}`
+        **NETWORK**:  IN: `{self.status_net_in_speed:.2f} Kbps`  OUT:`{self.status_net_out_speed:.2f} Kbps`
         """
-        if mem_percentage > 90:
+        if mem_percentage > 0.9:
             embed.colour = discord.Colour.red()
-        elif mem_percentage > 60:
+        elif mem_percentage > 0.6:
             embed.colour = discord.Colour.yellow()
         else:
             embed.colour = discord.Colour.green()
