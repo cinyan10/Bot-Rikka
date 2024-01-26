@@ -11,6 +11,7 @@ class Leaderboards(commands.Cog):
         self.bot = bot
 
     @commands.hybrid_command()
+    @commands.has_permissions(administrator=True)
     async def update_gokzcn_rank(self, ctx):
         """update the gokzcn_rank in channel"""
         channel = self.bot.get_channel(GOKZCN_CHANNEL_ID)
@@ -38,6 +39,7 @@ class Leaderboards(commands.Cog):
             await send_ms.edit(embed=Embed(title="Error", description=f"{e}", color=0x60FFFF))
 
     @commands.hybrid_command()
+    @commands.has_permissions(administrator=True)
     async def update_playtime_rank(self, ctx):
         channel = self.bot.get_channel(PLAYTIME_CHANNEL_ID)
 
