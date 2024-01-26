@@ -70,12 +70,12 @@ class ServerStatus:
         :flag_{self.host_country_code}: | {self.host_platform} {self.host_platform_version}
         **CPU**: {self.host_cpu}
         {cpu_bar}
-        **MEM**:  {self.status_mem_used:.2f}  / {self.host_mem_total:.2f} GB
+        **MEM**:  `{self.status_mem_used:.2f}`  / `{self.host_mem_total:.2f}` GB
         {memory_bar}
-        **DISK**: {self.status_disk_used:.2f} / {self.host_disk_total:.2f} GB
+        **DISK**: `{self.status_disk_used:.2f}` / `{self.host_disk_total:.2f}` GB
         {disk_bar}
         **NET**:  IN: `{self.status_net_in_speed:.2f} Kbps`  OUT:`{self.status_net_out_speed:.2f} Kbps`
-        **IP**: {self.ipv4}
+        **IP**: `{self.ipv4}`
         """
         if mem_percentage > 0.9:
             embed.colour = discord.Colour.red()

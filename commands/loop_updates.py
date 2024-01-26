@@ -30,13 +30,6 @@ class LoopUpdates(commands.Cog):
         loop_tasks = [self.setup_loop(channel_id, title, func) for channel_id, title, func in self.channels_info]
         await asyncio.gather(*loop_tasks)
 
-    @commands.hybrid_command()
-    async def server_status(self, ctx):
-        channel = self.bot.get_channel(STATUS_CHANNEL_ID)
-        embeds = embeds_server_status()
-        await channel.send(embeds=embeds)
-        await ctx.send(embed=Embed(title='Server Status Send'))
-
 
 async def setup(bot):
     await bot.add_cog(LoopUpdates(bot))
