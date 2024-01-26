@@ -5,6 +5,7 @@ import discord
 from discord import Embed
 from discord.ext import commands
 from config import *
+from dc_utils.server_status import get_server_status, embeds_server_status
 from dc_utils.serverinfo import server_list_embed_loop, gz_server_embeds_loop, bj_server_embeds_loop, jstop_embeds_loop
 from functions.misc import get_or_create_message
 from functions.servers import SERVER_LIST
@@ -40,6 +41,13 @@ class LoopUpdates(commands.Cog):
         await loop_task_2
         await loop_task_3
         await loop_task_4
+
+    @commands.has_permissions()
+    async def server_status(self, ctx):
+        channel = self.bot.get_channel(STATUS_CHANNEL_ID)
+        embeds = embeds_server_status()
+        await channel.send(embed=embeds)
+        await ctx.send(embed=Embed(title='Server Status Send'))
 
 
 async def setup(bot):

@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 from dc_utils.jumpstats import *
 from functions.database import discord_id_to_steamid
