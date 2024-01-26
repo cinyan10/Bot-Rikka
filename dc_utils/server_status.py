@@ -127,11 +127,7 @@ def get_server_list() -> dict:
 def embeds_server_status():
     servers = get_server_list()['result']
     embeds = [ServerStatus(s['id']).embed() for s in servers]
-
-    # Convert each embed to its dictionary representation
-    embed_dicts = [embed.to_dict() for embed in embeds]
-
-    return embed_dicts  # Return a list of embed dictionaries
+    return embeds
 
 
 if __name__ == '__main__':

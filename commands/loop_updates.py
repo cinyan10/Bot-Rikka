@@ -43,7 +43,7 @@ class LoopUpdates(commands.Cog):
     async def server_status(self, ctx):
         channel = self.bot.get_channel(STATUS_CHANNEL_ID)
         embeds = embeds_server_status()
-        await channel.send(embed=embeds)
+        await channel.send(embeds=embeds)
         await ctx.send(embed=Embed(title='Server Status Send'))
 
 
