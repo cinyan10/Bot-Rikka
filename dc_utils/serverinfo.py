@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 
 import discord
 
+from dc_utils.server_status import embeds_server_status
 from functions.embed_content import get_jstop
 from functions.query import query_all_servers, query_server_embed
 
@@ -49,5 +50,12 @@ async def jstop_embeds_loop(message: discord.Message):
         embeds.append(embed1)
         embeds.append(embed2)
         embeds.append(embed3)
+        await message.edit(embeds=embeds)
+        await asyncio.sleep(60)
+
+
+async def server_status_loop(message: discord.Message):
+    while True:
+        embeds = embeds_server_status()
         await message.edit(embeds=embeds)
         await asyncio.sleep(60)
