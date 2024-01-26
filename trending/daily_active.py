@@ -110,7 +110,8 @@ def insert_player_counts_to_table(day_players, total_players):
     cursor = conn.cursor()
     try:
         # Calculate the date for today
-        current_date = datetime.now().strftime('%Y-%m-%d')
+        yesterday = datetime.now() - timedelta(days=1)
+        current_date = yesterday.strftime('%Y-%m-%d')
 
         # Insert the player counts into the 'online_day' table
         # `date`	day_players	day_whitelisted	day_un_whitelisted	total_players	total_whitelisted	total_un_whitelisted
@@ -134,7 +135,7 @@ def differ_yesterday(players_count, total_players):
     cursor = conn.cursor()
     try:
         # Calculate the date for yesterday
-        yesterday = datetime.now() - timedelta(days=1)
+        yesterday = datetime.now() - timedelta(days=2)
         yesterday_date = yesterday.strftime('%Y-%m-%d')
 
         # Query to get yesterday's data
@@ -173,8 +174,9 @@ def differ_yesterday(players_count, total_players):
 
 def send_discord_webhook(player_counts, total_count, differs) -> None:
     # Define the embed message payload
+    yesterday = date.today() - timedelta(days=1)
     embed_payload = {
-        "title": f"{date.today()} Player Count",
+        "title": f"{yesterday} Player Count",
         "color": 0x60FFFF,  # Green color
         "timestamp": str(datetime.now(pytz.timezone("UTC"))),
         "fields": [
@@ -218,4 +220,5 @@ if __name__ == "__main__":
     total_count = total_players_count()
     insert_player_counts_to_table(players_count, total_count)
     differs = differ_yesterday(players_count, total_count)
+    print(differs)
     send_discord_webhook(players_count, total_count, differs)
