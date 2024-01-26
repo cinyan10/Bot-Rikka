@@ -59,12 +59,12 @@ class ServerStatus:
     def embed(self) -> Embed:
         embed = Embed(title=f'{self.name} Status', timestamp=datetime.now())
 
-        cpu_bar = percentage_bar(self.status_cpu / 100, 20, '≡', '-')
+        cpu_bar = percentage_bar(self.status_cpu / 100)
 
         mem_percentage = self.status_mem_used / self.host_mem_total
-        memory_bar = percentage_bar(mem_percentage, 20, '≡', '-')
+        memory_bar = percentage_bar(mem_percentage)
 
-        disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total, 20, '≡', '-')
+        disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total)
 
         embed.description = f"""
         :flag_{self.host_country_code}: | {self.host_platform} {self.host_platform_version}
@@ -74,7 +74,7 @@ class ServerStatus:
         {memory_bar}
         **DISK**: {self.status_disk_used:.2f} / {self.host_disk_total:.2f} GB
         {disk_bar}
-        **NETWORK**:  IN: `{self.status_net_in_speed:.2f} Kbps`  OUT:`{self.status_net_out_speed:.2f} Kbps`
+        **NET**:  IN: `{self.status_net_in_speed:.2f} Kbps`  OUT:`{self.status_net_out_speed:.2f} Kbps`
         **IP**: {self.ipv4}
         """
         if mem_percentage > 0.9:
