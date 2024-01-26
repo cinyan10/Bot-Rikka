@@ -1,5 +1,4 @@
 from datetime import datetime
-
 import discord
 import requests
 from discord import Embed
@@ -125,14 +124,18 @@ def get_server_list() -> dict:
         return {}
 
 
-def embeds_server_status() -> list[Embed]:
+def embeds_server_status():
     embeds = []
     servers = get_server_list()['result']
     for server in servers:
         status = ServerStatus(server['id'])
         embed_data = status.embed()
         embeds.append(embed_data)
-    return embeds
+
+    # Assuming you have a list of embeds called 'embeds'
+    embed_dicts = [embed.to_dict() for embed in embeds]
+
+    return embed_dicts
 
 
 if __name__ == '__main__':
