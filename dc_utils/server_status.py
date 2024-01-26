@@ -7,6 +7,11 @@ from config import NEZHA_TOKEN
 from functions.misc import percentage_bar
 
 
+def bytes_to_gb(bytes_value):
+    gigabytes = bytes_value / (1024 ** 3)  # 1 GB = 1024^3 bytes
+    return gigabytes
+
+
 class ServerStatus:
     def __init__(self, server_id):
         data = get_server_status(server_id)['result'][0]
@@ -22,8 +27,8 @@ class ServerStatus:
         self.host_platform = host_info['Platform']
         self.host_platform_version = host_info['PlatformVersion']
         self.host_cpu = host_info['CPU'][0]
-        self.host_mem_total = host_info['MemTotal']
-        self.host_disk_total = host_info['DiskTotal']
+        self.host_mem_total = bytes_to_gb(host_info['MemTotal'])
+        self.host_disk_total = bytes_to_gb(host_info['DiskTotal'])
         self.host_swap_total = host_info['SwapTotal']
         self.host_arch = host_info['Arch']
         self.host_virtualization = host_info['Virtualization']
@@ -33,13 +38,13 @@ class ServerStatus:
 
         status_info = data['status']
         self.status_cpu = status_info['CPU']
-        self.status_mem_used = status_info['MemUsed']
+        self.status_mem_used = bytes_to_gb(status_info['MemUsed'])
         self.status_swap_used = status_info['SwapUsed']
-        self.status_disk_used = status_info['DiskUsed']
+        self.status_disk_used = bytes_to_gb(status_info['DiskUsed'])
         self.status_net_in_transfer = status_info['NetInTransfer']
         self.status_net_out_transfer = status_info['NetOutTransfer']
-        self.status_net_in_speed = status_info['NetInSpeed']
-        self.status_net_out_speed = status_info['NetOutSpeed']
+        self.status_net_in_speed = status_info['NetInSpeed'] / 100.0
+        self.status_net_out_speed = status_info['NetOutSpeed'] / 100.0
         self.status_uptime = status_info['Uptime']
         self.status_load1 = status_info['Load1']
         self.status_load5 = status_info['Load5']
@@ -59,13 +64,13 @@ class ServerStatus:
         disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total)
         embed.description = f"""
         {self.host_country_code} | {self.host_platform} {self.host_platform_version}
-        CPU:
+        **CPU**:
         {cpu_bar}
-        MEM:  {self.status_mem_used} / {self.host_mem_total}
+        **MEM**:  {self.status_mem_used}  / {self.host_mem_total} GB
         {memory_bar}
-        DISK: {self.status_disk_used} / {self.host_disk_total} 
+        **DISK**: {self.status_disk_used} / {self.host_disk_total} GB
         {disk_bar}
-        NETWORK:  IN: {self.status_net_in_speed}  OUT:{self.status_net_out_speed} 
+        **NETWORK**:  IN: `{self.status_net_in_speed}`  OUT:`{self.status_net_out_speed}`
         """
         if mem_percentage > 90:
             embed.colour = discord.Colour.red()
