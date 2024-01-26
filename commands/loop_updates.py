@@ -1,11 +1,8 @@
 import asyncio
-from datetime import datetime
-
-import discord
 from discord import Embed
 from discord.ext import commands
 from config import *
-from dc_utils.server_status import get_server_status, embeds_server_status
+from dc_utils.server_status import embeds_server_status
 from dc_utils.serverinfo import server_list_embed_loop, gz_server_embeds_loop, bj_server_embeds_loop, jstop_embeds_loop
 from functions.misc import get_or_create_message
 from functions.servers import SERVER_LIST
