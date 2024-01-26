@@ -136,7 +136,8 @@ def get_server_list() -> dict:
 
 def embeds_server_status():
     servers: dict = get_server_list()['result']
-    ids = [s['id'] for s in servers]
+    ids: list = [s['id'] for s in servers]
+    ids = sorted(ids)
     embeds = [ServerStatus(id).embed() for id in ids]  # NOQA
     return embeds
 
