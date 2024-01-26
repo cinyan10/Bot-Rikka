@@ -22,7 +22,7 @@ def user_info(discord_id=None, steamid=None) -> discord.Embed:
     profile_url = get_steam_profile_url(steamid64)
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
     country = get_country_code(get_country_from_steamid32(steamid32)).lower()
-    playtime = get_playtime(steamid64)
+    playtime = get_playtime(steamid)
     hours, minutes, seconds = seconds_to_hms(playtime)
 
     content = (
