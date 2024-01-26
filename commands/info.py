@@ -1,5 +1,8 @@
+import discord
+from discord import Embed
 from discord.ext import commands
 from dc_utils.firstjoin import find_player
+from dc_utils.info import set_bili
 from dc_utils.setting import set_language, set_kz_mode
 from functions.database import reset_user_steam, bind_user_steam, discord_id_to_steamid
 from functions.embed_content import user_info
@@ -7,7 +10,7 @@ from functions.gokzcn import get_gokzcn_info
 from pymysql.err import IntegrityError
 
 
-class KzInfo(commands.Cog):
+class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -66,6 +69,13 @@ class KzInfo(commands.Cog):
         if kz_mode:
             await set_kz_mode(ctx, kz_mode)
 
+    @commands.hybrid_command()
+    async def bind_bili(self, ctx, bili_uid):
+        """Set your Bilibili UID"""
+        discord_id = ctx.author.id
+        rs = set_bili(ctx, discord_id, bili_uid)
+        await ctx.send(embed=Embed(title="bind_bili", description=rs, colour=discord.Colour.green()))
+
 
 async def setup(bot):
-    await bot.add_cog(KzInfo(bot))
+    await bot.add_cog(Info(bot))
