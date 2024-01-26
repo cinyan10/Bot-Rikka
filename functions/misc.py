@@ -27,10 +27,6 @@ def format_string_to_datetime(date_string):
     return datetime_obj
 
 
-if __name__ == "__main__":
-    pass
-
-
 async def get_or_create_message(channel, title, description):
     async for message in channel.history(limit=1):
         # If there's an existing message, use that message
@@ -39,3 +35,13 @@ async def get_or_create_message(channel, title, description):
     # If no existing message, send a new one
     embed = discord.Embed(title=title, description=description)
     return await channel.send(embed=embed)
+
+
+def seconds_to_hms(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return hours, minutes, seconds
+
+
+if __name__ == "__main__":
+    pass

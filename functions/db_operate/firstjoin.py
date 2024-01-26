@@ -118,6 +118,30 @@ def get_whitelisted_players() -> list:
             print("Database connection closed")
 
 
+def get_playtime(steamid) -> int:
+    """return [timeCT,timeTT,timeSPE,total]"""
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    try:
+        # Define the SQL query to retrieve the values
+        query = """SELECT total FROM firstjoin.mostactive WHERE steamid = %s"""
+        cursor.execute(query, (steamid,))
+        # Fetch the result (assuming only one row)
+        result = cursor.fetchone()
+        if result:
+            return result[0]
+        else:
+            return 0
+
+    except mysql.connector.Error as err:
+        print("Error:", err)
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
 if __name__ == "__main__":
-    players = get_whitelisted_players()
-    print(players)
+    rs = get_playtime(STEAMID)
+    print(rs)
+    pass

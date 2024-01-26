@@ -1,8 +1,9 @@
 import discord
 from discord import Embed
 from functions.database import *
+from functions.db_operate.firstjoin import get_playtime
 from functions.kreedz import *
-from functions.misc import format_string_to_datetime, get_country_code
+from functions.misc import format_string_to_datetime, get_country_code, seconds_to_hms
 
 
 def user_info(discord_id=None, steamid=None) -> discord.Embed:
@@ -21,7 +22,8 @@ def user_info(discord_id=None, steamid=None) -> discord.Embed:
     profile_url = get_steam_profile_url(steamid64)
     kzgoeu_url = get_kzgoeu_profile_url(steamid)
     country = get_country_code(get_country_from_steamid32(steamid32)).lower()
-    total_playtime = get_playtime(steamid32)
+    playtime = get_playtime(steamid64)
+    hours, minutes, seconds = seconds_to_hms(playtime)
 
     content = (
         f":flag_{country}: **{name}**\n"
@@ -29,7 +31,7 @@ def user_info(discord_id=None, steamid=None) -> discord.Embed:
         f"**steamID64**: `{steamid64}`\n"
         f"**First Join**: {joindate}\n"
         f"**Last Seen**: {lastseen}\n"
-        f"**Playtime**: {total_playtime[0]}h, {total_playtime[1]}m, {total_playtime[2]}s,\n"
+        f"**Playtime**: {hours}h, {minutes}m, {seconds}s,\n"
     )
 
     embed = Embed(
