@@ -59,12 +59,12 @@ class ServerStatus:
     def embed(self) -> Embed:
         embed = Embed(title=f'{self.name} Status', timestamp=datetime.now())
 
-        cpu_bar = percentage_bar(self.status_cpu / 100, 20, '■', '－')
+        cpu_bar = percentage_bar(self.status_cpu / 100, 20, '■', '□')
 
         mem_percentage = self.status_mem_used / self.host_mem_total
-        memory_bar = percentage_bar(mem_percentage, 20, '■', '－')
+        memory_bar = percentage_bar(mem_percentage, 20, '■', '-')
 
-        disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total, 20, '■', '－')
+        disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total, 20, '■', '—')
 
         embed.description = f"""
         :flag_{self.host_country_code}: | {self.host_platform} {self.host_platform_version}
@@ -135,8 +135,7 @@ def get_server_list() -> dict:
 
 
 def embeds_server_status():
-    servers = get_server_list()['result']
-    embeds = [ServerStatus(s['id']).embed() for s in servers]
+    embeds = [ServerStatus(i).embed() for i in range(4)]
     return embeds
 
 
