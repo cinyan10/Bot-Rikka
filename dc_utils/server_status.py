@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import discord
 import requests
 from discord import Embed
 
@@ -68,11 +69,11 @@ class ServerStatus:
         NETWORK:  IN: {self.status_net_in_speed}  OUT:{self.status_net_out_speed} 
         """
         if mem_percentage > 90:
-            embed.colour.red()
+            embed.colour = discord.Colour.red()
         elif mem_percentage > 60:
-            embed.colour.yellow()
+            embed.colour = discord.Colour.yellow()
         else:
-            embed.colour.green()
+            embed.colour = discord.Colour.green()
         return embed
 
 
@@ -91,7 +92,6 @@ def get_server_status(server_id) -> dict:
         if response.status_code == 200:
             # Parse and process the response content
             data = response.json()
-            print(type(data))
             return data
         else:
             print(f"Request failed with status code: {response.status_code}")
@@ -116,7 +116,6 @@ def get_server_list() -> dict:
         if response.status_code == 200:
             # Parse and process the response content
             data = response.json()
-            print(type(data))
             return data
         else:
             print(f"Request failed with status code: {response.status_code}")
@@ -136,21 +135,6 @@ def embeds_server_status() -> list[Embed]:
     return embeds
 
 
-def format_network_speed(speed_in_bps):
-    if speed_in_bps >= 1e9:
-        return f'{speed_in_bps / 1e9:.2f} Gbps'
-    elif speed_in_bps >= 1e6:
-        return f'{speed_in_bps / 1e6:.2f} Mbps'
-    elif speed_in_bps >= 1e3:
-        return f'{speed_in_bps / 1e3:.2f} Kbps'
-    else:
-        return f'{speed_in_bps:.2f} bps'
-
-
 if __name__ == '__main__':
-    server_status = ServerStatus(1)
-    print(server_status)
-    print(f'{server_status.status_net_in_speed / 100:.2f} Kbps')
-    cpu_bar = percentage_bar(server_status.status_cpu)
-    print(cpu_bar)
+    print(embeds_server_status())
     pass
