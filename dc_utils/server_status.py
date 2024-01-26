@@ -125,17 +125,9 @@ def get_server_list() -> dict:
 
 
 def embeds_server_status():
-    embeds = []
     servers = get_server_list()['result']
-    for server in servers:
-        status = ServerStatus(server['id'])
-        embed_data = status.embed()
-        embeds.append(embed_data)
-
-    # Assuming you have a list of embeds called 'embeds'
-    embed_dicts = [embed.to_dict() for embed in embeds]
-
-    return embed_dicts
+    embeds = [ServerStatus(s['id']).embed() for s in servers]
+    return embeds
 
 
 if __name__ == '__main__':
