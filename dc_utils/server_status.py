@@ -4,7 +4,7 @@ import requests
 from discord import Embed
 
 from config import NEZHA_TOKEN
-from functions.misc import percentage_bar
+from functions.misc import percentage_bar, seconds_to_dhms
 
 
 def bytes_to_gb(bytes_value):
@@ -59,12 +59,14 @@ class ServerStatus:
     def embed(self) -> Embed:
         embed = Embed(title=f'{self.name} Status', timestamp=datetime.now())
 
-        cpu_bar = percentage_bar(self.status_cpu / 100)
+        cpu_bar = percentage_bar(self.status_cpu / 100, fill_char='=')
 
         mem_percentage = self.status_mem_used / self.host_mem_total
-        memory_bar = percentage_bar(mem_percentage)
+        memory_bar = percentage_bar(mem_percentage, fill_char='=')
 
-        disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total)
+        disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total, fill_char='=')
+
+        days, hours, minutes, seconds = seconds_to_dhms(self.status_uptime)
 
         embed.description = f"""
         :flag_{self.host_country_code}: | {self.host_platform} {self.host_platform_version}
@@ -76,6 +78,7 @@ class ServerStatus:
         {disk_bar}
         **NET**:  IN: `{self.status_net_in_speed:.2f} Kbps`  OUT:`{self.status_net_out_speed:.2f} Kbps`
         **IP**: `{self.ipv4}`
+        **Online**  `{days}` Days `{hours}`h `{minutes}`m `{seconds}`s
         """
         if mem_percentage > 0.9:
             embed.colour = discord.Colour.red()

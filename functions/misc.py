@@ -49,6 +49,15 @@ def percentage_bar(percentage, bar_length=20, fill_char="■", empty_char="-"):
     return f"{bar} {percentage * 100:.2f}%"
 
 
+def seconds_to_dhms(seconds):
+    # Calculate days, hours, minutes, and remaining seconds
+    days, seconds = divmod(seconds, 86400)  # 1 day = 24 * 60 * 60 seconds
+    hours, seconds = divmod(seconds, 3600)   # 1 hour = 60 * 60 seconds
+    minutes, seconds = divmod(seconds, 60)   # 1 minute = 60 seconds
+    return days, hours, minutes, seconds
+
+
+
 if __name__ == "__main__":
     bar = percentage_bar(0.7, 20, '■', '－')
     print(bar)
