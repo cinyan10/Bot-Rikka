@@ -85,7 +85,7 @@ class Info(commands.Cog):
         rs = set_bili(ctx, bili_uid)
         await ctx.send(embed=Embed(title="bind_bili", description=rs, colour=discord.Colour.green()))
 
-    @commands.hybrid_command(name="get role")
+    @commands.hybrid_command(name="get_role")
     async def get_role(self, ctx):
         """Get the whitelisted role if you are"""
         discord_id = ctx.author.id
