@@ -20,9 +20,10 @@ class Info(commands.Cog):
     async def bind_steam(self, ctx, steamid: str):
         """Bind your steamid, steamid can be any type (except: [U:X:XXXXXX])"""
         steamid = convert_steamid(steamid, "steamid")
+
+        # Bind steamid
         try:
             set_steam(ctx, steamid)
-            await set_wl_role(ctx, steamid=steamid)
             await ctx.send('Steam ID bound successfully!')
         except IntegrityError as e:
             # Check for duplicate entry error
@@ -32,6 +33,13 @@ class Info(commands.Cog):
                 await ctx.send('An error occurred while binding the Steam ID.')
         except Exception as e:
             await ctx.send(f'An unexpected error occurred: {e}')
+
+        # Set Whitelisted Role
+        try:
+            await set_wl_role(ctx, steamid=steamid)
+        except Exception as e:
+            await ctx.send(f'An unexpected error occurred: {e}')
+
 
     @commands.hybrid_command()
     async def reset_steam(self, ctx):
