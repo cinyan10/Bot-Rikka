@@ -19,10 +19,10 @@ class Info(commands.Cog):
     @commands.hybrid_command()
     async def bind_steam(self, ctx, steamid: str):
         """Bind your steamid, steamid can be any type (except: [U:X:XXXXXX])"""
-        steamid64 = convert_steamid(steamid, "steamid64")
+        steamid = convert_steamid(steamid, "steamid")
         try:
             set_steam(ctx, steamid)
-            await set_wl_role(ctx, steamid=steamid64)
+            await set_wl_role(ctx, steamid=steamid)
             await ctx.send('Steam ID bound successfully!')
         except IntegrityError as e:
             # Check for duplicate entry error
