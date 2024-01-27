@@ -4,14 +4,15 @@ from discord import Embed
 from config import *
 from functions.database import get_steam_user_name
 from functions.globalapi.kz_maps import get_map_tier
+from functions.globalapi.maps import Maps
+from functions.misc import percentage_bar
 from functions.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
 
 
-class KztGlobalStats:
-    KZT_TOTAL_TP_MAPS = 933
-    KZT_TOTAL_PRO_MAPS = 938
-
+class KzGlobalStats:
     def __init__(self, steamid64, mode_str="kz_timer"):
+        self.maps = Maps(mode_str)
+
         tp_data = cal_stats(fetch_global_stats(steamid64, mode_str, True))
         pro_data = cal_stats(fetch_global_stats(steamid64, mode_str, False))
 
@@ -47,14 +48,26 @@ class KztGlobalStats:
     def __str__(self):
         return self.name
 
-    def embed_stats(self, datatime=None) -> Embed:
-        embed = Embed(title=f"{self.name}", url=self.profile_url, colour=discord.Colour.blue(), timestamp=datatime.datetime.utcnow())
+    def embed_stats(self) -> Embed:
+        embed = Embed(title=f"{self.name}", url=self.profile_url, colour=discord.Colour.blue())
         embed.set_thumbnail(url=self.pfp)
+        embed.description = f"Total: {self.total_pts} Avg: {self.total_avg_pts}"
 
+        tp_content = f"🥇`{self.tp_wr}` 🥈`{self.tp_silver}` 🥉 `{self.tp_copper}`"
+        for i in range(1, 8):
+            tp_content += f"{percentage_bar(self.tp_tier_maps[i] / self.maps.tier[i])}"
+            tp_content += f"`{self.tp_tier_maps[i]}` / `{self.maps.tier[i]}` - avg`{self.tp_avg_tier_pts[i]}`pts\n"
+
+        embed.add_field(inline=False, name="TP Stats", value=tp_content)
+
+        pro_content = f"🥇`{self.pro_wr}` 🥈`{self.pro_silver}` 🥉 `{self.pro_copper}`"
+        for i in range(1, 8):
+            tp_content += f"{percentage_bar(self.pro_tier_maps[i] / self.maps.tier[i])}"
+            tp_content += f"`{self.pro_tier_maps[i]}` / `{self.maps.tier[i]}` - avg`{self.pro_avg_tier_pts[i]}`pts\n"
+
+        embed.add_field(inline=False, name="Pro Stats", value=pro_content)
 
         return embed
-
-
 
 
 class Record:
@@ -104,7 +117,7 @@ def cal_stats(data):
     for record in data:
         points = record["points"]
         map_id = record["map_id"]
-        tier = get_map_tier(id=map_id)  # Replace this with your actual function
+        tier = get_map_tier(id=map_id)
 
         if tier is not None:
             total_points += points
@@ -135,6 +148,8 @@ def cal_stats(data):
 
 
 if __name__ == "__main__":
-    stats = KztGlobalStats(STEAMID64)
-    print(stats)
+    stats = KzGlobalStats(STEAMID64)
+    rs = stats.embed_stats()
+    print(stats.tp_tier_maps[1] / stats.maps.tier[1])
+    print(rs)
     pass

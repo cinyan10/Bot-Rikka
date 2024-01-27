@@ -6,6 +6,7 @@ from dc_utils.info import set_bili, set_steam, set_wl_role
 from dc_utils.setting import set_language, set_kz_mode
 from functions.database import reset_user_steam, discord_id_to_steamid
 from functions.embed_content import user_info
+from functions.globalapi.kz_global_stats import KzGlobalStats
 from functions.gokzcn import get_gokzcn_info
 from pymysql.err import IntegrityError
 
@@ -91,6 +92,14 @@ class Info(commands.Cog):
         discord_id = ctx.author.id
         steamid = discord_id_to_steamid(discord_id)
         await set_wl_role(ctx, steamid=steamid)
+
+    @commands.hybrid_command(name="kz")
+    async def kz(self, ctx):
+        discord_id = ctx.author.id
+        steamid = discord_id_to_steamid(discord_id)
+        steamid64 = convert_steamid(steamid, "steamid64")
+        embed = KzGlobalStats(steamid64)
+        await ctx.send(embed=embed)
 
 
 async def setup(bot):
