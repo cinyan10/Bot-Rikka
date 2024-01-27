@@ -100,7 +100,7 @@ class Info(commands.Cog):
         steamid = discord_id_to_steamid(discord_id)
         steamid64 = convert_steamid(steamid, "steamid64")
         try:
-            embed = KzGlobalStats(steamid64)
+            embed = KzGlobalStats(steamid64).embed_stats()
         except Exception as e:
             embed = Embed(title="Error!", description=str(e), colour=discord.Colour.red())
         await ms.edit(embed=embed)
