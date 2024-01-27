@@ -28,9 +28,11 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
         f'Rank: {player_data["ranking"]}\n'
         f'Skill Score: {player_data["point_skill"]}\n'
     )
-
-    info_embed = Embed(title=f"bilibili: {player_data['bili_name']}", description=content, colour=discord.Colour.yellow(), url=bili_url)
-    info_embed.set_author(name=player_data['name'], icon_url=player_data['avatar'], url=player_data['url'])
+    try:
+        info_embed = Embed(title=f"bilibili: {player_data['bili_name']}", description=content, colour=discord.Colour.green(), url=bili_url)
+        info_embed.set_author(name=player_data['name'], icon_url=player_data['avatar'], url=player_data['url'])
+    except Exception as e:
+        info_embed = Embed(title=f"Error: {e}", description=content, colour=discord.Colour.red(), url=bili_url)
 
     return {'embed': info_embed, 'player_data': player_data}
 

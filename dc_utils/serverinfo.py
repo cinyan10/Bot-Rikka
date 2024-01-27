@@ -58,4 +58,4 @@ async def server_status_loop(message: discord.Message):
     while True:
         embeds = embeds_server_status()
         await message.edit(embeds=embeds)
-        await asyncio.sleep(5)
+        await asyncio.sleep(60)
