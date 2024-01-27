@@ -82,7 +82,6 @@ class Info(commands.Cog):
     @commands.hybrid_command()
     async def bind_bili(self, ctx, bili_uid):
         """Set your Bilibili UID"""
-        discord_id = ctx.author.id
         rs = set_bili(ctx, bili_uid)
         await ctx.send(embed=Embed(title="bind_bili", description=rs, colour=discord.Colour.green()))
 
