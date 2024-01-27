@@ -59,12 +59,12 @@ class ServerStatus:
     def embed(self) -> Embed:
         embed = Embed(title=f'{self.name} Status', timestamp=datetime.now())
 
-        cpu_bar = percentage_bar(self.status_cpu / 100, fill_char='🟦', empty_char='⬜')
+        cpu_bar = percentage_bar(self.status_cpu / 100, fill_char='🟦', empty_char='⬛')
 
         mem_percentage = self.status_mem_used / self.host_mem_total
-        memory_bar = percentage_bar(mem_percentage, fill_char='🟧', empty_char='⬜')
+        memory_bar = percentage_bar(mem_percentage, fill_char='🟧', empty_char='⬛')
 
-        disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total, fill_char='🟪', empty_char='⬜')
+        disk_bar = percentage_bar(self.status_disk_used / self.host_disk_total, fill_char='🟪', empty_char='⬛')
 
         days, hours, minutes, seconds = seconds_to_dhms(self.status_uptime)
 
