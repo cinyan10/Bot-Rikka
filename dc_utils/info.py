@@ -44,7 +44,7 @@ def set_steam(ctx, steam_id):
     if existing_user_id:
         existing_user = ctx.bot.get_user(existing_user_id[0])
         message = f"The SteamID is already bound to {existing_user.mention}" if existing_user else "The SteamID is already bound to another user."
-        await asyncio.create_task(ctx.send(message))
+        asyncio.create_task(ctx.send(message))
         return
 
     # Convert SteamID to different formats
