@@ -53,17 +53,17 @@ class KzGlobalStats:
         embed.set_thumbnail(url=self.pfp)
         embed.description = f"Total: {self.total_pts} Avg: {self.total_avg_pts}"
 
-        tp_content = f"🥇`{self.tp_wr}` 🥈`{self.tp_silver}` 🥉 `{self.tp_copper}`"
+        tp_content = f"🥇`{self.tp_wr}` 🥈`{self.tp_silver}` 🥉 `{self.tp_copper}`\n"
         for i in range(1, 8):
             tp_content += f"{percentage_bar(self.tp_tier_maps[i] / self.maps.tier[i])}"
-            tp_content += f"`{self.tp_tier_maps[i]}` / `{self.maps.tier[i]}` - avg`{self.tp_avg_tier_pts[i]}`pts\n"
+            tp_content += f"`{self.tp_tier_maps[i]}` / `{self.maps.tier[i]}` - avg`{int(self.tp_avg_tier_pts[i])}`pts\n"
 
         embed.add_field(inline=False, name="TP Stats", value=tp_content)
 
-        pro_content = f"🥇`{self.pro_wr}` 🥈`{self.pro_silver}` 🥉 `{self.pro_copper}`"
+        pro_content = f"🥇`{self.pro_wr}` 🥈`{self.pro_silver}` 🥉 `{self.pro_copper}`\n"
         for i in range(1, 8):
-            tp_content += f"{percentage_bar(self.pro_tier_maps[i] / self.maps.tier[i])}"
-            tp_content += f"`{self.pro_tier_maps[i]}` / `{self.maps.tier[i]}` - avg`{self.pro_avg_tier_pts[i]}`pts\n"
+            pro_content += f"{percentage_bar(self.pro_tier_maps[i] / self.maps.tier[i])}"
+            pro_content += f"`{self.pro_tier_maps[i]}` / `{self.maps.tier[i]}` - avg`{int(self.pro_avg_tier_pts[i])}`pts\n"
 
         embed.add_field(inline=False, name="Pro Stats", value=pro_content)
 
