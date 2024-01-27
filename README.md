@@ -15,11 +15,14 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
 
 ## To Do List
 
-- [ ] 添加中文插件指令以及介绍文本
+- [ ] 添加中文插件指令 和 介绍文本
+
 - [ ] Server Information with both EN and CN
   - [ ] button link
 
-- [ ] Edit channel name to implement dynamic channel name 
+- [ ] **kz global stats**
+
+- [x] Edit channel name to implement dynamic channel name 
 
 - [x] info
 
@@ -30,8 +33,6 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
   -  [x] find player
 
   -  [x] jspb
-
-- [ ] **kz global stats**
 
 - [x] leaderboard 
   - [x] jstop
@@ -49,18 +50,25 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
 - [ ] twitch stream
 
 - [x] server status (cpu, memory, disk, net)
-  -  [ ] alert when memory usage too high
+  -  [ ] ~~alert when memory usage too high~~
 
 - [ ] memes generator
+
 - [ ] whitelist
   - [ ] answer button
+
 - [ ] **Server Trending**
   - [x] daily active player, monthly active player
- - [ ] **Server Charts**
- - [ ] player location map
- - [ ] !help with both EN | CN text
- - [ ] ban player in server
- - [ ] refactor some functions with class
+
+- [ ] **Server Charts**
+
+- [ ] player location map
+
+- [ ] !help with both EN | CN text
+
+- [ ] ban player in server
+
+- [ ] refactor some functions with class
 
 ```python
 class SteamUser

@@ -93,8 +93,8 @@ def query_server_simple(server):  # NOQA
         if players:
             players_str = ''
             for player in players['players']:
-                content += f"`{player['name']}`  "
-                players_str += f"`{player['name'].replace('`', '')}`"
+                content += f"`{player['name'].replace('`', '')}`  "
+                players_str += f"`{player['name']}`"
             if players_str != '':
                 content += "\n"
         return content
