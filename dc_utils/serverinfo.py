@@ -27,16 +27,16 @@ async def server_list_embed_loop(message):
         await asyncio.sleep(60)
 
 
-async def gz_server_embeds_loop(message: discord.Message, servers):
+async def gz_server_embeds_loop(message: discord.Message, servers, bot):
     while True:
-        embeds = [query_server_embed(s) for s in servers]
+        embeds = [await query_server_embed(s, bot) for s in servers]
         await message.edit(embeds=embeds)
         await asyncio.sleep(60)
 
 
-async def bj_server_embeds_loop(message: discord.Message, servers):
+async def bj_server_embeds_loop(message: discord.Message, servers, bot):
     while True:
-        embeds = [query_server_embed(s) for s in servers]
+        embeds = [await query_server_embed(s, bot) for s in servers]
         await message.edit(embeds=embeds)
         await asyncio.sleep(60)
 

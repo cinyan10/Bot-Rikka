@@ -1,7 +1,7 @@
 from discord import Embed
 from valve.source import a2s
 
-from config import MAP_TIERS
+from config import MAP_TIERS, SERVER_LIST
 from functions.servers import *
 import requests
 
@@ -18,7 +18,7 @@ def format_seconds(seconds):
         return "{:02}:{:02}".format(int(minutes), int(seconds))
 
 
-def query_server_embed(server: Server) -> Embed:
+async def query_server_embed(server: Server, bot=None) -> Embed:
     try:
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
@@ -42,12 +42,15 @@ def query_server_embed(server: Server) -> Embed:
             embed.url = f'http://redirect.axekz.com/{server.id}'
             embed.set_image(url=f"https://raw.githubusercontent.com/KZGlobalTeam/map-images/master/images/{info['map']}.jpg")
 
+            # edit channel name
+            if bot:
+                channel = bot.get_channel(server.channel_id)
+                await channel.edit(name=f"{server.name_short}│{info['player_count']}／{info['max_players']}")
+
             return embed
     except Exception as e:
         print(f"Error: {e}")
-        return Embed(
-            title="Error"
-        )
+        return Embed(title="Error")
 
 
 def query_server_details(server: Server) -> str:  # NOQA

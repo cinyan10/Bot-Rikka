@@ -1,8 +1,7 @@
 import requests
 import json
-from functions.servers import *
 from functions.query import query_server_simple
-from config import WEBHOOK_URL
+from config import WEBHOOK_URL, SERVER_LIST
 
 
 def send_webhook():

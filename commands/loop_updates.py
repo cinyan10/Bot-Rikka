@@ -1,11 +1,10 @@
 import asyncio
-from discord import Embed
 from discord.ext import commands
 from config import *
-from dc_utils.server_status import embeds_server_status
+
 from dc_utils.serverinfo import server_list_embed_loop, gz_server_embeds_loop, bj_server_embeds_loop, jstop_embeds_loop, server_status_loop
 from functions.misc import get_or_create_message
-from functions.servers import SERVER_LIST
+from config import SERVER_LIST
 
 
 class LoopUpdates(commands.Cog):
@@ -13,8 +12,8 @@ class LoopUpdates(commands.Cog):
         self.bot = bot
         self.channels_info = [
             (SERVER_LIST_CHANNEL_ID, 'AXE SERVER LIST', server_list_embed_loop),
-            (GUANGZHOU_CHANNEL_ID, '广州 SERVER LIST', lambda msg: gz_server_embeds_loop(msg, SERVER_LIST[:6])),
-            (BEIJING_CHANNEL_ID, '北京 SERVER LIST', lambda msg: bj_server_embeds_loop(msg, SERVER_LIST[6:])),
+            (GUANGZHOU_CHANNEL_ID, '广州 SERVER LIST', lambda msg: gz_server_embeds_loop(msg, SERVER_LIST[:6], self.bot)),
+            (BEIJING_CHANNEL_ID, '北京 SERVER LIST', lambda msg: bj_server_embeds_loop(msg, SERVER_LIST[6:], self.bot)),
             (JSTOP_CLIENT_ID, 'LocalStats Top', jstop_embeds_loop),
             (STATUS_CHANNEL_ID, 'SERVER STATUS', server_status_loop)
         ]
