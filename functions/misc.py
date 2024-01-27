@@ -60,17 +60,4 @@ def seconds_to_dhms(seconds):
 if __name__ == "__main__":
     bar = percentage_bar(0.7, 20, '■', '－')
     print(bar)
-    # def cal(char):
-    #     rs = '['
-    #     for i in range(20):
-    #         rs += char
-    #     rs += "]"
-    #     print(rs)
-    #
-    # cal('-')
-    # cal('=')
-    # cal('_')
-    # cal('+')
-    # cal('■')
-    # cal('□')
     pass
