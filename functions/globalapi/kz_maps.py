@@ -2,7 +2,7 @@ import json
 import requests
 
 
-def fetching_maps(use_local=False):
+def fetching_maps(use_local=True):
     if use_local:
         with open('maps.json', 'r', encoding='utf-8') as json_file:
             maps_data = json.load(json_file)
