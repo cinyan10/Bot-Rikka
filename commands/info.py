@@ -95,11 +95,12 @@ class Info(commands.Cog):
 
     @commands.hybrid_command(name="kz")
     async def kz(self, ctx):
+        ms = await ctx.send(embed=Embed(title="KZ Stats Loading..."))
         discord_id = ctx.author.id
         steamid = discord_id_to_steamid(discord_id)
         steamid64 = convert_steamid(steamid, "steamid64")
         embed = KzGlobalStats(steamid64)
-        await ctx.send(embed=embed)
+        await ms.edit(embed=embed)
 
 
 async def setup(bot):
