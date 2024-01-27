@@ -40,7 +40,6 @@ class Info(commands.Cog):
         except Exception as e:
             await ctx.send(f'An unexpected error occurred: {e}')
 
-
     @commands.hybrid_command()
     async def reset_steam(self, ctx):
         """Resets the steamid"""
@@ -86,6 +85,13 @@ class Info(commands.Cog):
         discord_id = ctx.author.id
         rs = set_bili(ctx, bili_uid)
         await ctx.send(embed=Embed(title="bind_bili", description=rs, colour=discord.Colour.green()))
+
+    @commands.hybrid_command(name="get role")
+    async def get_role(self, ctx):
+        """Get the whitelisted role if you are"""
+        discord_id = ctx.author.id
+        steamid = discord_id_to_steamid(discord_id)
+        await set_wl_role(ctx, steamid=steamid)
 
 
 async def setup(bot):
