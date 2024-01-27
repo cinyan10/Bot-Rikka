@@ -45,7 +45,7 @@ async def query_server_embed(server: Server, bot=None) -> Embed:
             # edit channel name
             if bot:
                 channel = bot.get_channel(server.channel_id)
-                await channel.edit(name=f"{server.name_short}│{info['player_count']}／{info['max_players']}")
+                await channel.edit(name=f"{server.name_short}│{info['player_count']}／{info['max_players']}│{info['map'][3:]}")
 
             return embed
     except Exception as e:
