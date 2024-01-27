@@ -43,10 +43,13 @@ def seconds_to_hms(seconds):
     return hours, minutes, seconds
 
 
-def percentage_bar(percentage, bar_length=20, fill_char="■", empty_char="□"):
+def percentage_bar(percentage, bar_length=20, fill_char="■", empty_char="□", show_percentage=True, show_brackets=False):
     progress = int(bar_length * percentage)
     bar = "[" + fill_char * progress + empty_char * (bar_length - progress) + "]"
-    return f"{bar} {percentage * 100:.2f}%"
+    if show_percentage:
+        return f"{bar} {percentage * 100:.2f}%"
+    else:
+        return bar
 
 
 def seconds_to_dhms(seconds):
@@ -57,7 +60,30 @@ def seconds_to_dhms(seconds):
     return days, hours, minutes, seconds
 
 
+def add_commas(number):
+    # Convert the number to a string
+    num_str = str(number)
+
+    # Initialize an empty result string
+    result = ""
+
+    # Calculate the length of the string
+    length = len(num_str)
+
+    # Iterate through the characters in reverse order
+    for i, char in enumerate(reversed(num_str)):
+        # Append the character to the result string
+        result = char + result
+
+        # Add a comma every three digits, except for the last group
+        if i % 3 == 2 and i != length - 1:
+            result = ',' + result
+
+    return result
+
+
 if __name__ == "__main__":
-    bar = percentage_bar(0.7, 20, '■', '－')
-    print(bar)
+    number = 1234567890
+    formatted_number = add_commas(number)
+    print(formatted_number)  # Output: "1,234,567,890"
     pass
