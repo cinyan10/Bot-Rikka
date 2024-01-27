@@ -1,5 +1,13 @@
+import asyncio
+
+import discord
 import mysql.connector
-from config import db_config
+from discord import Role
+
+from config import db_config, WL_ROLE_ID
+from functions.database import execute_query
+from functions.db_operate.db_firstjoin import check_wl
+from functions.steam import convert_steamid
 
 
 def set_bili(ctx, discord_id, bili_uid) -> str:
@@ -23,3 +31,51 @@ def set_bili(ctx, discord_id, bili_uid) -> str:
         # Close the cursor and database connection
         cursor.close()
         conn.close()
+
+
+def set_steam(ctx, steam_id):
+    username = ctx.author.name  # This gets the user's Discord name
+    discord_id = ctx.author.id
+    # Check if the SteamID is already bound to another user
+    existing_user_query = 'SELECT discord_id FROM discord.users WHERE steamid = %s AND discord_id != %s'
+    existing_user_id = execute_query(existing_user_query, (steam_id, discord_id), fetch_one=True)
+
+    if existing_user_id:
+        existing_user = ctx.bot.get_user(existing_user_id[0])
+        message = f"The SteamID is already bound to {existing_user.mention}" if existing_user else "The SteamID is already bound to another user."
+        asyncio.create_task(ctx.send(message))
+        return
+
+    # Convert SteamID to different formats
+    steamid32 = convert_steamid(steam_id, 'steamid32')
+    steamid64 = convert_steamid(steam_id, 'steamid64')
+    steamid = convert_steamid(steam_id, 'steamid')
+
+    # Insert or update the user's data in the database
+    insert_query = '''
+        INSERT INTO discord.users (discord_id, steamid, steamid32, steamid64, username) 
+        VALUES (%s, %s, %s, %s, %s) 
+        ON DUPLICATE KEY UPDATE 
+        steamid = VALUES(steamid), 
+        steamid32 = VALUES(steamid32), 
+        steamid64 = VALUES(steamid64),
+        username = VALUES(username)
+    '''
+    execute_query(insert_query, (discord_id, steamid, steamid32, steamid64, username), commit=True)
+
+    set_wl_role(ctx, steamid=steamid)
+    # Send a confirmation message
+    asyncio.create_task(ctx.send('Steam ID bound successfully!'))
+
+
+async def set_wl_role(ctx, steamid=None):
+    role: Role = discord.utils.get(ctx.guild.roles, id=WL_ROLE_ID)
+    if steamid:
+        member = ctx.author
+        if check_wl(steamid):
+            await member.add_roles(role)
+            await ctx.send(embed=discord.Embed(title="Added AXE Member for you!", colour=discord.Colour.green()))
+        else:
+            await ctx.send(embed=discord.Embed(title="You haven't been whitelisted yet!", colour=discord.Colour.blue()))
+    else:
+        pass

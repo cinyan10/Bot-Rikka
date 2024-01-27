@@ -2,9 +2,9 @@ import discord
 from discord import Embed
 from discord.ext import commands
 from dc_utils.firstjoin import find_player
-from dc_utils.info import set_bili
+from dc_utils.info import set_bili, set_steam
 from dc_utils.setting import set_language, set_kz_mode
-from functions.database import reset_user_steam, bind_user_steam, discord_id_to_steamid
+from functions.database import reset_user_steam, discord_id_to_steamid
 from functions.embed_content import user_info
 from functions.gokzcn import get_gokzcn_info
 from pymysql.err import IntegrityError
@@ -16,10 +16,9 @@ class Info(commands.Cog):
 
     @commands.hybrid_command()
     async def bind_steam(self, ctx, steamid: str):
-        """Bind your steamid, steamid can be any type"""
-        user_id = ctx.author.id
+        """Bind your steamid, steamid can be any type (except: [U:X:XXXXXX])"""
         try:
-            bind_user_steam(user_id, steamid, ctx)
+            set_steam(ctx, steamid)
             await ctx.send('Steam ID bound successfully!')
         except IntegrityError as e:
             # Check for duplicate entry error

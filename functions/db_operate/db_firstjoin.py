@@ -1,5 +1,6 @@
 import mysql.connector
 from config import *
+from config import db_config
 from functions.steam import convert_steamid, is_user_in_steam_group
 
 db_config['database'] = "firstjoin"
@@ -141,7 +142,36 @@ def get_playtime(steamid) -> int:
         conn.close()
 
 
+def check_wl(steamid):
+    conn = None
+    cursor = None
+    try:
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+
+        query = "SELECT whitelist FROM firstjoin.firstjoin WHERE auth = %s"
+
+        cursor.execute(query, (steamid,))
+
+        result = cursor.fetchone()
+
+        if result is not None:
+            whitelist_status = result[0]
+            return whitelist_status
+        else:
+            return None
+
+    except mysql.connector.Error as err:
+        print("Error:", err)
+        return None
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+
 if __name__ == "__main__":
-    rs = get_playtime(STEAMID)
-    print(rs)
     pass
+

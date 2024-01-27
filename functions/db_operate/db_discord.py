@@ -30,11 +30,4 @@ def get_kz_mode(discord_id):
 
 
 if __name__ == "__main__":
-    # Example usage:
-    discord_id_to_query = DISCORD_ID
-    kz_mode = get_kz_mode(discord_id_to_query)
-
-    if kz_mode is not None:
-        print(f"kz_mode for user {discord_id_to_query}: {kz_mode}")
-    else:
-        print(f"User {discord_id_to_query} not found or no kz_mode information.")
+    pass

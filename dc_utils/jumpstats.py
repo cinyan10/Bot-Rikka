@@ -1,6 +1,6 @@
 from discord import Embed
 from config import *
-from functions.db_operate.gokz import get_ljpb, get_jspb
+from functions.db_operate.db_gokz import get_ljpb, get_jspb
 from functions.steam import convert_steamid
 from functions.steam_embed import steam_embed
 

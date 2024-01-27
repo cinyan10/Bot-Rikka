@@ -2,8 +2,6 @@ import mysql.connector
 from functions.steam import *
 from functions.kreedz import *
 from datetime import timedelta
-import asyncio
-
 
 # Global constants
 db_config = {
@@ -52,41 +50,6 @@ def retrieve_last_seen(steam_id):
     query = 'SELECT lastseen FROM firstjoin.firstjoin WHERE auth = %s'
     result = execute_query(query, (steam_id,), fetch_one=True)
     return result[0] if result else None
-
-
-def bind_user_steam(discord_id, steam_id, ctx):
-    # Retrieve the username from the context
-    username = ctx.author.name  # This gets the user's Discord name
-
-    # Check if the SteamID is already bound to another user
-    existing_user_query = 'SELECT discord_id FROM discord.users WHERE steamid = %s AND discord_id != %s'
-    existing_user_id = execute_query(existing_user_query, (steam_id, discord_id), fetch_one=True)
-
-    if existing_user_id:
-        existing_user = ctx.bot.get_user(existing_user_id[0])
-        message = f"The SteamID is already bound to {existing_user.mention}" if existing_user else "The SteamID is already bound to another user."
-        asyncio.create_task(ctx.send(message))
-        return
-
-    # Convert SteamID to different formats
-    steamid32 = convert_steamid(steam_id, 'steamid32')
-    steamid64 = convert_steamid(steam_id, 'steamid64')
-    steamid_formatted = convert_steamid(steam_id, 'steamid')
-
-    # Insert or update the user's data in the database
-    insert_query = '''
-        INSERT INTO discord.users (discord_id, steamid, steamid32, steamid64, username) 
-        VALUES (%s, %s, %s, %s, %s) 
-        ON DUPLICATE KEY UPDATE 
-        steamid = VALUES(steamid), 
-        steamid32 = VALUES(steamid32), 
-        steamid64 = VALUES(steamid64),
-        username = VALUES(username)
-    '''
-    execute_query(insert_query, (discord_id, steamid_formatted, steamid32, steamid64, username), commit=True)
-
-    # Send a confirmation message
-    asyncio.create_task(ctx.send('Steam ID bound successfully!'))
 
 
 def reset_user_steam(discord_id):

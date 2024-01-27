@@ -1,7 +1,7 @@
 import discord
 from discord import Embed
 from functions.database import *
-from functions.db_operate.firstjoin import get_playtime
+from functions.db_operate.db_firstjoin import get_playtime
 from functions.kreedz import *
 from functions.misc import format_string_to_datetime, get_country_code, seconds_to_hms
 

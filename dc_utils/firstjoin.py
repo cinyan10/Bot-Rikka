@@ -1,4 +1,4 @@
-from functions.db_operate.firstjoin import *
+from functions.db_operate.db_firstjoin import *
 from functions.embed_content import user_info
 
 
