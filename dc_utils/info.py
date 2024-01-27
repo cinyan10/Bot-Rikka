@@ -10,7 +10,8 @@ from functions.db_operate.db_firstjoin import check_wl
 from functions.steam import convert_steamid
 
 
-def set_bili(ctx, discord_id, bili_uid) -> str:
+def set_bili(ctx, bili_uid) -> str:
+    discord_id = ctx.author.id
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     try:
@@ -33,7 +34,7 @@ def set_bili(ctx, discord_id, bili_uid) -> str:
         conn.close()
 
 
-def set_steam(ctx, steam_id):
+async def set_steam(ctx, steam_id):
     username = ctx.author.name  # This gets the user's Discord name
     discord_id = ctx.author.id
     # Check if the SteamID is already bound to another user
@@ -43,7 +44,7 @@ def set_steam(ctx, steam_id):
     if existing_user_id:
         existing_user = ctx.bot.get_user(existing_user_id[0])
         message = f"The SteamID is already bound to {existing_user.mention}" if existing_user else "The SteamID is already bound to another user."
-        asyncio.create_task(ctx.send(message))
+        await asyncio.create_task(ctx.send(message))
         return
 
     # Convert SteamID to different formats
@@ -63,9 +64,8 @@ def set_steam(ctx, steam_id):
     '''
     execute_query(insert_query, (discord_id, steamid, steamid32, steamid64, username), commit=True)
 
-    set_wl_role(ctx, steamid=steamid)
+    await set_wl_role(ctx, steamid=steamid)
     # Send a confirmation message
-    asyncio.create_task(ctx.send('Steam ID bound successfully!'))
 
 
 async def set_wl_role(ctx, steamid=None):
