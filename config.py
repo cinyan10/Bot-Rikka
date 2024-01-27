@@ -15,6 +15,8 @@ DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_PORT = os.getenv('DB_PORT')
 DB_USER = os.getenv('DB_USER')
 
+GLOBAL_API_URL = "https://kztimerglobal.com"
+
 db_config = {
             'user': DB_USER,
             'password': DB_PASSWORD,
