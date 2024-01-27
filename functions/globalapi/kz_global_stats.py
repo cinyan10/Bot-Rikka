@@ -66,7 +66,7 @@ class KzGlobalStats:
         pro_content = f"🥇 {self.pro_wr} 🥈 {self.pro_silver} 🥉 {self.pro_copper}\n"
         for i in range(1, 8):
             pro_content += f"{percentage_bar(self.pro_tier_maps[i] / self.maps.tier[i], 15, emojis[i], '⬛', show_percentage=False, show_brackets=False)}"
-            pro_content += f"`T{i} {self.pro_tier_maps[i]}/{self.maps.tier[i]}` │ `{int(self.pro_avg_tier_pts[i])}`\n"
+            pro_content += f"T{i} `{self.pro_tier_maps[i]}/{self.maps.tier[i]}` │ `{int(self.pro_avg_tier_pts[i])}`\n"
 
         embed.add_field(inline=False, name="Pro Stats", value=pro_content)
 
