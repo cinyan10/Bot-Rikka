@@ -11,7 +11,9 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
     if steamid is None:
         steamid = discord_id_to_steamid(discord_id)
     steamid64 = convert_steamid(steamid, 'steamid64')
+
     gokzcn_url = f"http://gokz.cn/api/rankings?page_size=1&search_text={steamid64}&mode={mode}"
+
     response = requests.get(gokzcn_url)
 
     if response.status_code == 200:
@@ -31,8 +33,9 @@ def get_gokzcn_info(discord_id=None, mode='kzt', steamid=None):
     try:
         info_embed = Embed(title=f"bilibili: {player_data['bili_name']}", description=content, colour=discord.Colour.green(), url=bili_url)
         info_embed.set_author(name=player_data['name'], icon_url=player_data['avatar'], url=player_data['url'])
-    except Exception as e:
-        info_embed = Embed(title=f"Error: {e}", description=content, colour=discord.Colour.red(), url=bili_url)
+    except KeyError as e:
+        info_embed = Embed(title=f"Error fetching: {e}", description=content, colour=discord.Colour.red(), url=bili_url)
+        info_embed.set_author(name=player_data['name'], url=player_data['url'])
 
     return {'embed': info_embed, 'player_data': player_data}
 
@@ -77,5 +80,5 @@ def get_rank(skill_score, ranking):
 
 
 if __name__ == "__main__":
-    rs = fetch_playerdata("STEAM_1:0:120327391")
+    rs = get_gokzcn_info(steamid=STEAMID)
     print(rs)
