@@ -51,18 +51,20 @@ class KzGlobalStats:
     def embed_stats(self) -> Embed:
         embed = Embed(title=f"{self.name}", url=self.profile_url, colour=discord.Colour.blue())
         embed.set_thumbnail(url=self.pfp)
-        embed.description = f"Total: {self.total_pts} Avg: {self.total_avg_pts}"
+        embed.description = f"Total: {self.total_pts} Avg: {int(self.total_avg_pts)}"
 
-        tp_content = f"🥇`{self.tp_wr}` 🥈`{self.tp_silver}` 🥉 `{self.tp_copper}`\n"
+        emojis = ["⬜", '🟦', '🟩', '🟨', '🟧', '🟥', '🟪', '⬛']
+
+        tp_content = f"🥇 {self.tp_wr} 🥈 {self.tp_silver} 🥉 {self.tp_copper}\n"
         for i in range(1, 8):
-            tp_content += f"{percentage_bar(self.tp_tier_maps[i] / self.maps.tier[i])}"
+            tp_content += f"{percentage_bar(self.tp_tier_maps[i] / self.maps.tier[i], fill_char=emojis[i], empty_char='⬜')} "
             tp_content += f"`{self.tp_tier_maps[i]}` / `{self.maps.tier[i]}` - avg`{int(self.tp_avg_tier_pts[i])}`pts\n"
 
         embed.add_field(inline=False, name="TP Stats", value=tp_content)
 
-        pro_content = f"🥇`{self.pro_wr}` 🥈`{self.pro_silver}` 🥉 `{self.pro_copper}`\n"
+        pro_content = f"🥇 {self.pro_wr} 🥈 {self.pro_silver} 🥉 {self.pro_copper}\n"
         for i in range(1, 8):
-            pro_content += f"{percentage_bar(self.pro_tier_maps[i] / self.maps.tier[i])}"
+            pro_content += f"{percentage_bar(self.pro_tier_maps[i] / self.maps.tier[i], fill_char=emojis[i], empty_char='⬜')} "
             pro_content += f"`{self.pro_tier_maps[i]}` / `{self.maps.tier[i]}` - avg`{int(self.pro_avg_tier_pts[i])}`pts\n"
 
         embed.add_field(inline=False, name="Pro Stats", value=pro_content)
