@@ -94,11 +94,14 @@ class Info(commands.Cog):
         await set_wl_role(ctx, steamid=steamid)
 
     @commands.hybrid_command(name="kz")
-    async def kz(self, ctx):
+    async def kz(self, ctx, steamid=None):
         ms = await ctx.send(embed=Embed(title="KZ Stats Loading..."))
-        discord_id = ctx.author.id
-        steamid = discord_id_to_steamid(discord_id)
-        steamid64 = convert_steamid(steamid, "steamid64")
+        if steamid:
+            steamid64 = convert_steamid(steamid, "steamid64")
+        else:
+            discord_id = ctx.author.id
+            steamid = discord_id_to_steamid(discord_id)
+            steamid64 = convert_steamid(steamid, "steamid64")
         try:
             embed = KzGlobalStats(steamid64).embed_stats()
         except Exception as e:
