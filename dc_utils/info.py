@@ -34,7 +34,7 @@ def set_bili(ctx, bili_uid) -> str:
         conn.close()
 
 
-async def set_steam(ctx, steam_id):
+def set_steam(ctx, steam_id):
     username = ctx.author.name  # This gets the user's Discord name
     discord_id = ctx.author.id
     # Check if the SteamID is already bound to another user
@@ -63,8 +63,6 @@ async def set_steam(ctx, steam_id):
         username = VALUES(username)
     '''
     execute_query(insert_query, (discord_id, steamid, steamid32, steamid64, username), commit=True)
-
-    await set_wl_role(ctx, steamid=steamid)
     # Send a confirmation message
 
 
