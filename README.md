@@ -6,7 +6,7 @@
 
 ## Description
 
-bot-rikka is a discord bot provide various features. Most of the codes from chatGPT
+bot-rikka is a discord bot provides various features. Most of the codes from chatGPT
 
 ## Features
 
@@ -14,6 +14,12 @@ bot-rikka is a discord bot provide various features. Most of the codes from chat
 - query local gokz database, get LJ top etc. 
 
 ## To Do List
+
+- [ ] 添加中文插件指令以及介绍文本
+- [ ] Server Information with both EN and CN
+  - [ ] button link
+
+- [ ] Edit channel name to implement dynamic channel name 
 
 - [x] info
 
@@ -57,8 +63,8 @@ bot-rikka is a discord bot provide various features. Most of the codes from chat
  - [ ] refactor some functions with class
 
 ```python
-class Steam
-class KzStats
+class SteamUser
+class PlayerKzStats
 ```
 -  [x] bilibili
   -  [x] bind bilibili

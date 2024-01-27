@@ -77,7 +77,7 @@ class ServerStatus:
         **DISK**: `{self.status_disk_used:.2f}` / `{self.host_disk_total:.2f}` GB
         {disk_bar}
         **NET**:  IN: `{self.status_net_in_speed:.2f} Kbps`  OUT:`{self.status_net_out_speed:.2f} Kbps`
-        **IP**: `{self.ipv4}`
+        **IP**: ||{self.ipv4}||
         **Online**  `{days}` Days `{hours}h {minutes}m {seconds}s`
         """
         if mem_percentage > 0.9:
