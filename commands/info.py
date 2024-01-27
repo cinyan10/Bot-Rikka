@@ -17,6 +17,13 @@ class Info(commands.Cog):
         self.bot = bot
 
     @commands.hybrid_command()
+    async def info(self, ctx, member: discord.Member = None, steamid: str = None):
+        """Show your or other's information"""
+        discord_id = member.id if member else ctx.author.id
+        result = user_info(discord_id, steamid)
+        await ctx.send(embed=result)
+
+    @commands.hybrid_command()
     async def bind_steam(self, ctx, steamid: str):
         """Bind your steamid, steamid can be any type (except: [U:X:XXXXXX])"""
         steamid = convert_steamid(steamid, "steamid")
@@ -48,21 +55,14 @@ class Info(commands.Cog):
         await ctx.send('Your Steam ID has been reset.')
 
     @commands.hybrid_command()
-    async def gokzcn(self, ctx, steamid: str = None, mode: str = 'kzt'):
+    async def gokzcn(self, ctx, member: discord.Member = None, steamid: str = None, mode: str = 'kzt'):
         """Show your gokz.cn info"""
-        discord_id = ctx.author.id
+        discord_id = member.id if member else ctx.author.id
         if steamid is None:
             steamid = discord_id_to_steamid(discord_id)
         result = get_gokzcn_info(discord_id=discord_id, mode=mode, steamid=steamid)
         embed_info = result['embed']
         await ctx.send(embed=embed_info)
-
-    @commands.hybrid_command()
-    async def info(self, ctx, steamid: str = None):
-        """Show your information"""
-        discord_id = ctx.author.id
-        result = user_info(discord_id, steamid)
-        await ctx.send(embed=result)
 
     @commands.hybrid_command()
     async def find(self, ctx, name: str):

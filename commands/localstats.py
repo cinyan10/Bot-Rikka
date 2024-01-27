@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 from dc_utils.jumpstats import *
 from functions.database import discord_id_to_steamid
@@ -9,9 +10,10 @@ class LocalStats(commands.Cog):
         self.bot = bot
 
     @commands.hybrid_command(name="ljpb")
-    async def ljpb(self, ctx, kz_mode=None, steamid=None, is_block_jump=False):
+    async def ljpb(self, ctx, member: discord.Member = None, kz_mode=None, steamid=None, is_block_jump=False):
         """get your or other's long jump personal best!!"""
-        discord_id = ctx.author.id
+        discord_id = member.id if member else ctx.author.id
+
         if steamid is None:
             steamid = discord_id_to_steamid(discord_id)
         if kz_mode is None:
@@ -21,9 +23,10 @@ class LocalStats(commands.Cog):
         await ctx.send(embed=rs)
 
     @commands.hybrid_command(name="jspb")
-    async def jspb(self, ctx, kz_mode=None, steamid=None):
+    async def jspb(self, ctx, member: discord.Member = None, kz_mode=None, steamid=None):
         """get your or other's jumpstats"""
-        discord_id = ctx.author.id
+        discord_id = member.id if member else ctx.author.id
+
         if steamid is None:
             steamid = discord_id_to_steamid(discord_id)
         if kz_mode is None:
