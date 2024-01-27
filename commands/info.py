@@ -18,7 +18,7 @@ class Info(commands.Cog):
     async def bind_steam(self, ctx, steamid: str):
         """Bind your steamid, steamid can be any type (except: [U:X:XXXXXX])"""
         try:
-            set_steam(ctx, steamid)
+            await set_steam(ctx, steamid)
             await ctx.send('Steam ID bound successfully!')
         except IntegrityError as e:
             # Check for duplicate entry error
