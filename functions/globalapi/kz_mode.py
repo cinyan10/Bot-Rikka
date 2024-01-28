@@ -1,15 +1,15 @@
 
 def format_kzmode(mode) -> str:
     """return kz_timer, kz_simple or kz_vanilla """
-    if mode == 'k' or 'kzt' or 0 or 'kz_timer':
+    if mode in ('k', 'kzt', 0, 'kz_timer'):
         return 'kz_timer'
-    elif mode == 's' or 'skz' or 1 or 'kz_simple':
+    elif mode in ('s', 'skz', 1, 'kz_simple'):
         return 'kz_simple'
     else:
         return 'kz_vanilla'
 
 
 if __name__ == '__main__':
-    rs = format_kzmode(1)
+    rs = format_kzmode('skz')
     print(rs)
 
