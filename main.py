@@ -1,7 +1,7 @@
 import os
 import discord
 from discord.ext import commands
-from config import TOKEN
+from config import *
 import asyncio
 
 
