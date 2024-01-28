@@ -15,7 +15,7 @@ def bytes_to_gb(bytes_value):
 class ServerStatus:
     def __init__(self, server_id):
         data = get_server_status(server_id)['result'][0]
-        self.id = data['map_id']
+        self.id = data['id']
         self.name = data['name']
         self.tag = data['tag']
         self.last_active = data['last_active']
