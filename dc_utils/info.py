@@ -51,7 +51,8 @@ def record_embed(record):
     embed.add_field(name="Time", value=format_seconds_to_time(record['time']))
     embed.add_field(name="steamID", value={record['steam_id']})
     embed.add_field(name="Teleports", value=record['teleports'])
-    embed.add_field(name="Place", value=record['place'])
+    embed.add_field(name="Points", value=record['points'])
+
     if record['server_name'] == 'C10 GOKZ':
         record['server_name'] = 'AXE GOKZ'
     embed.add_field(name="Server Name", value=record['server_name'])
