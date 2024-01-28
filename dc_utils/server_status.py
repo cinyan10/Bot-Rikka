@@ -139,12 +139,13 @@ def get_server_list() -> dict:
 
 def embeds_server_status():
     servers: dict = get_server_list()['result']
-    ids: list = [s['map_id'] for s in servers]
+    ids: list = [s['id'] for s in servers]
     ids = sorted(ids)
     embeds = [ServerStatus(id).embed() for id in ids]  # NOQA
     return embeds
 
 
 if __name__ == '__main__':
-    print(embeds_server_status())
+    rs = get_server_list()
+    print(rs)
     pass
