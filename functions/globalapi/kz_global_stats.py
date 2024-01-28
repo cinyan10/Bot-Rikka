@@ -12,8 +12,8 @@ from functions.steam import convert_steamid, get_steam_pfp, get_steam_profile_ur
 
 class KzGlobalStats:
     def __init__(self, steamid64, kzmode="kz_timer"):
-        kzmode = format_kzmode(kzmode.lower())
-        print(kzmode)
+        if kzmode:
+            kzmode = format_kzmode(kzmode.lower())
         self.maps = Maps(kzmode)
 
         tp_data = cal_stats(fetch_global_stats(steamid64, kzmode, True))
