@@ -224,5 +224,5 @@ def get_steam_avatar_medium(steamid64):
 
 
 if __name__ == '__main__':
-    avatar_url = get_steam_pfp(76561198191378249)
-    print(avatar_url)
+    rs = is_in_group(STEAMID64)
+    print(rs)

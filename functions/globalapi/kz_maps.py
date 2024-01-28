@@ -25,7 +25,7 @@ def get_map_tier(map_name=None, map_id=None):
                 return kz_map['difficulty']
     elif map_id is not None:
         for kz_map in maps_data:
-            if kz_map['map_id'] == map_id:
+            if kz_map['id'] == map_id:
                 return kz_map['difficulty']
 
 
