@@ -162,6 +162,22 @@ def cal_stats(data):
     }
 
 
-if __name__ == "__main__":
+def fetch_personal_recent(steamid64, mode='kz_timer', limit=1):
+    mode = format_kzmode(mode)
 
+    if limit > 5:
+        limit = 5
+
+    api_url = f"{GLOBAL_API_URL}/api/v2.0/records/top/recent?steamid64={steamid64}&modes_list_string={mode}&limit={limit}"
+
+    response = requests.get(api_url)
+    response.raise_for_status()
+    data = response.json()
+    return data
+
+
+if __name__ == "__main__":
+    rs = fetch_personal_recent(STEAMID64)
+    print(rs)
+    print(len(rs))
     pass

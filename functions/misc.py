@@ -2,6 +2,7 @@ from datetime import datetime
 
 import discord
 import pycountry
+from datetime import datetime
 
 
 def get_country_code(country_name):
@@ -86,8 +87,16 @@ def add_commas(number):
     return result
 
 
+def formate_record_time(data_str):
+
+    date_format = "%Y-%m-%dT%H:%M:%S"
+
+    # Parse the datetime string into a datetime object
+    return datetime.strptime(date_string, date_format)
+
+
 if __name__ == "__main__":
-    number = 1234567890
-    formatted_number = add_commas(number)
-    print(formatted_number)  # Output: "1,234,567,890"
+    date_string = "2023-10-14T09:14:07"
+    rs = formate_record_time(date_string)
+    print(type(rs))
     pass

@@ -6,12 +6,40 @@ import mysql.connector
 from discord import Role, Embed
 from discord.ext import commands
 
-from config import db_config, WL_ROLE_ID
+from config import *
 from functions.database import execute_query, discord_id_to_steamid
 from functions.db_operate.db_discord import get_kzmode
 from functions.db_operate.db_firstjoin import check_wl
-from functions.globalapi.kz_global_stats import KzGlobalStats, get_stats_embed
+from functions.globalapi.kz_global_stats import *
 from functions.steam import convert_steamid
+from functions.misc import formate_record_time
+
+
+class StatsView(discord.ui.View):
+
+    def __init__(self, embeds: list[discord.Embed]):
+        super().__init__()
+        self.embeds: list = embeds
+
+    def get_embeds(self, label) -> Embed:
+        modes = {
+            "KZT": self.embeds[0],
+            "SKZ": self.embeds[1],
+            "VNL": self.embeds[2],
+        }
+        return modes[label]
+
+    @discord.ui.button(label='KZT', style=discord.ButtonStyle.green)
+    async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(embed=self.get_embeds(button.label))
+
+    @discord.ui.button(label='SKZ', style=discord.ButtonStyle.blurple)
+    async def kz_simple(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(embed=self.get_embeds(button.label))
+
+    @discord.ui.button(label='VNL', style=discord.ButtonStyle.gray)
+    async def kz_vanilla(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(embed=self.get_embeds(button.label))
 
 
 def set_bili(ctx, bili_uid) -> str:
@@ -104,28 +132,43 @@ async def kz_info(ctx, member: discord.Member, steamid):
     await ms.edit(embeds=embeds, view=StatsView(embeds))
 
 
-class StatsView(discord.ui.View):
+async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
+    ms = await ctx.send(embed=Embed(title="Loading..."))
+    if member:
+        steamid = discord_id_to_steamid(member.id)
+        steamid64 = convert_steamid(steamid, 'steamid64')
+    elif steamid:
+        steamid64 = convert_steamid(steamid, "steamid64")
+    else:
+        steamid64 = convert_steamid(ctx.author.id, "steamid64")
 
-    def __init__(self, embeds: list[discord.Embed]):
-        super().__init__()
-        self.embeds: list = embeds
+    records = fetch_personal_recent(steamid64, kzmode, limit)
 
-    def get_embeds(self, label) -> Embed:
-        modes = {
-            "KZT": self.embeds[0],
-            "SKZ": self.embeds[1],
-            "VNL": self.embeds[2],
-        }
-        return modes[label]
+    embeds = []
+    for record in records:
+        embed = Embed(
+            title=record['map_name'],
+            url=(KZGOEU_MAPS_URL + record['map_name']),
+            description=f"Player: {record['player_name']} steamID: {record['steam_id']}",
+            timestamp=formate_record_time(record['updated_on'])
+        )
 
-    @discord.ui.button(label='KZT', style=discord.ButtonStyle.green)
-    async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.get_embeds(button.label))
+        embed.add_field(name="Mode", value=record['mode'])
+        embed.add_field(name="Time", value=record['time'])
+        embed.add_field(name="Teleports", value=record['teleports'])
+        embed.add_field(name="Points", value=record['points'])
+        embed.add_field(name="Place", value=record['place'])
+        if record['server_name'] == 'C10 GOKZ':
+            record['server_name'] = 'AXE GOKZ'
+        embed.add_field(name="Server Name", value=record['server_name'])
 
-    @discord.ui.button(label='SKZ', style=discord.ButtonStyle.blurple)
-    async def kz_simple(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.get_embeds(button.label))
+        embed.set_footer(text="id:"+record['id'])
+        embed.set_image(url=f"MAP_IMAGE{record['map_name']}.jpg")
 
-    @discord.ui.button(label='VNL', style=discord.ButtonStyle.gray)
-    async def kz_vanilla(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.get_embeds(button.label))
+        embeds.append(embed)
+
+    await ms.edit(embeds=embeds)
+
+if __name__ == "__main__":
+
+    pass
