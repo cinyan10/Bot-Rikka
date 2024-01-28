@@ -9,3 +9,5 @@ mysql-connector-python~=8.3.0
 pycountry~=23.12.11
 Flask~=3.0.0
 pytz~=2023.3.post1
+python-steam-api~=1.2.2
+beautifulsoup4

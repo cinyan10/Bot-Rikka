@@ -17,19 +17,37 @@ def fetching_maps(use_local=True):
     return maps_data
 
 
-def get_map_tier(map_name=None, id=None):
+def get_map_tier(map_name=None, map_id=None):
     maps_data = fetching_maps()
     if map_name is not None:
-        for map in maps_data:
-            if map['name'] == map_name:
-                return map['difficulty']
-    elif id is not None:
-        for map in maps_data:
-            if map['id'] == id:
-                return map['difficulty']
+        for kz_map in maps_data:
+            if kz_map['name'] == map_name:
+                return kz_map['difficulty']
+    elif map_id is not None:
+        for kz_map in maps_data:
+            if kz_map['map_id'] == map_id:
+                return kz_map['difficulty']
 
 
 if __name__ == '__main__':
-    tier = get_map_tier(id=842)
+    tier = get_map_tier(map_id=842)
     print(tier)
     pass
+
+
+def fetch_map_tier(map_name: str):
+    try:
+        response = requests.get('https://kztimerglobal.com/api/v2.0/maps/name/' + map_name)
+
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Parse the response as JSON (assuming the API returns JSON)
+            data = response.json()
+            return data['difficulty']
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
+            return None
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return None

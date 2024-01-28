@@ -5,7 +5,7 @@ import discord
 
 from dc_utils.server_status import embeds_server_status
 from functions.embed_content import get_jstop
-from functions.query import query_all_servers, query_server_embed
+from functions.steam.a2s import query_all_servers, query_server_embed
 
 
 async def server_list_embed_loop(message):
@@ -59,4 +59,3 @@ async def jstop_embeds_loop(message: discord.Message):
         embeds.append(embed3)
         await message.edit(embeds=embeds)
         await asyncio.sleep(10800)
-

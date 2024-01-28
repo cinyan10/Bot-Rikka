@@ -1,13 +1,12 @@
 from discord.ext import commands
+from mysql.connector import IntegrityError
+
 from dc_utils.firstjoin import find_player
 from dc_utils.info import *
 from dc_utils.setting import set_language, set_kz_mode
-from functions.database import reset_user_steam, discord_id_to_steamid
+from functions.database import reset_user_steam
 from functions.embed_content import user_info
 from functions.gokzcn import get_gokzcn_info
-from pymysql.err import IntegrityError
-
-from functions.steam.steam import convert_steamid
 
 
 class Info(commands.Cog):
@@ -26,7 +25,6 @@ class Info(commands.Cog):
         """Bind your steamid, steamid can be any type (except: [U:X:XXXXXX])"""
         steamid = convert_steamid(steamid, "steamid")
 
-        # Bind steamid
         try:
             set_steam(ctx, steamid)
             await ctx.send('Steam ID bound successfully!')

@@ -29,7 +29,7 @@ def update_whitelist_status(steamid):
         is_in_group = is_user_in_steam_group(str(steamid64))
         # Update the whitelist status in the database
         cursor = conn.cursor()
-        cursor.execute("UPDATE firstjoin SET whitelist = %s WHERE auth = %s", (is_in_group, steamid))
+        cursor.execute("UPDATE firstjoin.firstjoin SET whitelist = %s WHERE auth = %s", (is_in_group, steamid))
         conn.commit()
         cursor.close()
         return True
@@ -173,4 +173,3 @@ def check_wl(steamid):
 
 if __name__ == "__main__":
     pass
-

@@ -1,4 +1,4 @@
-from functions.db_operate.db_firstjoin import *
+from functions.db_operate.db_firstjoin import find_player_by_name_partial_match
 from functions.embed_content import user_info
 
 

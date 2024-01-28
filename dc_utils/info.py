@@ -1,18 +1,19 @@
 import asyncio
 
+import discord
 import mysql.connector
-from discord import Role
+from discord import Role, Embed
 
-from functions.database import execute_query, discord_id_to_steamid
+from config import KZGOEU_MAPS_URL, MAP_IMAGE_URL, db_config, WL_ROLE_ID
+from functions.database import discord_id_to_steamid, execute_query
 from functions.db_operate.db_discord import get_kzmode
 from functions.db_operate.db_firstjoin import check_wl
-from functions.globalapi.kz_global_stats import *
-from functions.steam.steam import convert_steamid
+from functions.globalapi.kz_global_stats import fetch_personal_recent, fetch_personal_best
 from functions.misc import formate_record_time, format_seconds_to_time
+from functions.steam.steam import convert_steamid
 from functions.steam.steam_user import embed_set_author_steam
 
 
-# noinspection PyUnresolvedReferences
 class StatsView(discord.ui.View):
 
     def __init__(self, embeds: list[discord.Embed]):  # NOQA
@@ -29,15 +30,15 @@ class StatsView(discord.ui.View):
 
     @discord.ui.button(label='KZT', style=discord.ButtonStyle.green)
     async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.get_embeds(button.label))
+        await interaction.response.edit_message(embed=self.get_embeds(button.label))  # NOQA
 
     @discord.ui.button(label='SKZ', style=discord.ButtonStyle.blurple)
     async def kz_simple(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.get_embeds(button.label))
+        await interaction.response.edit_message(embed=self.get_embeds(button.label))  # NOQA
 
     @discord.ui.button(label='VNL', style=discord.ButtonStyle.gray)
     async def kz_vanilla(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.get_embeds(button.label))
+        await interaction.response.edit_message(embed=self.get_embeds(button.label))  # NOQA
 
 
 def record_embed(record):
@@ -58,7 +59,7 @@ def record_embed(record):
         record['server_name'] = 'AXE GOKZ'
     embed.add_field(name="Server Name", value=record['server_name'])
 
-    embed.set_footer(text=f"id:{record['id']}")
+    embed.set_footer(text=f"map_id:{record['map_id']}")
     embed.set_image(url=f"{MAP_IMAGE_URL}{record['map_name']}.jpg")
 
     return embed

@@ -46,13 +46,35 @@ def embed_user_steam(steamid64):
     return embed
 
 
-if __name__ == '__main__':
+def check_vac_bans(steamid64):
+    api_key = STEAM_API_KEY
 
-    name, avatar_url, profile_url = get_steam_profile_info(STEAMID64)
+    url = f"https://api.steampowered.com/ISteamUser/CheckPlayerBans/v1/?key={api_key}&steamids={steamid64}"
 
-    if name:
-        print(f"Steam Name: {name}")
-        print(f"Avatar URL: {avatar_url}")
-        print(f"Profile URL: {profile_url}")
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        bans = data.get("players", [])
+
+        if bans:
+            for ban in bans:
+                game = ban.get("AppName", "Unknown Game")
+                days_since_last_ban = ban.get("DaysSinceLastBan", 0)
+                num_bans = ban.get("NumberOfVACBans", 0)
+
+                print(f"Game: {game}")
+                print(f"Days Since Last Ban: {days_since_last_ban}")
+                print(f"Number of VAC Bans: {num_bans}")
+        else:
+            print("No VAC bans found for this user.")
     else:
-        print("Failed to retrieve Steam profile information.")
+        print("Failed to fetch VAC ban information.")
+
+# Replace with the user's SteamID64
+
+
+if __name__ == '__main__':
+    user_steamid64 = "76561198083328612"
+    check_vac_bans(user_steamid64)
+    pass

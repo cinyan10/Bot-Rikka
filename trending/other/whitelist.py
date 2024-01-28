@@ -1,3 +1,0 @@
-from functions.db_operate.db_firstjoin import update_whitelist_for_users
-
-update_whitelist_for_users()

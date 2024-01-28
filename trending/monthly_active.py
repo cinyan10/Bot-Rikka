@@ -33,7 +33,7 @@ def create_online_month_table():
         # SQL query to create the 'online_month' table
         create_table_query = (
             "CREATE TABLE IF NOT EXISTS online_month ("
-            "id INT AUTO_INCREMENT PRIMARY KEY,"
+            "map_id INT AUTO_INCREMENT PRIMARY KEY,"
             "month_date DATE NOT NULL,"
             "players_online INT NOT NULL,"
             "whitelisted INT NOT NULL,"

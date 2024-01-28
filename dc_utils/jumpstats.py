@@ -1,8 +1,9 @@
 from discord import Embed
 from config import *
 from functions.db_operate.db_gokz import get_ljpb, get_jspb
+
 from functions.steam.steam import convert_steamid
-from functions.steam_embed import steam_embed
+from functions.steam.steam_embed import steam_embed
 
 
 def embed_ljpb(kz_mode, steamid, is_block_jump) -> Embed:
@@ -13,10 +14,7 @@ def embed_ljpb(kz_mode, steamid, is_block_jump) -> Embed:
         title = f'LJPB: {ljpb_data['Block']} Block Jump'
     else:
         title = f'LJPB: {ljpb_data['Distance']}'
-    ljpb_embed = steam_embed(
-        steamid,
-        title=title
-    )
+    ljpb_embed = steam_embed(steamid, title=title)
 
     for key in JUMPSTATS:
         ljpb_embed.add_field(name=key, value=ljpb_data[key], inline=True)
@@ -29,10 +27,7 @@ def embed_jspb(kz_mode: str, steamid) -> Embed:
     jspb_data: dict = get_jspb(steamid32, kz_mode)
 
     title = f'Jump Stats: {kz_mode.upper()}'
-    jspb_embed = steam_embed(
-        steamid,
-        title=title
-    )
+    jspb_embed = steam_embed(steamid, title=title)
     for jump_type, dist in jspb_data.items():
         jspb_embed.add_field(name=JUMP_TYPE[jump_type], value=dist / 10000.0, inline=True)
 

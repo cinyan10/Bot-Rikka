@@ -1,6 +1,7 @@
 import discord
 from discord import Embed
-from functions.steam.steam import *
+
+from functions.steam.steam import convert_steamid, get_steam_profile_url, get_steam_pfp, get_steam_username
 
 
 def steam_embed(steamid, title=None, description=None, timestamp=None):

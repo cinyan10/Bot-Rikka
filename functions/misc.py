@@ -117,3 +117,14 @@ def format_seconds_to_time(total_seconds):
 if __name__ == "__main__":
 
     pass
+
+
+def format_seconds(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if hours >= 10:
+        return "{:02}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds))
+    elif hours >= 1:
+        return "{}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds))
+    else:
+        return "{:02}:{:02}".format(int(minutes), int(seconds))

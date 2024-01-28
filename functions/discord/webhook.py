@@ -1,7 +1,7 @@
 import requests
 import json
-from functions.query import query_server_simple
 from config import WEBHOOK_URL, SERVER_LIST
+from functions.steam.a2s import query_server_simple
 
 
 def send_webhook():

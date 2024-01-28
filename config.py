@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-from functions.servers import Server
+from functions.server import Server
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')

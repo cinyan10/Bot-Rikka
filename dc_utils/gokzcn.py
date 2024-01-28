@@ -3,8 +3,10 @@ from datetime import datetime
 import discord
 
 from discord import Embed
-from functions.db_operate.db_firstjoin import *
+
+from functions.db_operate.db_firstjoin import get_whitelisted_players
 from functions.gokzcn import fetch_playerdata
+from functions.steam.steam import convert_steamid
 
 
 # [[steamid, name, skill, cnRank]]

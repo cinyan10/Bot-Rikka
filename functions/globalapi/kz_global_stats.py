@@ -6,7 +6,7 @@ from functions.database import get_steam_user_name
 from functions.globalapi.kz_maps import get_map_tier
 from functions.globalapi.kz_mode import format_kzmode
 from functions.globalapi.maps import Maps
-from functions.misc import percentage_bar, add_commas
+from functions.misc import add_commas, percentage_bar
 from functions.steam.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
 
 
@@ -66,16 +66,20 @@ class KzGlobalStats:
         emojis = ["⬛", '🟦', '🟩', '🟨', '🟧', '🟥', '🟪', '⬜']
         # ⬛ ⬜
 
-        tp_content = f"🥇 {self.tp_wr} 🥈 {self.tp_silver} 🥉 {self.tp_copper} Total:**{add_commas(self.tp_total_pts)}** Avg:**{int(self.tp_avg_pts)}**\n"
+        tp_content = (f"🥇 {self.tp_wr} 🥈 {self.tp_silver} 🥉 {self.tp_copper} "
+                      f"Total:**{add_commas(self.tp_total_pts)}** Avg:**{int(self.tp_avg_pts)}**\n")
         for i in range(1, 8):
-            tp_content += f"{percentage_bar(self.tp_tier_maps[i] / self.maps.tier[i], 15, emojis[i], '⬛', show_percentage=False, show_brackets=False)} "
+            tp_content += f"{percentage_bar(self.tp_tier_maps[i] / self.maps.tier[i], 15, emojis[i], '⬛',
+                                            show_percentage=False, show_brackets=False)} "
             tp_content += f"T{i} `{self.tp_tier_maps[i]}/{self.maps.tier[i]}` | `{int(self.tp_avg_tier_pts[i])}`\n"
 
         embed.add_field(inline=False, name=f"TP Stats", value=tp_content)
 
-        pro_content = f"🥇 {self.pro_wr} 🥈 {self.pro_silver} 🥉 {self.pro_copper} Total:**{add_commas(self.pro_total_pts)}** Avg:**{int(self.pro_avg_pts)}**\n"
+        pro_content = (f"🥇 {self.pro_wr} 🥈 {self.pro_silver} 🥉 {self.pro_copper} "
+                       f"Total:**{add_commas(self.pro_total_pts)}** Avg:**{int(self.pro_avg_pts)}**\n")
         for i in range(1, 8):
-            pro_content += f"{percentage_bar(self.pro_tier_maps[i] / self.maps.tier[i], 15, emojis[i], '⬛', show_percentage=False, show_brackets=False)} "
+            pro_content += f"{percentage_bar(self.pro_tier_maps[i] / self.maps.tier[i], 15, emojis[i], '⬛',
+                                             show_percentage=False, show_brackets=False)} "
             pro_content += f"T{i} `{self.pro_tier_maps[i]}/{self.maps.tier[i]}` | `{int(self.pro_avg_tier_pts[i])}`\n"
 
         embed.add_field(inline=False, name=f"Pro Stats", value=pro_content)
@@ -85,7 +89,7 @@ class KzGlobalStats:
 
 class Record:
     def __init__(self, data):
-        self.id = data["id"]
+        self.id = data["map_id"]
         self.steamid64 = data["steamid64"]
         self.player_name = data["player_name"]
         self.steam_id = data["steam_id"]
@@ -107,7 +111,8 @@ class Record:
 
 
 def fetch_global_stats(steamid64, mode_str, has_tp: bool):
-    api_url = f"{GLOBAL_API_URL}api/v2.0/records/top?&steamid64={steamid64}&tickrate=128&stage=0&modes_list_string={mode_str}&limit=10000&has_teleports={has_tp}"
+    api_url = (f"{GLOBAL_API_URL}api/v2.0/records/top?&steamid64={steamid64}&tickrate=128&"
+               f"stage=0&modes_list_string={mode_str}&limit=10000&has_teleports={has_tp}")
     response = requests.get(api_url)
     response.raise_for_status()
     data = response.json()
@@ -130,7 +135,7 @@ def cal_stats(data):
     for record in data:
         points = record["points"]
         map_id = record["map_id"]
-        tier = get_map_tier(id=map_id)
+        tier = get_map_tier(map_id=map_id)
 
         if tier is not None:
             total_points += points
@@ -148,7 +153,7 @@ def cal_stats(data):
         avg_total_points = total_points / total_records
     except ZeroDivisionError:
         avg_total_points = 0
-    avg_tier_points = {tier: points / tier_counts[tier] if tier_counts[tier] > 0 else 0 for tier, points in tier_points.items()}
+    avg_tier_points = {tier: points / tier_counts[tier] if tier_counts[tier] > 0 else 0 for tier, points in tier_points.items()}  # NOQA
 
     return {
         "avg_pts": avg_total_points,

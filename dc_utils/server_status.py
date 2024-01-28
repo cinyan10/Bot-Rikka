@@ -15,7 +15,7 @@ def bytes_to_gb(bytes_value):
 class ServerStatus:
     def __init__(self, server_id):
         data = get_server_status(server_id)['result'][0]
-        self.id = data['id']
+        self.id = data['map_id']
         self.name = data['name']
         self.tag = data['tag']
         self.last_active = data['last_active']
@@ -139,7 +139,7 @@ def get_server_list() -> dict:
 
 def embeds_server_status():
     servers: dict = get_server_list()['result']
-    ids: list = [s['id'] for s in servers]
+    ids: list = [s['map_id'] for s in servers]
     ids = sorted(ids)
     embeds = [ServerStatus(id).embed() for id in ids]  # NOQA
     return embeds

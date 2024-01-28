@@ -1,7 +1,10 @@
 import mysql.connector
 from config import *
+import mysql.connector
+from config import db_config
 
 db_config['database'] = 'gokz'
+
 
 def get_ljpb(steamid32, kz_mode, is_block_jump, jump_type) -> dict:
     connection = None
@@ -58,20 +61,13 @@ def get_ljpb(steamid32, kz_mode, is_block_jump, jump_type) -> dict:
             connection.close()
 
 
-import mysql.connector
-from config import db_config  # Import the db_config module
-
-# Function to query player's best distances grouped by JumpType
 def get_jspb(steamid32, mode):
     mode = KZ_MODES.index(mode)
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
     try:
-        # Establish a connection to your MySQL database using imported config values
-        conn = mysql.connector.connect(**db_config)
 
-        # Create a cursor object to execute SQL queries
-        cursor = conn.cursor()
-
-        # Execute a SELECT query to retrieve best distances grouped by JumpType
         cursor.execute("""
             SELECT JumpType, MAX(Distance)
             FROM gokz.Jumpstats
@@ -79,10 +75,8 @@ def get_jspb(steamid32, mode):
             GROUP BY JumpType
         """, (steamid32, mode))
 
-        # Fetch all the results (best distances for each jump type)
         results = cursor.fetchall()
 
-        # Create a dictionary to store the results with jump types as keys
         best_distances_by_jumptype = {jump_type: best_distance for jump_type, best_distance in results}
 
         return best_distances_by_jumptype
@@ -95,10 +89,10 @@ def get_jspb(steamid32, mode):
         cursor.close()
         conn.close()
 
+
 if __name__ == '__main__':
-    # Example usage:
-    steam_id32_to_query = STEAMID32  # Replace with the SteamID32 you want to query
-    mode_to_query = 'kzt'  # Replace with the desired mode
+    steam_id32_to_query = STEAMID32
+    mode_to_query = 'kzt'
     jspb = get_jspb(steam_id32_to_query, mode_to_query)
     print(type(jspb))
     for k, v in jspb.items():
