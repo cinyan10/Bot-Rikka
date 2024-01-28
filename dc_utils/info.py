@@ -110,14 +110,22 @@ class StatsView(discord.ui.View):
         super().__init__()
         self.embeds: list = embeds
 
+    def get_embeds(self, label) -> Embed:
+        modes = {
+            "KZT": self.embeds[0],
+            "SKZ": self.embeds[1],
+            "VNL": self.embeds[2],
+        }
+        return modes[label]
+
     @discord.ui.button(label='KZT', style=discord.ButtonStyle.green)
-    async def kz_timer(self, interaction: discord.Interaction):
-        await interaction.response.edit_message(embed=self.embeds[0])
+    async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(embed=self.get_embeds(button.label))
 
     @discord.ui.button(label='SKZ', style=discord.ButtonStyle.blurple)
-    async def kz_simple(self, interaction: discord.Interaction):
-        await interaction.response.edit_message(embed=self.embeds[1])
+    async def kz_simple(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(embed=self.get_embeds(button.label))
 
     @discord.ui.button(label='VNL', style=discord.ButtonStyle.gray)
-    async def kz_vanilla(self, interaction: discord.Interaction):
-        await interaction.response.edit_message(embed=self.embeds[2])
+    async def kz_vanilla(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(embed=self.get_embeds(button.label))
