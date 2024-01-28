@@ -137,12 +137,12 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
     elif steamid:
         steamid64 = convert_steamid(steamid, "steamid64")
     else:
-        steamid64 = convert_steamid(ctx.author.id, "steamid64")
+        steamid = discord_id_to_steamid(ctx.author.id)
+        steamid64 = convert_steamid(steamid, "steamid64")
 
     records = fetch_personal_recent(steamid64, kzmode, limit)
     embeds = []
-    # Debug
-    await ctx.send(f"{records}, {len(records)}")
+
     for record in records:
         embed = Embed(
             title=record['map_name'],
@@ -168,30 +168,5 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
     await ms.edit(embed=embeds[0])
 
 if __name__ == "__main__":
-    records = fetch_personal_recent(STEAMID64, limit=5)
 
-    embeds = []
-    for record in records:
-        embed = Embed(
-            title=record['map_name'],
-            url=(KZGOEU_MAPS_URL + record['map_name']),
-            description=f"Player: {record['player_name']} steamID: {record['steam_id']}",
-            timestamp=formate_record_time(record['updated_on'])
-        )
-
-        embed.add_field(name="Mode", value=record['mode'])
-        embed.add_field(name="Time", value=record['time'])
-        embed.add_field(name="Teleports", value=record['teleports'])
-        embed.add_field(name="Points", value=record['points'])
-        embed.add_field(name="Place", value=record['place'])
-        if record['server_name'] == 'C10 GOKZ':
-            record['server_name'] = 'AXE GOKZ'
-        embed.add_field(name="Server Name", value=record['server_name'])
-
-        embed.set_footer(text=f"id:{record['id']}")
-        embed.set_image(url=f"MAP_IMAGE{record['map_name']}.jpg")
-        print(embed.timestamp, embed.title)
-        embeds.append(embed)
-
-    print(len(embeds), embeds[0].description)
     pass
