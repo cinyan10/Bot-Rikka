@@ -133,8 +133,9 @@ async def kz_info(ctx, member: discord.Member, steamid):
 
 
 async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
-    ms = await ctx.send(embeds=[Embed(title="Loading...", description="This may take a while...")])
-
+    print(1)
+    ms = await ctx.send(embed=Embed(title="Loading...", description="This may take a while..."))
+    print(2)
     if member:
         steamid = discord_id_to_steamid(member.id)
         steamid64 = convert_steamid(steamid, 'steamid64')
