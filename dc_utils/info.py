@@ -146,6 +146,7 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
 
     embeds = []
     for record in records:
+        print("我被执行了")
         embed = Embed(
             title=record['map_name'],
             url=(KZGOEU_MAPS_URL + record['map_name']),
@@ -167,6 +168,7 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
 
         embeds.append(embed)
 
+    print("Ready to Send", len(embeds))
     await ms.edit(embeds=embeds)
 
 if __name__ == "__main__":
