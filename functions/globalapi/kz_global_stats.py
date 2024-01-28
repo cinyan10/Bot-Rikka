@@ -86,6 +86,13 @@ class KzGlobalStats:
 
         return embed
 
+    def is_reach_pts(self) -> bool:
+        if self.total_pts > 50000:
+            return True
+        else:
+            return False
+
+
 
 class Record:
     def __init__(self, data):

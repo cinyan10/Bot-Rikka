@@ -1,6 +1,6 @@
 import mysql.connector
 from config import db_config
-from functions.steam.steam import convert_steamid, is_user_in_steam_group
+from functions.steam.steam import convert_steamid, is_in_group
 
 db_config['database'] = "firstjoin"
 
@@ -26,10 +26,10 @@ def update_whitelist_status(steamid):
     conn = mysql.connector.connect(**db_config)
     try:
         steamid64 = convert_steamid(steamid, 'steamid64')
-        is_in_group = is_user_in_steam_group(str(steamid64))
+        is_group = is_in_group(str(steamid64))
         # Update the whitelist status in the database
         cursor = conn.cursor()
-        cursor.execute("UPDATE firstjoin.firstjoin SET whitelist = %s WHERE auth = %s", (is_in_group, steamid))
+        cursor.execute("UPDATE firstjoin.firstjoin SET whitelist = %s WHERE auth = %s", (is_group, steamid))
         conn.commit()
         cursor.close()
         return True
@@ -66,7 +66,7 @@ def update_whitelist_for_users() -> None:
             steamid64 = convert_steamid(steamid, 'steamid64')
 
             # Check if the user is in the specified group
-            is_in_group = is_user_in_steam_group(str(steamid64))
+            is_in_group = is_in_group(str(steamid64))
             print(f"Updating whitelist for user {user[0]}, {count} / {amount}")
 
             # Update whitelist status (1 for whitelisted, 0 for not whitelisted)

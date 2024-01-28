@@ -46,35 +46,38 @@ def embed_user_steam(steamid64):
     return embed
 
 
-def check_vac_bans(steamid64):
-    api_key = STEAM_API_KEY
-
-    url = f"https://api.steampowered.com/ISteamUser/CheckPlayerBans/v1/?key={api_key}&steamids={steamid64}"
-
+def check_steam_bans(steamid64):
+    """return {
+        'vac_banned': True,
+        'game_ban_count': 3,
+        'community_banned': False,
+        'economy_ban': 'none'
+        }"""
+    url = f'http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key={STEAM_API_KEY}&steamids={steamid64}'
     response = requests.get(url)
+    ban_data = response.json()
 
-    if response.status_code == 200:
-        data = response.json()
-        bans = data.get("players", [])
+    # The response contains a list of players, but since we only requested one SteamID, we'll have only one entry.
+    player_ban_info = ban_data['players'][0]
 
-        if bans:
-            for ban in bans:
-                game = ban.get("AppName", "Unknown Game")
-                days_since_last_ban = ban.get("DaysSinceLastBan", 0)
-                num_bans = ban.get("NumberOfVACBans", 0)
+    # Check for VAC bans and game bans
+    vac_banned = player_ban_info['VACBanned']
+    game_ban_count = player_ban_info['NumberOfGameBans']
 
-                print(f"Game: {game}")
-                print(f"Days Since Last Ban: {days_since_last_ban}")
-                print(f"Number of VAC Bans: {num_bans}")
-        else:
-            print("No VAC bans found for this user.")
-    else:
-        print("Failed to fetch VAC ban information.")
+    # You can also check for community bans and economy bans (trade bans)
+    community_banned = player_ban_info['CommunityBanned']
+    economy_ban = player_ban_info['EconomyBan']
 
-# Replace with the user's SteamID64
+    return {
+        'vac_banned': vac_banned,
+        'game_ban_count': game_ban_count,
+        'community_banned': community_banned,
+        'economy_ban': economy_ban
+    }
 
 
 if __name__ == '__main__':
     user_steamid64 = "76561198083328612"
-    check_vac_bans(user_steamid64)
+    rs = check_steam_bans(user_steamid64)
+    print(rs)
     pass

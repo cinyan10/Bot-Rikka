@@ -45,7 +45,7 @@ WL_ROLE_ID = 1200728830042714132
 
 # STEAM
 STEAM_API_KEY = os.getenv('STEAM_API_KEY')
-GROUP_ID = '43691138'
+GROUP_ID = '44318306'
 GROUP_URL = "https://steamcommunity.com/groups/axekz/memberslistxml/?xml=1"
 
 # GOKZ

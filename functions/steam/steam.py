@@ -141,7 +141,7 @@ def convert_steamid(source_id, target_type):
         raise ValueError("Invalid target format type")
 
 
-def is_user_in_steam_group(steamid64):
+def is_in_group(steamid64):
     page = 1
     while True:
         group_url = f"{GROUP_URL}&p={page}"
