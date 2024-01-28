@@ -50,7 +50,7 @@ def record_embed(record):
 
     embed.add_field(name="Mode", value=record['mode'])
     embed.add_field(name="Time", value=format_seconds_to_time(record['time']))
-    embed.add_field(name="steamID", value={record['steam_id']})
+    embed.add_field(name="steamID", value=record['steam_id'])
     embed.add_field(name="Teleports", value=record['teleports'])
     embed.add_field(name="Points", value=record['points'])
 
@@ -187,18 +187,12 @@ async def personal_best(ctx, map_name, member, steamid, mode):
 
     record = fetch_personal_best(steamid64, map_name, mode)
 
-    embed = None
     try:
         embed = record_embed(record)
-    except Exception as e:
-        print(e)
-        try:
-            embed = record_embed(record[0])
-        except Exception as e:
-            await ms.edit(embed=Embed(title="Error!", description=e, colour=discord.Colour.red()))
+    except IndexError:
+        return await ms.edit(embed=Embed(title="Error!", description="Data not found. Have you finished this map?"))
 
     embed_set_author_steam(embed, steamid64)
-
     await ms.edit(embed=embed)
 
 
