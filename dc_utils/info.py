@@ -85,7 +85,6 @@ async def kz_info(self, ctx, member: discord.Member, steamid, mode):
     ms = await ctx.send(embed=Embed(title="KZ Stats Loading..."))
 
     discord_id = None
-
     if member:
         # @mention member
         steamid = discord_id_to_steamid(member.id)
@@ -98,7 +97,10 @@ async def kz_info(self, ctx, member: discord.Member, steamid, mode):
         steamid64 = convert_steamid(steamid, "steamid64")
 
     if not mode:
-        mode = get_kzmode(discord_id)
+        try:
+            mode = get_kzmode(discord_id)
+        except Exception:
+            mode = 'kz_timer'
 
     try:
         embed = KzGlobalStats(steamid64, kzmode=mode).embed_stats()
