@@ -96,7 +96,7 @@ class Info(commands.Cog):
     @commands.hybrid_command(name="kz")
     async def kz(self, ctx, member: discord.Member = None, steamid=None, mode=None):
         """Show Your or Other's Kz Global Stats"""
-        await kz_info(self, ctx, member, steamid, mode)
+        await kz_info(ctx, member, steamid, mode)
 
 
 async def setup(bot):
