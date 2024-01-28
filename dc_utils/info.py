@@ -7,8 +7,8 @@ from functions.database import execute_query, discord_id_to_steamid
 from functions.db_operate.db_firstjoin import check_wl
 from functions.globalapi.kz_global_stats import *
 from functions.steam.steam import convert_steamid
-from functions.misc import formate_record_time
-from functions.steam.steam_user import embed_user_steam, embed_set_author_steam
+from functions.misc import formate_record_time, format_seconds_to_time
+from functions.steam.steam_user import embed_set_author_steam
 
 
 # noinspection PyUnresolvedReferences
@@ -37,6 +37,43 @@ class StatsView(discord.ui.View):
     @discord.ui.button(label='VNL', style=discord.ButtonStyle.gray)
     async def kz_vanilla(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.edit_message(embed=self.get_embeds(button.label))
+
+
+def record_embed(record):
+    embed = Embed(
+        title=record['map_name'],
+        url=(KZGOEU_MAPS_URL + record['map_name']),
+        description=f"steamID: `{record['steam_id']}`",
+        timestamp=formate_record_time(record['updated_on']),
+        colour=discord.Colour.blue()
+    )
+
+    embed.add_field(name="Mode", value=record['mode'])
+    embed.add_field(name="Time", value=format_seconds_to_time(record['time']))
+    embed.add_field(name="Teleports", value=record['teleports'])
+    embed.add_field(name="Points", value=record['points'])
+    embed.add_field(name="Place", value=record['place'])
+    if record['server_name'] == 'C10 GOKZ':
+        record['server_name'] = 'AXE GOKZ'
+    embed.add_field(name="Server Name", value=record['server_name'])
+
+    embed.set_footer(text=f"id:{record['id']}")
+    embed.set_image(url=f"{MAP_IMAGE_URL}{record['map_name']}.jpg")
+
+    return embed
+
+
+def choose_steamid(ctx, member: discord.Member, steamid):
+    if member:
+        steamid = discord_id_to_steamid(member.id)
+        steamid64 = convert_steamid(steamid, 'steamid64')
+    elif steamid:
+        steamid = convert_steamid(steamid, 'steamid')
+        steamid64 = convert_steamid(steamid, "steamid64")
+    else:
+        steamid = discord_id_to_steamid(ctx.author.id)
+        steamid64 = convert_steamid(steamid, "steamid64")
+    return steamid, steamid64
 
 
 def set_bili(ctx, bili_uid) -> str:
@@ -111,16 +148,8 @@ async def set_wl_role(ctx, steamid=None):
 
 async def kz_info(ctx, member: discord.Member, steamid):
     ms = await ctx.send(embed=Embed(title="KZ Stats Loading..."))
-    if member:
-        # @mention member
-        steamid = discord_id_to_steamid(member.id)
-        steamid64 = convert_steamid(steamid, 'steamid64')
-    elif steamid:
-        steamid64 = convert_steamid(steamid, "steamid64")
-    else:
-        discord_id = ctx.author.id
-        steamid = discord_id_to_steamid(discord_id)
-        steamid64 = convert_steamid(steamid, "steamid64")
+
+    steamid, steamid64 = choose_steamid(ctx, member, steamid)
 
     try:
         embeds = [get_stats_embed(steamid64, kzmode) for kzmode in ['kzt', 'skz', 'vnl']]  # NOQA
@@ -132,44 +161,33 @@ async def kz_info(ctx, member: discord.Member, steamid):
 
 async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
     ms = await ctx.send(embed=Embed(title="Loading...", description="This may take a while..."))
-    if member:
-        steamid = discord_id_to_steamid(member.id)
-        steamid64 = convert_steamid(steamid, 'steamid64')
-    elif steamid:
-        steamid64 = convert_steamid(steamid, "steamid64")
-    else:
-        steamid = discord_id_to_steamid(ctx.author.id)
-        steamid64 = convert_steamid(steamid, "steamid64")
+
+    steamid, steamid64 = choose_steamid(ctx, member, steamid)
 
     records = fetch_personal_recent(steamid64, kzmode, limit)
+
     embeds = []
-
     for record in records:
-        embed = Embed(
-            title=record['map_name'],
-            url=(KZGOEU_MAPS_URL + record['map_name']),
-            description=f"steamID: `{record['steam_id']}`",
-            timestamp=formate_record_time(record['updated_on']),
-            colour=discord.Colour.blue()
-        )
-
+        embed = record_embed(record)
         embed_set_author_steam(embed, steamid64)
-
-        embed.add_field(name="Mode", value=record['mode'])
-        embed.add_field(name="Time", value=record['time'])
-        embed.add_field(name="Teleports", value=record['teleports'])
-        embed.add_field(name="Points", value=record['points'])
-        embed.add_field(name="Place", value=record['place'])
-        if record['server_name'] == 'C10 GOKZ':
-            record['server_name'] = 'AXE GOKZ'
-        embed.add_field(name="Server Name", value=record['server_name'])
-
-        embed.set_footer(text=f"id:{record['id']}")
-        embed.set_image(url=f"{MAP_IMAGE_URL}{record['map_name']}.jpg")
-
         embeds.append(embed)
 
     await ms.edit(embeds=embeds)
+
+
+async def personal_best(ctx, map_name, member, steamid, mode):
+
+    ms = await ctx.send(embed=Embed(title="Loading...", description="This may take a while..."))
+
+    steamid, steamid64 = choose_steamid(ctx, member, steamid)
+
+    record = fetch_personal_best(steamid64, map_name, mode)
+
+    embed = record_embed(record)
+    embed_set_author_steam(embed, steamid64)
+
+    await ms.edit(embed=embed)
+
 
 if __name__ == "__main__":
 

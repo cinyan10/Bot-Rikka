@@ -107,7 +107,7 @@ class Record:
 
 
 def fetch_global_stats(steamid64, mode_str, has_tp: bool):
-    api_url = f"{GLOBAL_API_URL}/api/v2.0/records/top?&steamid64={steamid64}&tickrate=128&stage=0&modes_list_string={mode_str}&limit=10000&has_teleports={has_tp}"
+    api_url = f"{GLOBAL_API_URL}api/v2.0/records/top?&steamid64={steamid64}&tickrate=128&stage=0&modes_list_string={mode_str}&limit=10000&has_teleports={has_tp}"
     response = requests.get(api_url)
     response.raise_for_status()
     data = response.json()
@@ -168,7 +168,18 @@ def fetch_personal_recent(steamid64, mode, limit):
     if limit > 5:
         limit = 5
 
-    api_url = f"{GLOBAL_API_URL}/api/v2.0/records/top/recent?steamid64={steamid64}&modes_list_string={mode}&limit={limit}"
+    api_url = f"{GLOBAL_API_URL}api/v2.0/records/top/recent?steamid64={steamid64}&modes_list_string={mode}&limit={limit}"
+
+    response = requests.get(api_url)
+    response.raise_for_status()
+    data = response.json()
+    return data
+
+
+def fetch_personal_best(steamid64, map_name, mode):
+    mode = format_kzmode(mode)
+
+    api_url = f"{GLOBAL_API_URL}api/v2.0/records/top?steamid64={steamid64}&map_name={map_name}&stage=1&modes_list_string={mode}"
 
     response = requests.get(api_url)
     response.raise_for_status()
@@ -177,7 +188,7 @@ def fetch_personal_recent(steamid64, mode, limit):
 
 
 if __name__ == "__main__":
-    rs = fetch_personal_recent(STEAMID64)
-    print(rs)
-    print(len(rs))
+    # rs = fetch_personal_best(STEAMID64, 'kz_lionheart', 'kzt')
+    # print(rs)
+    # print(len(rs))
     pass

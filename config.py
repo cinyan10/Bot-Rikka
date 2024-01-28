@@ -15,7 +15,7 @@ DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_PORT = os.getenv('DB_PORT')
 DB_USER = os.getenv('DB_USER')
 
-GLOBAL_API_URL = "https://kztimerglobal.com"
+GLOBAL_API_URL = "https://kztimerglobal.com/"
 
 KZGOEU_MAPS_URL = 'https://kzgo.eu/maps/'
 MAP_IMAGE_URL = "https://raw.githubusercontent.com/KZGlobalTeam/map-images/master/images/"

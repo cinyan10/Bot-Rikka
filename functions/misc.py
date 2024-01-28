@@ -95,6 +95,19 @@ def formate_record_time(data_str):
     return datetime.strptime(data_str, date_format)
 
 
+def format_seconds_to_time(total_seconds):
+    # Calculate hours, minutes, seconds, and milliseconds
+    hours = int(total_seconds // 3600)
+    minutes = int((total_seconds % 3600) // 60)
+    seconds = int(total_seconds % 60)
+    milliseconds = int((total_seconds - int(total_seconds)) * 1000)
+
+    # Format the result
+    formatted_time = f"{hours:02d}:{minutes:02d}:{seconds:02d}.{milliseconds:03d}"
+
+    return formatted_time
+
+
 if __name__ == "__main__":
     date_string = "2023-10-14T09:14:07"
     rs = formate_record_time(date_string)

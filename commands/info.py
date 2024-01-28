@@ -100,6 +100,11 @@ class Info(commands.Cog):
         """Show Your or Other's personal recently played maps"""
         await personal_recent(ctx, limit, member, steamid, kzmode)
 
+    @commands.hybrid_command(name="pb")
+    async def pb(self, ctx, map_name, member: discord.Member = None, steamid=None, mode=None):
+        """Show Your or Other's personal best of specific map"""
+        await personal_best(ctx, map_name, member, steamid, mode)
+
 
 async def setup(bot):
     await bot.add_cog(Info(bot))
