@@ -10,6 +10,10 @@ from functions.misc import percentage_bar, add_commas
 from functions.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
 
 
+def get_stats_embed(steamid64, kzmode):
+    return KzGlobalStats(steamid64, kzmode=kzmode).embed_stats()
+
+
 class KzGlobalStats:
     def __init__(self, steamid64, kzmode="kz_timer"):
         if kzmode:
