@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from dc_utils.jumpstats import *
 from functions.database import discord_id_to_steamid
-from functions.db_operate.db_discord import get_kz_mode
+from functions.db_operate.db_discord import get_kzmode
 
 
 class LocalStats(commands.Cog):
@@ -17,7 +17,7 @@ class LocalStats(commands.Cog):
         if steamid is None:
             steamid = discord_id_to_steamid(discord_id)
         if kz_mode is None:
-            kz_mode = get_kz_mode(discord_id)
+            kz_mode = get_kzmode(discord_id)
 
         rs = embed_ljpb(kz_mode, steamid, is_block_jump)
         await ctx.send(embed=rs)
@@ -30,7 +30,7 @@ class LocalStats(commands.Cog):
         if steamid is None:
             steamid = discord_id_to_steamid(discord_id)
         if kz_mode is None:
-            kz_mode = get_kz_mode(discord_id)
+            kz_mode = get_kzmode(discord_id)
 
         rs = embed_jspb(kz_mode, steamid)
         await ctx.send(embed=rs)

@@ -6,6 +6,7 @@ from discord import Role, Embed
 
 from config import db_config, WL_ROLE_ID
 from functions.database import execute_query, discord_id_to_steamid
+from functions.db_operate.db_discord import get_kzmode
 from functions.db_operate.db_firstjoin import check_wl
 from functions.globalapi.kz_global_stats import KzGlobalStats
 from functions.steam import convert_steamid
@@ -80,9 +81,13 @@ async def set_wl_role(ctx, steamid=None):
         pass
 
 
-async def kz_info(self, ctx, member: discord.Member = None, steamid=None, mode='kzt'):
+async def kz_info(self, ctx, member: discord.Member, steamid, mode):
     ms = await ctx.send(embed=Embed(title="KZ Stats Loading..."))
+
+    discord_id = None
+
     if member:
+        # @mention member
         steamid = discord_id_to_steamid(member.id)
         steamid64 = convert_steamid(steamid, 'steamid64')
     elif steamid:
@@ -91,6 +96,10 @@ async def kz_info(self, ctx, member: discord.Member = None, steamid=None, mode='
         discord_id = ctx.author.id
         steamid = discord_id_to_steamid(discord_id)
         steamid64 = convert_steamid(steamid, "steamid64")
+
+    if not mode:
+        mode = get_kzmode(discord_id)
+
     try:
         embed = KzGlobalStats(steamid64, kzmode=mode).embed_stats()
     except Exception as e:

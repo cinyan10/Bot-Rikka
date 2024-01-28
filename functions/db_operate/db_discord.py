@@ -1,9 +1,9 @@
 import mysql.connector
 from config import *
+from functions.steam import convert_steamid
 
 
-# Function to query kz_mode by discord_id
-def get_kz_mode(discord_id):
+def get_kzmode(discord_id=None, steamid=None):
 
     cursor = None
     conn = None
@@ -11,14 +11,17 @@ def get_kz_mode(discord_id):
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
-        cursor.execute("SELECT kz_mode FROM discord.users WHERE discord_id = %s", (discord_id,))
-
+        if discord_id:
+            cursor.execute("SELECT kz_mode FROM discord.users WHERE discord_id = %s", (discord_id,))
+        else:
+            steamid = convert_steamid(steamid, "steamid64")
+            cursor.execute("SELECT kz_mode FROM discord.users WHERE steamid = %s", (steamid,))
         result = cursor.fetchone()
 
         if result:
-            return result[0]  # Return the kz_mode value
+            return result[0]
         else:
-            return None  # User not found or no kz_mode information
+            return None
 
     except mysql.connector.Error as e:
         print(f"MySQL error: {e}")
