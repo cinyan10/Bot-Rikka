@@ -10,6 +10,6 @@ def format_kzmode(mode) -> str:
 
 
 if __name__ == '__main__':
-    rs = format_kzmode('1')
+    rs = format_kzmode(1)
     print(rs)
 

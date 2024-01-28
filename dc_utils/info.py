@@ -1,4 +1,5 @@
 import asyncio
+import traceback
 
 import discord
 import mysql.connector
@@ -83,8 +84,7 @@ async def set_wl_role(ctx, steamid=None):
 
 async def kz_info(self, ctx, member: discord.Member, steamid, mode):
     ms = await ctx.send(embed=Embed(title="KZ Stats Loading..."))
-
-    discord_id = None
+    steamid = convert_steamid(steamid, 'steamid')
     if member:
         # @mention member
         steamid = discord_id_to_steamid(member.id)
@@ -96,10 +96,12 @@ async def kz_info(self, ctx, member: discord.Member, steamid, mode):
         steamid = discord_id_to_steamid(discord_id)
         steamid64 = convert_steamid(steamid, "steamid64")
 
-    if not mode:
+    if mode is None:
         try:
-            mode = get_kzmode(discord_id)
-        except Exception:
+            mode = get_kzmode(steamid=steamid)
+        except Exception as e:
+            print(traceback.format_exc())
+            print('Error getting KZ mode:', e)
             mode = 'kz_timer'
 
     try:
