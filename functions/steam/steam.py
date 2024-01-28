@@ -141,44 +141,6 @@ def convert_steamid(source_id, target_type):
         raise ValueError("Invalid target format type")
 
 
-def is_in_group(steamid64):
-    page = 1
-    while True:
-        group_url = f"{GROUP_URL}&p={page}"
-        try:
-            response = requests.get(group_url)
-            if response.status_code != 200:
-                print(f"Failed to retrieve group members, status code: {response.status_code}")
-                return False
-
-            root = element_tree.fromstring(response.content)
-            members = root.find('members')
-
-            if members is None:
-                print("Members list not found in XML.")
-                return False
-
-            for member in members:
-                if member.text == steamid64:
-                    return True
-
-            # Check if there's a next page
-            next_page = root.find('nextPage')
-            if next_page is None or next_page.text == "":
-                break
-
-            page += 1
-
-        except requests.RequestException as e:
-            print(f"Error making request: {e}")
-            return False
-        except element_tree.ParseError as e:
-            print(f"XML Parsing Error: {e}")
-            return False
-
-    return False
-
-
 def get_steam_avatar_small(steamid64):
     base_url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
     params = {
@@ -223,7 +185,7 @@ def get_steam_avatar_medium(steamid64):
         return None
 
 
-def is_user_in_group(steamid64):
+def is_in_group(steamid64):
     # Replace 'YOUR_API_KEY' with your actual Steam API key
     api_key = STEAM_API_KEY
 
@@ -250,5 +212,5 @@ def is_user_in_group(steamid64):
 
 
 if __name__ == '__main__':
-    rs = is_user_in_group(STEAMID64, 103582791473839714)
+    rs = is_in_group(STEAMID64, 103582791473839714)
     print(rs)
