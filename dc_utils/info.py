@@ -172,5 +172,4 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
     await ms.edit(embeds=embeds)
 
 if __name__ == "__main__":
-
     pass
