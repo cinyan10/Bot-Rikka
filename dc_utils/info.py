@@ -161,7 +161,7 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
         embed.add_field(name="Server Name", value=record['server_name'])
 
         embed.set_footer(text=f"id:{record['id']}")
-        embed.set_image(url=f"MAP_IMAGE{record['map_name']}.jpg")
+        embed.set_image(url=f"{MAP_IMAGE_URL}{record['map_name']}.jpg")
 
         embeds.append(embed)
 

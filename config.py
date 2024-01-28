@@ -18,7 +18,7 @@ DB_USER = os.getenv('DB_USER')
 GLOBAL_API_URL = "https://kztimerglobal.com"
 
 KZGOEU_MAPS_URL = 'https://kzgo.eu/maps/'
-MAP_IMAGE = "https://raw.githubusercontent.com/KZGlobalTeam/map-images/master/images/"
+MAP_IMAGE_URL = "https://raw.githubusercontent.com/KZGlobalTeam/map-images/master/images/"
 
 db_config = {
             'user': DB_USER,
