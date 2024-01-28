@@ -140,8 +140,8 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
         steamid64 = convert_steamid(ctx.author.id, "steamid64")
 
     records = fetch_personal_recent(steamid64, kzmode, limit)
-
     embeds = []
+    await ctx.send(f"{records.name}, {len(records)}")
     for record in records:
         embed = Embed(
             title=record['map_name'],
