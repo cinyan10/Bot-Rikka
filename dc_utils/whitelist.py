@@ -1,3 +1,5 @@
+import asyncio
+
 import discord.ext.commands
 from discord import Embed
 
@@ -24,10 +26,17 @@ async def get_whitelisted(ctx):
         await ctx.send(embed=Embed(title=f"You haven't been banned", colour=discord.Colour.green()))
 
     # Check if the player is in steam group
-    if is_in_group(steamid64):
+    is_group = is_in_group(steamid64)
+
+    await asyncio.sleep(2)
+
+    print(is_group)
+    if is_group:
         await ctx.send(embed=Embed(title=f"You're In the Steam Group", colour=discord.Colour.green()))
     else:
         await ctx.send(embed=Embed(title=f"You haven't join in Steam Group yet!", colour=discord.Colour.red()))
+
+    await asyncio.sleep(2)
 
     # Check if the player got enough pts
     for i in range(3):
@@ -38,5 +47,6 @@ async def get_whitelisted(ctx):
             await ctx.send(embed=Embed(title=f"Added you to the whitelist", colour=discord.Colour.green()))
             await set_wl_role(ctx, steamid64)
             break
+        await asyncio.sleep(2)
 
     await ctx.send(embed=Embed(title=f"You Didn't reach 50k pts!!", colour=discord.Colour.red()))
