@@ -11,12 +11,12 @@ from functions.steam import convert_steamid, get_steam_pfp, get_steam_profile_ur
 
 
 class KzGlobalStats:
-    def __init__(self, steamid64, mode_str="kz_timer"):
-        mode_str = format_kzmode(mode_str.lower())
-        self.maps = Maps(mode_str)
+    def __init__(self, steamid64, kzmode="kz_timer"):
+        kzmode = format_kzmode(kzmode.lower())
+        self.maps = Maps(kzmode)
 
-        tp_data = cal_stats(fetch_global_stats(steamid64, mode_str, True))
-        pro_data = cal_stats(fetch_global_stats(steamid64, mode_str, False))
+        tp_data = cal_stats(fetch_global_stats(steamid64, kzmode, True))
+        pro_data = cal_stats(fetch_global_stats(steamid64, kzmode, False))
 
         # Steam info
         self.name = get_steam_user_name(convert_steamid(steamid64, "steamid"))
@@ -153,8 +153,5 @@ def cal_stats(data):
 
 
 if __name__ == "__main__":
-    stats = KzGlobalStats(STEAMID64)
-    rs = stats.embed_stats()
-    print(stats.tp_tier_maps[1] / stats.maps.tier[1])
-    print(rs)
+
     pass

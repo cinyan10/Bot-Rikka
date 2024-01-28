@@ -2,7 +2,7 @@ import discord
 from discord import Embed
 from discord.ext import commands
 from dc_utils.firstjoin import find_player
-from dc_utils.info import set_bili, set_steam, set_wl_role
+from dc_utils.info import set_bili, set_steam, set_wl_role, kz_info
 from dc_utils.setting import set_language, set_kz_mode
 from functions.database import reset_user_steam, discord_id_to_steamid
 from functions.embed_content import user_info
@@ -94,19 +94,9 @@ class Info(commands.Cog):
         await set_wl_role(ctx, steamid=steamid)
 
     @commands.hybrid_command(name="kz")
-    async def kz(self, ctx, steamid=None):
-        ms = await ctx.send(embed=Embed(title="KZ Stats Loading..."))
-        if steamid:
-            steamid64 = convert_steamid(steamid, "steamid64")
-        else:
-            discord_id = ctx.author.id
-            steamid = discord_id_to_steamid(discord_id)
-            steamid64 = convert_steamid(steamid, "steamid64")
-        try:
-            embed = KzGlobalStats(steamid64).embed_stats()
-        except Exception as e:
-            embed = Embed(title="Error!", description=str(e), colour=discord.Colour.red())
-        await ms.edit(embed=embed)
+    async def kz(self, ctx, steamid=None, mode='kzt', member: discord.Member = None):
+        """Show Your or Other's Kz Global Stats"""
+        await kz_info(self, ctx, steamid, mode, member)
 
 
 async def setup(bot):
