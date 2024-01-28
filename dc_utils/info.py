@@ -132,14 +132,14 @@ class StatsView(discord.ui.View):
 
     @discord.ui.button(label='KZT', style=discord.ButtonStyle.green)
     async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.get_embed(button.label))
+        await interaction.response.edit_message(embed=self.embeds[0])
 
     @discord.ui.button(label='SKZ', style=discord.ButtonStyle.blurple)
     async def kz_simple(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.get_embed(button.label))
+        await interaction.response.edit_message(embed=self.embeds[1])
 
     @discord.ui.button(label='VNL', style=discord.ButtonStyle.gray)
     async def kz_vanilla(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.get_embed(button.label))
+        await interaction.response.edit_message(embed=self.embeds[2])
 
 
