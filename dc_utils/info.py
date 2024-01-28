@@ -104,6 +104,7 @@ async def kz_info(self, ctx, member: discord.Member, steamid, mode):
             mode = 'kz_timer'
 
     try:
+        print(mode)
         embed = KzGlobalStats(steamid64, kzmode=mode).embed_stats()
     except Exception as e:
         embed = Embed(title="Error!", description=str(e), colour=discord.Colour.red())
