@@ -183,14 +183,15 @@ async def personal_best(ctx, map_name, member, steamid, mode):
 
     record = fetch_personal_best(steamid64, map_name, mode)
 
-    print(record)
-    print(type(record))
-
+    embed = None
     try:
         embed = record_embed(record)
     except Exception as e:
         print(e)
-        embed = record_embed(record[0])
+        try:
+            embed = record_embed(record[0])
+        except Exception as e:
+            await ms.edit(embed=Embed(title="Error!", description=e, colour=discord.Colour.red()))
 
     embed_set_author_steam(embed, steamid64)
 
