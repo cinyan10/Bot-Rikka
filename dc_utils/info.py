@@ -1,23 +1,19 @@
 import asyncio
-import traceback
 
-import discord
 import mysql.connector
-from discord import Role, Embed
-from discord.ext import commands
+from discord import Role
 
-from config import *
 from functions.database import execute_query, discord_id_to_steamid
-from functions.db_operate.db_discord import get_kzmode
 from functions.db_operate.db_firstjoin import check_wl
 from functions.globalapi.kz_global_stats import *
 from functions.steam import convert_steamid
 from functions.misc import formate_record_time
 
 
+# noinspection PyUnresolvedReferences
 class StatsView(discord.ui.View):
 
-    def __init__(self, embeds: list[discord.Embed]):
+    def __init__(self, embeds: list[discord.Embed]):  # NOQA
         super().__init__()
         self.embeds: list = embeds
 
@@ -75,7 +71,8 @@ def set_steam(ctx, steam_id):
 
     if existing_user_id:
         existing_user = ctx.bot.get_user(existing_user_id[0])
-        message = f"The SteamID is already bound to {existing_user.mention}" if existing_user else "The SteamID is already bound to another user."
+        message = f"The SteamID is already bound to {existing_user.mention}" if existing_user \
+            else "The SteamID is already bound to another user."
         asyncio.create_task(ctx.send(message))
         return
 
@@ -125,17 +122,15 @@ async def kz_info(ctx, member: discord.Member, steamid):
         steamid64 = convert_steamid(steamid, "steamid64")
 
     try:
-        embeds = [get_stats_embed(steamid64, kzmode) for kzmode in ['kzt', 'skz', 'vnl']]
+        embeds = [get_stats_embed(steamid64, kzmode) for kzmode in ['kzt', 'skz', 'vnl']]  # NOQA
 
     except Exception as e:
-        embeds = [Embed(title="Error!", description=str(e), colour=discord.Colour.red())]
+        embeds = [Embed(title="Error!", description=str(e), colour=discord.Colour.red())] # NOQA
     await ms.edit(embeds=embeds, view=StatsView(embeds))
 
 
 async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
-    print(1)
     ms = await ctx.send(embed=Embed(title="Loading...", description="This may take a while..."))
-    print(2)
     if member:
         steamid = discord_id_to_steamid(member.id)
         steamid64 = convert_steamid(steamid, 'steamid64')
@@ -170,10 +165,8 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
 
         embeds.append(embed)
 
-    print(4)
-
-    print("Ready to Send", len(embeds))
     await ms.edit(embeds=embeds)
 
 if __name__ == "__main__":
+
     pass

@@ -92,7 +92,7 @@ def formate_record_time(data_str):
     date_format = "%Y-%m-%dT%H:%M:%S"
 
     # Parse the datetime string into a datetime object
-    return datetime.strptime(date_string, date_format)
+    return datetime.strptime(data_str, date_format)
 
 
 if __name__ == "__main__":
