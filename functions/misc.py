@@ -98,18 +98,22 @@ def formate_record_time(data_str):
 def format_seconds_to_time(total_seconds):
     # Calculate hours, minutes, seconds, and milliseconds
     hours = int(total_seconds // 3600)
-    minutes = int((total_seconds % 3600) // 60)
-    seconds = int(total_seconds % 60)
+    remaining_seconds = total_seconds % 3600
+    minutes = int(remaining_seconds // 60)
+    seconds = int(remaining_seconds % 60)
     milliseconds = int((total_seconds - int(total_seconds)) * 1000)
 
-    # Format the result
-    formatted_time = f"{hours:02d}:{minutes:02d}:{seconds:02d}.{milliseconds:03d}"
+    # Format the result with leading zeros for minutes if more than 1 hour
+    formatted_time = ""
+    if hours > 0:
+        formatted_time += f"{hours}:"
+        formatted_time += f"{minutes:02d}:{seconds:02d}.{milliseconds:03d}"
+    else:
+        formatted_time += f"{minutes}:{seconds:02d}.{milliseconds:03d}"
 
     return formatted_time
 
 
 if __name__ == "__main__":
-    date_string = "2023-10-14T09:14:07"
-    rs = formate_record_time(date_string)
-    print(type(rs))
+
     pass
