@@ -165,7 +165,7 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
 
         embeds.append(embed)
 
-    await ms.edit(embed=embeds[0])
+    await ms.edit(embeds=embeds)
 
 if __name__ == "__main__":
 
