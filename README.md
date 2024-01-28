@@ -23,8 +23,8 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
 - [ ] **kz global stats**
 
   - [ ] generate image
-  - [ ] /pr personal recent
-  - [ ] /pb map_name
+  - [x] /pr personal recent
+  - [x] /pb map_name
 
 - [ ] add players to [gokz.cn](https://gokz.cn)
 
