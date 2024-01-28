@@ -24,14 +24,14 @@ async def server_list_embed_loop(message):
         await message.edit(embed=embed)
 
         # Wait for one minute before the next update
-        await asyncio.sleep(60)
+        await asyncio.sleep(58)
 
 
 async def gz_server_embeds_loop(message: discord.Message, servers, bot):
     while True:
         embeds = [await query_server_embed(s, bot) for s in servers]
         await message.edit(embeds=embeds)
-        await asyncio.sleep(60)
+        await asyncio.sleep(59)
 
 
 async def bj_server_embeds_loop(message: discord.Message, servers, bot):
@@ -39,6 +39,13 @@ async def bj_server_embeds_loop(message: discord.Message, servers, bot):
         embeds = [await query_server_embed(s, bot) for s in servers]
         await message.edit(embeds=embeds)
         await asyncio.sleep(60)
+
+
+async def server_status_loop(message: discord.Message):
+    while True:
+        embeds = embeds_server_status()
+        await message.edit(embeds=embeds)
+        await asyncio.sleep(61)
 
 
 async def jstop_embeds_loop(message: discord.Message):
@@ -51,11 +58,5 @@ async def jstop_embeds_loop(message: discord.Message):
         embeds.append(embed2)
         embeds.append(embed3)
         await message.edit(embeds=embeds)
-        await asyncio.sleep(60)
+        await asyncio.sleep(10800)
 
-
-async def server_status_loop(message: discord.Message):
-    while True:
-        embeds = embeds_server_status()
-        await message.edit(embeds=embeds)
-        await asyncio.sleep(60)
