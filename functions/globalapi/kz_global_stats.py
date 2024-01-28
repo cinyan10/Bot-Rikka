@@ -194,5 +194,6 @@ def fetch_personal_best(steamid64, map_name, mode):
 if __name__ == "__main__":
     rs = fetch_personal_best(STEAMID64, 'kz_lionheart', 'kzt')
     print(rs)
+
     print(type(rs))
     pass
