@@ -92,7 +92,7 @@ class ServerStatus:
 def get_server_status(server_id) -> dict:
     # Define your API endpoint and token
     api_url = f'https://status.axekz.com/api/v1/server/details?id={server_id}&tag='
-    api_token = NEZHA_TOKEN  # Replace with your actual token
+    api_token = NEZHA_TOKEN
 
     headers = {
         'Authorization': f'{api_token}'

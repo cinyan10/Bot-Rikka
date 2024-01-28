@@ -43,15 +43,14 @@ def record_embed(record):
     embed = Embed(
         title=record['map_name'],
         url=(KZGOEU_MAPS_URL + record['map_name']),
-        description=f"steamID: `{record['steam_id']}`",
         timestamp=formate_record_time(record['updated_on']),
         colour=discord.Colour.blue()
     )
 
     embed.add_field(name="Mode", value=record['mode'])
     embed.add_field(name="Time", value=format_seconds_to_time(record['time']))
+    embed.add_field(name="steamID", value={record['steam_id']})
     embed.add_field(name="Teleports", value=record['teleports'])
-    embed.add_field(name="Points", value=record['points'])
     embed.add_field(name="Place", value=record['place'])
     if record['server_name'] == 'C10 GOKZ':
         record['server_name'] = 'AXE GOKZ'
