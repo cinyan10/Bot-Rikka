@@ -50,7 +50,10 @@ class KzGlobalStats:
 
         # Total Stats
         self.total_pts = self.tp_total_pts + self.pro_total_pts
-        self.total_avg_pts = self.total_pts / (self.tp_total_maps + self.pro_total_maps)
+        try:
+            self.total_avg_pts = self.total_pts / (self.tp_total_maps + self.pro_total_maps)
+        except ZeroDivisionError:
+            self.total_avg_pts = 0
 
     def __str__(self):
         return self.name
