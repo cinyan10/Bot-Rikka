@@ -1,8 +1,7 @@
-import asyncio
 from discord.ext import commands
 from config import *
 
-from dc_utils.serverinfo import server_list_embed_loop, gz_server_embeds_loop, bj_server_embeds_loop, jstop_embeds_loop, server_status_loop
+from dc_utils.serverinfo import *
 from config import SERVER_LIST
 from functions.misc import get_or_create_message
 

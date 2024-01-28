@@ -163,8 +163,8 @@ def is_user_in_steam_group(steamid64):
                     return True
 
             # Check if there's a next page
-            nextPage = root.find('nextPage')
-            if nextPage is None or nextPage.text == "":
+            next_page = root.find('nextPage')
+            if next_page is None or next_page.text == "":
                 break
 
             page += 1

@@ -10,9 +10,9 @@ class Whitelist(commands.Cog):
         self.bot: Bot = bot
 
     @commands.hybrid_command(name="whitelist")
-    async def whitelist(self, ctx, steamid):
+    async def whitelist(self, ctx):
         """Get Whitelisted!!"""
-        await get_whitelisted(self.bot, ctx, steamid)
+        await get_whitelisted(self.bot, ctx)
 
 
 async def setup(bot):

@@ -1,7 +1,12 @@
 import discord
 from discord import Embed
-from functions import get_playtime
-from functions import format_string_to_datetime, get_country_code, seconds_to_hms
+
+from functions.database import discord_id_to_steamid, get_steam_user_name, retrieve_join_date, retrieve_last_seen, \
+    get_country_from_steamid32, query_jumpstats_top
+from functions.db_operate.db_firstjoin import get_playtime
+from functions.globalapi.kzgoeu import get_kzgoeu_profile_url
+from functions.misc import format_string_to_datetime, get_country_code, seconds_to_hms
+from functions.steam.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
 
 
 def user_info(discord_id=None, steamid=None) -> discord.Embed:

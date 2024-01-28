@@ -1,6 +1,10 @@
 import mysql.connector
 from datetime import timedelta
 
+from config import *
+from functions.globalapi.kzgoeu import get_kzgoeu_profile_url
+from functions.steam.steam import convert_steamid
+
 # Global constants
 db_config = {
     'user': DB_USER,
@@ -128,7 +132,6 @@ def cal_playtime(steamid32):
 
     # Format the timedelta to a string in the format of hours:minutes:seconds
     # Note: This will only show the hours contained in one day if you have more than 24 hours of playtime
-    # For showing total hours exceeding 24, you can calculate it by (total_runtime.days * 24 + total_runtime.seconds // 3600)
     total_hours = total_runtime.days * 24 + total_runtime.seconds // 3600
     total_minutes = (total_runtime.seconds // 60) % 60
     total_seconds = total_runtime.seconds % 60

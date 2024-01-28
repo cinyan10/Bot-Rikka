@@ -49,8 +49,10 @@ GROUP_ID = '43691138'
 GROUP_URL = "https://steamcommunity.com/groups/axekz/memberslistxml/?xml=1"
 
 # GOKZ
-JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump', 'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']
-JUMPSTATS = ['Distance', 'IsBlockJump', 'Block', 'Mode', 'JumpType', 'Strafes', 'Sync', 'Pre', 'Max', 'Airtime', 'JumpID', 'Created']
+JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump',
+             'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']
+JUMPSTATS = ['Distance', 'IsBlockJump', 'Block', 'Mode', 'JumpType',
+             'Strafes', 'Sync', 'Pre', 'Max', 'Airtime', 'JumpID', 'Created']
 KZ_MODES = ['vnl', 'skz', 'kzt']
 
 # SOME CONFIG FOR TESTING

@@ -1,5 +1,4 @@
 import discord.ext.commands
-import requests
 
 from functions.database import discord_id_to_steamid
 from functions.steam.steam import convert_steamid

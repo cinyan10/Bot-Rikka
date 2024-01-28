@@ -2,7 +2,7 @@ import discord
 import requests
 from discord import Embed
 
-from config import STEAMID64, STEAM_API_KEY
+from config import STEAM_API_KEY
 
 
 def get_steam_profile_info(steamid64):

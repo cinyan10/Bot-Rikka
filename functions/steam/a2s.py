@@ -2,6 +2,7 @@ from discord import Embed
 from valve.source import a2s
 from config import SERVER_LIST, MAP_TIERS
 from functions.misc import format_seconds
+from functions.server import Server
 
 
 def fetch_online_player(ip: str, port: int) -> tuple:
