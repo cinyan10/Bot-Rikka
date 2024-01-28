@@ -183,7 +183,7 @@ async def personal_best(ctx, map_name, member, steamid, mode):
 
     record = fetch_personal_best(steamid64, map_name, mode)
 
-    embed = record_embed(record[0])
+    embed = record_embed(record)
     embed_set_author_steam(embed, steamid64)
 
     await ms.edit(embed=embed)
