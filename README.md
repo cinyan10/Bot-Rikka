@@ -22,6 +22,10 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
 
 - [ ] **kz global stats**
 
+  - [ ] generate image
+  - [ ] /pr personal recent
+  - [ ] /pb map_name
+
 - [ ] add players to [gokz.cn](https://gokz.cn)
 
 - [ ] **whitelist**
@@ -63,12 +67,12 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
 - [ ] memes generator
 
 - [ ] **Server Insights**
-  
+
   - [x] daily active player, monthly active player
   - [ ] **Server Charts**
-  
+
   - [ ] player location map
-  
+
 - [ ] ban player in server
 
 - [ ] refactor some functions with class

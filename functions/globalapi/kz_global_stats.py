@@ -4,6 +4,7 @@ from discord import Embed
 from config import *
 from functions.database import get_steam_user_name
 from functions.globalapi.kz_maps import get_map_tier
+from functions.globalapi.kz_mode import format_kzmode
 from functions.globalapi.maps import Maps
 from functions.misc import percentage_bar, add_commas
 from functions.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
@@ -11,6 +12,7 @@ from functions.steam import convert_steamid, get_steam_pfp, get_steam_profile_ur
 
 class KzGlobalStats:
     def __init__(self, steamid64, mode_str="kz_timer"):
+        mode_str = format_kzmode(mode_str.lower())
         self.maps = Maps(mode_str)
 
         tp_data = cal_stats(fetch_global_stats(steamid64, mode_str, True))
@@ -56,19 +58,19 @@ class KzGlobalStats:
         emojis = ["⬛", '🟦', '🟩', '🟨', '🟧', '🟥', '🟪', '⬜']
         # ⬛ ⬜
 
-        tp_content = f"🥇 {self.tp_wr} 🥈 {self.tp_silver} 🥉 {self.tp_copper}\n"
+        tp_content = f"🥇 {self.tp_wr} 🥈 {self.tp_silver} 🥉 {self.tp_copper} Total:**{self.tp_total_pts}** Avg:**{self.tp_avg_pts}**\n"
         for i in range(1, 8):
             tp_content += f"{percentage_bar(self.tp_tier_maps[i] / self.maps.tier[i], 15, emojis[i], '⬛', show_percentage=False, show_brackets=False)} "
             tp_content += f"T{i} `{self.tp_tier_maps[i]}/{self.maps.tier[i]}` | `{int(self.tp_avg_tier_pts[i])}`\n"
 
-        embed.add_field(inline=False, name="TP Stats", value=tp_content)
+        embed.add_field(inline=False, name=f"TP Stats", value=tp_content)
 
-        pro_content = f"🥇 {self.pro_wr} 🥈 {self.pro_silver} 🥉 {self.pro_copper}\n"
+        pro_content = f"🥇 {self.pro_wr} 🥈 {self.pro_silver} 🥉 {self.pro_copper} Total:**{self.pro_avg_pts}** Avg:**{self.pro_avg_pts}**\n"
         for i in range(1, 8):
             pro_content += f"{percentage_bar(self.pro_tier_maps[i] / self.maps.tier[i], 15, emojis[i], '⬛', show_percentage=False, show_brackets=False)} "
             pro_content += f"T{i} `{self.pro_tier_maps[i]}/{self.maps.tier[i]}` | `{int(self.pro_avg_tier_pts[i])}`\n"
 
-        embed.add_field(inline=False, name="Pro Stats", value=pro_content)
+        embed.add_field(inline=False, name=f"Pro Stats {self.pro_avg_pts}", value=pro_content)
 
         return embed
 
