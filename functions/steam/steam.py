@@ -223,6 +223,32 @@ def get_steam_avatar_medium(steamid64):
         return None
 
 
+def is_user_in_group(steamid64):
+    # Replace 'YOUR_API_KEY' with your actual Steam API key
+    api_key = STEAM_API_KEY
+
+    # Make a request to get the user's group memberships
+    url = f"https://api.steampowered.com/ISteamUser/GetUserGroupList/v1/?key={api_key}&steamid={steamid64}"
+
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        if 'response' in data and 'groups' in data['response']:
+            group_ids = [group['gid'] for group in data['response']['groups']]
+
+            # Check if the desired group_id_64 is in the user's group memberships
+            return GROUP_ID in group_ids
+        else:
+            # User's group list not available or empty
+            return False
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        return False
+
+
 if __name__ == '__main__':
-    rs = is_in_group(STEAMID64)
+    rs = is_user_in_group(STEAMID64, 103582791473839714)
     print(rs)
