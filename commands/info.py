@@ -99,7 +99,7 @@ class Info(commands.Cog):
         await kz_info(ctx, member, steamid)
 
     @commands.hybrid_command(name="pr")
-    async def pr(self, ctx, limit, member: discord.Member, steamid, kzmode):
+    async def pr(self, ctx, limit=1, member: discord.Member=None, steamid=None, kzmode=None):
         """Show Your or Other's personal recently played maps"""
         await personal_recent(ctx, limit, member, steamid, kzmode)
 
