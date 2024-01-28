@@ -113,7 +113,7 @@ async def kz_info(self, ctx, member: discord.Member, steamid, mode):
         embeds = [embed1, embed2, embed3]
 
     except Exception as e:
-        embed = Embed(title="Error!", description=str(e), colour=discord.Colour.red())
+        embeds = Embed(title="Error!", description=str(e), colour=discord.Colour.red())
     await ms.edit(embeds=embeds, view=StatsView(embeds))
 
 
@@ -123,16 +123,23 @@ class StatsView(discord.ui.View):
         super().__init__()
         self.embeds: list = embeds
 
+    def get_embed(self, label):
+        mode = {
+            "KZT": self.embeds[0],
+            "SKZ": self.embeds[1],
+            "VNL": self.embeds[2]
+        }
+
     @discord.ui.button(label='KZT', style=discord.ButtonStyle.green)
     async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.embeds[0])
+        await interaction.response.edit_message(embed=self.get_embed(button.label))
 
     @discord.ui.button(label='SKZ', style=discord.ButtonStyle.blurple)
     async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.embeds[1])
+        await interaction.response.edit_message(embed=self.get_embed(button.label))
 
     @discord.ui.button(label='VNL', style=discord.ButtonStyle.gray)
     async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.edit_message(embed=self.embeds[2])
+        await interaction.response.edit_message(embed=self.get_embed(button.label))
 
 
