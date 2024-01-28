@@ -2,7 +2,7 @@ import discord
 import requests
 from discord import Embed
 from functions.database import discord_id_to_steamid
-from functions.steam import convert_steamid
+from functions.steam.steam import convert_steamid
 from config import *
 
 

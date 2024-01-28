@@ -1,6 +1,6 @@
 import discord
 from discord import Embed
-from functions.steam import *
+from functions.steam.steam import *
 
 
 def steam_embed(steamid, title=None, description=None, timestamp=None):

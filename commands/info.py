@@ -1,16 +1,13 @@
-import discord
-from discord import Embed
 from discord.ext import commands
 from dc_utils.firstjoin import find_player
 from dc_utils.info import *
 from dc_utils.setting import set_language, set_kz_mode
 from functions.database import reset_user_steam, discord_id_to_steamid
 from functions.embed_content import user_info
-from functions.globalapi.kz_global_stats import KzGlobalStats
 from functions.gokzcn import get_gokzcn_info
 from pymysql.err import IntegrityError
 
-from functions.steam import convert_steamid
+from functions.steam.steam import convert_steamid
 
 
 class Info(commands.Cog):
@@ -99,7 +96,7 @@ class Info(commands.Cog):
         await kz_info(ctx, member, steamid)
 
     @commands.hybrid_command(name="pr")
-    async def pr(self, ctx, limit=1, member: discord.Member=None, steamid=None, kzmode=None):
+    async def pr(self, ctx, limit=1, member: discord.Member = None, steamid=None, kzmode='kz_timer'):
         """Show Your or Other's personal recently played maps"""
         await personal_recent(ctx, limit, member, steamid, kzmode)
 

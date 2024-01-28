@@ -1,5 +1,5 @@
 import mysql.connector
-from functions.steam import *
+from functions.steam.steam import *
 from functions.kreedz import *
 from datetime import timedelta
 

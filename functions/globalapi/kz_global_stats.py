@@ -7,7 +7,7 @@ from functions.globalapi.kz_maps import get_map_tier
 from functions.globalapi.kz_mode import format_kzmode
 from functions.globalapi.maps import Maps
 from functions.misc import percentage_bar, add_commas
-from functions.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
+from functions.steam.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
 
 
 def get_stats_embed(steamid64, kzmode):
@@ -162,7 +162,7 @@ def cal_stats(data):
     }
 
 
-def fetch_personal_recent(steamid64, mode='kz_timer', limit=1):
+def fetch_personal_recent(steamid64, mode, limit):
     mode = format_kzmode(mode)
 
     if limit > 5:

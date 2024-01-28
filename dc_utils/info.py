@@ -6,8 +6,9 @@ from discord import Role
 from functions.database import execute_query, discord_id_to_steamid
 from functions.db_operate.db_firstjoin import check_wl
 from functions.globalapi.kz_global_stats import *
-from functions.steam import convert_steamid
+from functions.steam.steam import convert_steamid
 from functions.misc import formate_record_time
+from functions.steam.steam_user import embed_user_steam, embed_set_author_steam
 
 
 # noinspection PyUnresolvedReferences
@@ -147,9 +148,12 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
         embed = Embed(
             title=record['map_name'],
             url=(KZGOEU_MAPS_URL + record['map_name']),
-            description=f"Player: {record['player_name']} steamID: {record['steam_id']}",
-            timestamp=formate_record_time(record['updated_on'])
+            description=f"steamID: `{record['steam_id']}`",
+            timestamp=formate_record_time(record['updated_on']),
+            colour=discord.Colour.blue()
         )
+
+        embed_set_author_steam(embed, steamid64)
 
         embed.add_field(name="Mode", value=record['mode'])
         embed.add_field(name="Time", value=record['time'])

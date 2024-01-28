@@ -4,9 +4,9 @@ import discord
 from discord import Embed
 
 from functions.misc import seconds_to_hms
-from functions.steam import *
+from functions.steam.steam import *
 from functions.db_operate.db_firstjoin import get_whitelisted_players, get_playtime
-from functions.steam import convert_steamid
+from functions.steam.steam import convert_steamid
 
 
 def get_playtime_rank() -> list[Embed]:

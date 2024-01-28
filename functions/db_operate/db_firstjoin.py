@@ -1,7 +1,6 @@
 import mysql.connector
-from config import *
 from config import db_config
-from functions.steam import convert_steamid, is_user_in_steam_group
+from functions.steam.steam import convert_steamid, is_user_in_steam_group
 
 db_config['database'] = "firstjoin"
 

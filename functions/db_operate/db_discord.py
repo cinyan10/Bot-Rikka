@@ -1,6 +1,6 @@
 import mysql.connector
 from config import *
-from functions.steam import convert_steamid
+from functions.steam.steam import convert_steamid
 
 
 def get_kzmode(discord_id=None, steamid=None):
