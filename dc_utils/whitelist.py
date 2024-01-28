@@ -21,22 +21,22 @@ async def get_whitelisted(ctx):
     elif ban_status['game_ban_count'] > 1:
         return await ctx.send(embed=Embed(title=f"You have been banned by {ban_status['game_ban_count']} games!!!", colour=discord.Colour.red()))
     else:
-        await ctx.send(embed=Embed(title=f"You haven't been banned"), colour=discord.Colour.green())
+        await ctx.send(embed=Embed(title=f"You haven't been banned", colour=discord.Colour.green()))
 
     # Check if the player is in steam group
     if is_in_group(steamid64):
-        await ctx.send(embed=Embed(title=f"You're In the Steam Group"), colour=discord.Colour.green())
+        await ctx.send(embed=Embed(title=f"You're In the Steam Group", colour=discord.Colour.green()))
     else:
-        await ctx.send(embed=Embed(title=f"You haven't join in Steam Group yet!"), colour=discord.Colour.red())
+        await ctx.send(embed=Embed(title=f"You haven't join in Steam Group yet!", colour=discord.Colour.red()))
 
     # Check if the player got enough pts
     for i in range(3):
         stats = KzGlobalStats(steamid64, i)
         if stats.is_reach_pts():
-            await ctx.send(embed=Embed(title=f"You reached 50k pts!!"), colour=discord.Colour.green())
+            await ctx.send(embed=Embed(title=f"You reached 50k pts!!", colour=discord.Colour.green()))
             update_whitelist_status(steamid)
-            await ctx.send(embed=Embed(title=f"Added you to the whitelist"), colour=discord.Colour.green())
+            await ctx.send(embed=Embed(title=f"Added you to the whitelist", colour=discord.Colour.green()))
             await set_wl_role(ctx, steamid64)
             break
 
-    await ctx.send(embed=Embed(title=f"You Didn't reach 50k pts!!"), colour=discord.Colour.red())
+    await ctx.send(embed=Embed(title=f"You Didn't reach 50k pts!!", colour=discord.Colour.red()))
