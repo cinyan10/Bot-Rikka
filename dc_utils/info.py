@@ -130,7 +130,9 @@ async def kz_info(ctx, member: discord.Member, steamid):
 
 
 async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
+    print(1)
     ms = await ctx.send(embed=Embed(title="Loading...", description="This may take a while..."))
+    print(2)
     if member:
         steamid = discord_id_to_steamid(member.id)
         steamid64 = convert_steamid(steamid, 'steamid64')
@@ -160,7 +162,7 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
             record['server_name'] = 'AXE GOKZ'
         embed.add_field(name="Server Name", value=record['server_name'])
 
-        embed.set_footer(text="id:"+record['id'])
+        embed.set_footer(text=f"id:{record['id']}")
         embed.set_image(url=f"MAP_IMAGE{record['map_name']}.jpg")
 
         embeds.append(embed)
