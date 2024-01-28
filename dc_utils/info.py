@@ -4,6 +4,7 @@ import traceback
 import discord
 import mysql.connector
 from discord import Role, Embed
+from discord.ext import commands
 
 from config import db_config, WL_ROLE_ID
 from functions.database import execute_query, discord_id_to_steamid
@@ -84,6 +85,7 @@ async def set_wl_role(ctx, steamid=None):
 
 async def kz_info(self, ctx, member: discord.Member, steamid, mode):
     ms = await ctx.send(embed=Embed(title="KZ Stats Loading..."))
+    embeds = []
     if member:
         # @mention member
         steamid = discord_id_to_steamid(member.id)
@@ -95,16 +97,42 @@ async def kz_info(self, ctx, member: discord.Member, steamid, mode):
         steamid = discord_id_to_steamid(discord_id)
         steamid64 = convert_steamid(steamid, "steamid64")
 
-    if mode is None:
-        try:
-            mode = get_kzmode(steamid=steamid)
-        except Exception as e:
-            print(traceback.format_exc())
-            print('Error getting KZ mode:', e)
-            mode = 'kz_timer'
+    # if mode is None:
+    #     try:
+    #         mode = get_kzmode(steamid=steamid)
+    #     except Exception as e:
+    #         print(traceback.format_exc())
+    #         print('Error getting KZ mode:', e)
+    #         mode = 'kz_timer'
 
     try:
-        embed = KzGlobalStats(steamid64, kzmode=mode).embed_stats()
+        embed1 = KzGlobalStats(steamid64, kzmode='kzt').embed_stats()
+        embed2 = KzGlobalStats(steamid64, kzmode="skz").embed_stats()
+        embed3 = KzGlobalStats(steamid64, kzmode="vnl").embed_stats()
+
+        embeds = [embed1, embed2, embed3]
+
     except Exception as e:
         embed = Embed(title="Error!", description=str(e), colour=discord.Colour.red())
-    await ms.edit(embed=embed)
+    await ms.edit(embeds=embeds, view=StatsView(embeds))
+
+
+class StatsView(discord.ui.View):
+
+    def __init__(self, embeds: list[discord.Embed]):
+        super().__init__()
+        self.embeds: list = embeds
+
+    @discord.ui.button(label='KZT', style=discord.ButtonStyle.green)
+    async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(embed=self.embeds[0])
+
+    @discord.ui.button(label='SKZ', style=discord.ButtonStyle.blurple)
+    async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(embed=self.embeds[1])
+
+    @discord.ui.button(label='VNL', style=discord.ButtonStyle.gray)
+    async def kz_timer(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.edit_message(embed=self.embeds[2])
+
+
