@@ -94,9 +94,9 @@ class Info(commands.Cog):
         await set_wl_role(ctx, steamid=steamid)
 
     @commands.hybrid_command(name="kz")
-    async def kz(self, ctx, member: discord.Member = None, steamid=None, mode=None):
+    async def kz(self, ctx, member: discord.Member = None, steamid=None):
         """Show Your or Other's Kz Global Stats"""
-        await kz_info(ctx, member, steamid, mode)
+        await kz_info(ctx, member, steamid)
 
 
 async def setup(bot):
