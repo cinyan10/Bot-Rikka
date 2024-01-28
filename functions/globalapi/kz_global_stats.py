@@ -141,8 +141,10 @@ def cal_stats(data):
                 points_count["800+"] += 1
 
             tier_counts[tier] += 1
-
-    avg_total_points = total_points / total_records
+    try:
+        avg_total_points = total_points / total_records
+    except ZeroDivisionError:
+        avg_total_points = 0
     avg_tier_points = {tier: points / tier_counts[tier] if tier_counts[tier] > 0 else 0 for tier, points in tier_points.items()}
 
     return {
