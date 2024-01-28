@@ -80,7 +80,7 @@ async def set_wl_role(ctx, steamid=None):
         pass
 
 
-async def kz_info(self, ctx, steamid=None, mode='kzt', member: discord.Member = None):
+async def kz_info(self, ctx, member: discord.Member = None, steamid=None, mode='kzt'):
     ms = await ctx.send(embed=Embed(title="KZ Stats Loading..."))
     if member:
         steamid = discord_id_to_steamid(member.id)
