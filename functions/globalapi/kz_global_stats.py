@@ -186,11 +186,11 @@ def fetch_personal_best(steamid64, map_name, mode):
     response = requests.get(api_url)
     response.raise_for_status()
     data = response.json()
-    return data
+    return data[0]
 
 
 if __name__ == "__main__":
-    rs = fetch_personal_best(STEAMID64, 'kz_lionheart', 'kzt')[0]
+    rs = fetch_personal_best(STEAMID64, 'kz_lionheart', 'kzt')
     print(rs)
     print()
     pass
