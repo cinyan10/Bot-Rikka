@@ -4,6 +4,7 @@ import mysql.connector
 from discord import Role
 
 from functions.database import execute_query, discord_id_to_steamid
+from functions.db_operate.db_discord import get_kzmode
 from functions.db_operate.db_firstjoin import check_wl
 from functions.globalapi.kz_global_stats import *
 from functions.steam.steam import convert_steamid
@@ -178,6 +179,9 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
 async def personal_best(ctx, map_name, member, steamid, mode):
 
     ms = await ctx.send(embed=Embed(title="Loading...", description="This may take a while..."))
+
+    if mode is None:
+        mode = get_kzmode(discord_id=ctx.author.id)
 
     steamid, steamid64 = choose_steamid(ctx, member, steamid)
 
