@@ -146,6 +146,7 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
 
     records = fetch_personal_recent(steamid64, kzmode, limit)
 
+    print(3)
     embeds = []
     for record in records:
         embed = Embed(
@@ -168,6 +169,8 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
         embed.set_image(url=f"MAP_IMAGE{record['map_name']}.jpg")
 
         embeds.append(embed)
+
+    print(4)
 
     print("Ready to Send", len(embeds))
     await ms.edit(embeds=embeds)
