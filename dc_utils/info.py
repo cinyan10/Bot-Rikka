@@ -134,6 +134,7 @@ async def kz_info(ctx, member: discord.Member, steamid):
 
 async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
     ms = await ctx.send(embeds=[Embed(title="Loading...")])
+
     if member:
         steamid = discord_id_to_steamid(member.id)
         steamid64 = convert_steamid(steamid, 'steamid64')
@@ -146,7 +147,6 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
 
     embeds = []
     for record in records:
-        ms = await ctx.send(embeds=[Embed(title="Loading...")])
         embed = Embed(
             title=record['map_name'],
             url=(KZGOEU_MAPS_URL + record['map_name']),
@@ -168,7 +168,6 @@ async def personal_recent(ctx, limit, member: discord.Member, steamid, kzmode):
 
         embeds.append(embed)
 
-    ms = await ctx.send(embeds=[Embed(title="Loading...")])
     print("Ready to Send", len(embeds))
     await ms.edit(embeds=embeds)
 
