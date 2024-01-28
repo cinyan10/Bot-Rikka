@@ -183,12 +183,15 @@ def fetch_personal_best(steamid64, map_name, mode):
     api_url = (f"{GLOBAL_API_URL}api/v2.0/records/top?steamid64={steamid64}&map_name={map_name}"
                f"&stage=0&modes_list_string={mode}")
 
-    print(GLOBAL_API_URL)
+    print(api_url)
 
     response = requests.get(api_url)
     response.raise_for_status()
     data = response.json()
-    return data[0]
+
+    print(data)
+
+    return data
 
 
 if __name__ == "__main__":
