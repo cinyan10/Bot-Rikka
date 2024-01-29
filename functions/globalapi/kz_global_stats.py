@@ -10,10 +10,6 @@ from functions.misc import add_commas, percentage_bar
 from functions.steam.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
 
 
-def get_stats_embed(steamid64, kzmode):
-    return KzGlobalStats(steamid64, kzmode=kzmode).embed_stats()
-
-
 class KzGlobalStats:
     def __init__(self, steamid64, kzmode="kz_timer"):
         if kzmode:
@@ -93,28 +89,8 @@ class KzGlobalStats:
             return False
 
 
-
-class Record:
-    def __init__(self, data):
-        self.id = data["map_id"]
-        self.steamid64 = data["steamid64"]
-        self.player_name = data["player_name"]
-        self.steam_id = data["steam_id"]
-        self.server_id = data["server_id"]
-        self.map_id = data["map_id"]
-        self.stage = data["stage"]
-        self.mode = data["mode"]
-        self.tickrate = data["tickrate"]
-        self.time = data["time"]
-        self.teleports = data["teleports"]
-        self.created_on = data["created_on"]
-        self.updated_on = data["updated_on"]
-        self.updated_by = data["updated_by"]
-        self.record_filter_id = data["record_filter_id"]
-        self.server_name = data["server_name"]
-        self.map_name = data["map_name"]
-        self.points = data["points"]
-        self.replay_id = data["replay_id"]
+def get_stats_embed(steamid64, kzmode):
+    return KzGlobalStats(steamid64, kzmode=kzmode).embed_stats()
 
 
 def fetch_global_stats(steamid64, mode_str, has_tp: bool):
