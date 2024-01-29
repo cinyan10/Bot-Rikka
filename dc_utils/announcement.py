@@ -125,7 +125,7 @@ class PersistentViewBot(commands.Bot):
         # In order to do this you need to first send a message with the View, which is shown below.
         # If you have the message_id you can also pass it as a keyword argument, but for this example
         # we don't have one.
-        self.add_view(AnnouncementView())
+        self.add_view(AnnouncementView(self))
         # For dynamic items, we must register the classes instead of the views.
         # self.add_dynamic_items(DynamicButton)
 
