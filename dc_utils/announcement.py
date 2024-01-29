@@ -153,19 +153,19 @@ This revised version provides a clear and organized set of instructions for gett
 
                             """, inline=False)
 
-        button_web = discord.ui.Button(label="Website", style=discord.ButtonStyle.url, row=1,
+        button_web = discord.ui.Button(label="Website", style=discord.ButtonStyle.url,
                                        url="https://www.axekz.com/", emoji="<:axe:1201477183982542888>")
         button_steam = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url,
-                                         url='https://steamcommunity.com/groups/axekz', row=2,
+                                         url='https://steamcommunity.com/groups/axekz',
                                          emoji="<:Steam_Logo:1201477320263880796>")
         button_bili = discord.ui.Button(label='Bilibili', style=discord.ButtonStyle.url,
                                         url="https://space.bilibili.com/1200368090",
-                                        emoji="<:bilibili2:1201477844002410566>", row=2)
+                                        emoji="<:bilibili2:1201477844002410566>")
         button_qq = discord.ui.Button(label='QQ Group', style=discord.ButtonStyle.url,
                                       url='http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=qKG6PDxw4zojM91iS0je7uPvvh7mtOx_'
                                           '&authKey=jeSZf2rXhRy2HR80moAPBkEnqKIN%2FLZRbwM7Nf%2Ft2jUwYmHUXdf6bR49'
                                           '%2F1QDQ3Yf&noverify=0&group_code=188099455',
-                                      emoji="<:QQ3:1201477696358719488>",  row=2)
+                                      emoji="<:QQ3:1201477696358719488>")
 
         self.add_item(button_web)
         self.add_item(button_bili)
@@ -192,13 +192,14 @@ class PersistentViewBot(commands.Bot):
 
         super().__init__(command_prefix=commands.when_mentioned_or('!'), intents=intents)
 
-    async def setup_hook(self) -> None:
+    # async def setup_hook(self) -> None:
+        # self.add_view(AnnouncementView())
+
         # Register the persistent view for listening here.
         # Note that this does not send the view to any message.
         # In order to do this you need to first send a message with the View, which is shown below.
         # If you have the message_id you can also pass it as a keyword argument, but for this example
         # we don't have one.
-        self.add_view(AnnouncementView())
         # For dynamic items, we must register the classes instead of the views.
         # self.add_dynamic_items(DynamicButton)
 
