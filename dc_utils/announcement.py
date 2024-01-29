@@ -92,8 +92,9 @@ class AnnouncementView(discord.ui.View):
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
 
-        button = discord.ui.Button(label='<:amonge:1067146266032738384>Steam Group', style=discord.ButtonStyle.url,
-                                   url='https://steamcommunity.com/groups/axekz', row=2)
+        button = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url,
+                                   url='https://steamcommunity.com/groups/axekz', row=2,
+                                   custom_id=f'emoji_button:{1067146266032738384}')
         self.add_item(button)
 
     @discord.ui.button(label='English', style=discord.ButtonStyle.grey, custom_id='persistent_view:green', emoji='🇬🇧')
