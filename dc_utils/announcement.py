@@ -88,12 +88,12 @@ ANNOUNCEMENTS = [
 # For this example the custom_id is prefixed with the name of the bot.
 # Note that custom_ids can only be up to 100 characters long.
 class AnnouncementView(discord.ui.View):
-    def __init__(self):
+    def __init__(self, bot):  # NOQA
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
 
-        guild = bot.get_guild(GUILD_ID)
-        self.steam_emoji = discord.utils.get(guild.emojis, name="amonge")
+        self.guild = bot.get_guild(GUILD_ID)
+        self.steam_emoji = discord.utils.get(self.guild.emojis, name="amonge")
 
         button = discord.ui.Button(label=f'{self.steam_emoji} Steam Group', style=discord.ButtonStyle.url,
                                    url='https://steamcommunity.com/groups/axekz', row=2)
