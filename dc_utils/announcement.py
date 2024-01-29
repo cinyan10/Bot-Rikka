@@ -9,7 +9,6 @@ from discord.ext import commands
 import discord
 import dotenv
 
-from config import GUILD_ID
 
 ANNOUNCEMENTS = [
     Embed(title="Hi There!",
@@ -91,6 +90,7 @@ class AnnouncementView(discord.ui.View):
     def __init__(self):  # NOQA
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
+        self.bool = True
 
         self.embeds[0].add_field(name="**HOW TO GET WHITELISTED:**", value="""
         **Requirements:**
@@ -111,7 +111,7 @@ class AnnouncementView(discord.ui.View):
 
         self.embeds[1].add_field(name="**如何获得白名单:**", value="""
                 **要求:**
-                - 在任何游戏模式中达到 50,000 分。
+                - 在任意游戏模式中达到 50,000 分。
                 - 不能被 VAC (Valve 反作弊系统) 封禁。
                 - 不能在多个游戏中被封禁。
 
@@ -128,7 +128,7 @@ class AnnouncementView(discord.ui.View):
 
         self.embeds[2].add_field(name="**如何獲得白名單:**", value="""
                 **要求:**
-                - 在任何遊戲模式中達到 50,000 分。
+                - 在任意遊戲模式中達到 50,000 分。
                 - 不能被 VAC (Valve 反作弊系統) 封禁。
                 - 不能在多個遊戲中被封禁。
                 
@@ -143,24 +143,25 @@ class AnnouncementView(discord.ui.View):
                 
                         """, inline=False)
 
-
-        button_web = discord.ui.Button(label="Website", style=discord.ButtonStyle.url, row=2,
+        button_web = discord.ui.Button(label="Website", style=discord.ButtonStyle.url, row=1,
                                        url="https://www.axekz.com/", emoji="<:axe:1201477183982542888>")
         button_steam = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url,
                                          url='https://steamcommunity.com/groups/axekz', row=2,
                                          emoji="<:Steam_Logo:1201477320263880796>")
         button_bili = discord.ui.Button(label='Bilibili', style=discord.ButtonStyle.url,
                                         url="https://space.bilibili.com/1200368090",
-                                        emoji="<:bilibili2:1201477844002410566>", row=3)
+                                        emoji="<:bilibili2:1201477844002410566>", row=2)
         button_qq = discord.ui.Button(label='QQ Group', style=discord.ButtonStyle.url,
                                       url='http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=qKG6PDxw4zojM91iS0je7uPvvh7mtOx_'
                                           '&authKey=jeSZf2rXhRy2HR80moAPBkEnqKIN%2FLZRbwM7Nf%2Ft2jUwYmHUXdf6bR49'
                                           '%2F1QDQ3Yf&noverify=0&group_code=188099455',
-                                      emoji="<:QQ3:1201477696358719488>",  row=3)
-        self.add_item(button_web)
-        self.add_item(button_bili)
-        self.add_item(button_steam)
-        self.add_item(button_qq)
+                                      emoji="<:QQ3:1201477696358719488>",  row=2)
+        if self.bool:
+            self.bool = False
+            self.add_item(button_web)
+            self.add_item(button_bili)
+            self.add_item(button_steam)
+            self.add_item(button_qq)
 
     @discord.ui.button(label='English', style=discord.ButtonStyle.grey, custom_id='persistent_view:green', emoji='🇬🇧')
     async def green(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
