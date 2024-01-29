@@ -88,14 +88,11 @@ ANNOUNCEMENTS = [
 # For this example the custom_id is prefixed with the name of the bot.
 # Note that custom_ids can only be up to 100 characters long.
 class AnnouncementView(discord.ui.View):
-    def __init__(self, bot):  # NOQA
+    def __init__(self):  # NOQA
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
 
-        self.guild = bot.get_guild(GUILD_ID)
-        self.steam_emoji = discord.utils.get(self.guild.emojis, name="amonge")
-
-        button = discord.ui.Button(label=f'{self.steam_emoji} Steam Group', style=discord.ButtonStyle.url,
+        button = discord.ui.Button(label='<:amonge:1067146266032738384>Steam Group', style=discord.ButtonStyle.url,
                                    url='https://steamcommunity.com/groups/axekz', row=2)
         self.add_item(button)
 
@@ -125,7 +122,7 @@ class PersistentViewBot(commands.Bot):
         # In order to do this you need to first send a message with the View, which is shown below.
         # If you have the message_id you can also pass it as a keyword argument, but for this example
         # we don't have one.
-        self.add_view(AnnouncementView(self))
+        self.add_view(AnnouncementView())
         # For dynamic items, we must register the classes instead of the views.
         # self.add_dynamic_items(DynamicButton)
 

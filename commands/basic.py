@@ -34,7 +34,7 @@ class Basic(commands.Cog):
         if channel:
             try:
                 message = await channel.fetch_message(message_id)
-                await message.edit(embed=ANNOUNCEMENTS[0], view=AnnouncementView(self.bot))
+                await message.edit(embed=ANNOUNCEMENTS[0], view=AnnouncementView())
             except discord.NotFound:
                 print(f'Message with ID {message_id} not found.')
         else:
