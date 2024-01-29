@@ -12,8 +12,8 @@ import dotenv
 from config import GUILD_ID
 
 ANNOUNCEMENTS = [
-            Embed(title="Hi There!",
-                  description="""
+    Embed(title="Hi There!",
+          description="""
                   👋 **Welcome to the AXE Kreedz Community!** 🎉
 
                     We're thrilled to have you join our server. Whether you're a seasoned Kreedz player or new to the scene, you've come to the right place for a fun and challenging experience.
@@ -30,11 +30,11 @@ ANNOUNCEMENTS = [
                     
                     Enjoy your time here, and happy climbing! 🧗‍♂️
                   """,
-                  color=discord.Color.blue(),
-                  timestamp=datetime.datetime.now()
-                  ),
-            Embed(title="你好！",
-                  description="""
+          color=discord.Color.blue(),
+          timestamp=datetime.datetime.now()
+          ),
+    Embed(title="你好！",
+          description="""
                   👋 **欢迎来到 AXE Kreedz 社区！** 🎉
 
                     我们非常高兴您加入我们的服务器。无论您是经验丰富的 Kreedz 玩家还是新手，您都来对地方了，这里提供了一个有趣而具有挑战性的体验。
@@ -52,11 +52,11 @@ ANNOUNCEMENTS = [
                     享受您在这里的时光，快乐攀爬！ 🧗‍♂️
 
                   """"",
-                  color=discord.Color.blue(),
-                  timestamp=datetime.datetime.now()
-                  ),
-            Embed(title="你好",
-                  description="""
+          color=discord.Color.blue(),
+          timestamp=datetime.datetime.now()
+          ),
+    Embed(title="你好",
+          description="""
                   👋 **歡迎來到 AXE Kreedz 社群！** 🎉
 
                     我們非常高興您加入我們的伺服器。無論您是經驗豐富的 Kreedz 玩家還是新手，您都來對地方，這裡提供了一個有趣而具有挑戰性的體驗。
@@ -73,10 +73,10 @@ ANNOUNCEMENTS = [
                     
                     享受您在這裡的時光，快樂攀爬！ 🧗‍♂️
                   """,
-                  color=discord.Color.blue(),
-                  timestamp=datetime.datetime.now()
-                  )
-        ]
+          color=discord.Color.blue(),
+          timestamp=datetime.datetime.now()
+          )
+]
 
 
 # Define a simple View that persists between bot restarts
@@ -92,10 +92,23 @@ class AnnouncementView(discord.ui.View):
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
 
-        button = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url,
-                                   url='https://steamcommunity.com/groups/axekz', row=2,
-                                   emoji="<:amonge:1067146266032738384>")
-        self.add_item(button)
+        button_web = discord.ui.Button(label="Website", style=discord.ButtonStyle.url,
+                                       url="https://www.axekz.com/", emoji="<:bilibili2:1201477844002410566>")
+        button_steam = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url,
+                                         url='https://steamcommunity.com/groups/axekz', row=2,
+                                         emoji="<:amonge:1067146266032738384>")
+        button_bili = discord.ui.Button(label='Bilibili Channel', style=discord.ButtonStyle.url,
+                                        url="https://space.bilibili.com/1200368090",
+                                        emoji="<:bilibili2:1201477844002410566>")
+        button_qq = discord.ui.Button(label='QQ Group', style=discord.ButtonStyle.url,
+                                      url='http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=qKG6PDxw4zojM91iS0je7uPvvh7mtOx_'
+                                          '&authKey=jeSZf2rXhRy2HR80moAPBkEnqKIN%2FLZRbwM7Nf%2Ft2jUwYmHUXdf6bR49'
+                                          '%2F1QDQ3Yf&noverify=0&group_code=188099455',
+                                      emoji="<:QQ3:1201477696358719488>")
+        self.add_item(button_web)
+        self.add_item(button_bili)
+        self.add_item(button_steam)
+        self.add_item(button_qq)
 
     @discord.ui.button(label='English', style=discord.ButtonStyle.grey, custom_id='persistent_view:green', emoji='🇬🇧')
     async def green(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
