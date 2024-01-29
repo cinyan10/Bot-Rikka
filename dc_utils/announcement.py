@@ -90,6 +90,8 @@ class AnnouncementView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
+        button = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url, url='https://steamcommunity.com/groups/axekz')
+        self.add_item(button)
 
     @discord.ui.button(label='English', style=discord.ButtonStyle.gray, custom_id='persistent_view:green', emoji='🇬🇧')
     async def green(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
@@ -102,12 +104,6 @@ class AnnouncementView(discord.ui.View):
     @discord.ui.button(label='繁體中文', style=discord.ButtonStyle.grey, custom_id='persistent_view:grey', emoji='🇹🇼')
     async def grey(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
         await interaction.response.edit_message(embed=self.embeds[2])  # NOQA
-
-    @discord.ui.button(label='Steam Group', style=discord.ButtonStyle.url, url="https://steamcommunity.com/groups/axekz")
-    async def steam_group(self, interaction: discord.Interaction, button: discord.ui.Button):
-        pass
-
-
 
 
 class PersistentViewBot(commands.Bot):
