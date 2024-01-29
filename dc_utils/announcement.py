@@ -90,14 +90,14 @@ class AnnouncementView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
-        button = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url, url='https://steamcommunity.com/groups/axekz', row=2)
+        button = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url, url='https://steamcommunity.com/groups/axekz', row=2, emoji=':amonge: ')
         self.add_item(button)
 
-    @discord.ui.button(label='English', style=discord.ButtonStyle.gray, custom_id='persistent_view:green', emoji='🇬🇧')
+    @discord.ui.button(label='English', style=discord.ButtonStyle.grey, custom_id='persistent_view:green', emoji='🇬🇧')
     async def green(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
         await interaction.response.edit_message(embed=self.embeds[0])  # NOQA
 
-    @discord.ui.button(label='简体中文', style=discord.ButtonStyle.blurple, custom_id='persistent_view:red', emoji="🇨🇳")
+    @discord.ui.button(label='简体中文', style=discord.ButtonStyle.grey, custom_id='persistent_view:red', emoji="🇨🇳")
     async def red(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
         await interaction.response.edit_message(embed=self.embeds[1])  # NOQA
 
