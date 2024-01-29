@@ -92,19 +92,19 @@ class AnnouncementView(discord.ui.View):
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
 
-        button_web = discord.ui.Button(label="Website", style=discord.ButtonStyle.url,
-                                       url="https://www.axekz.com/", emoji="<:bilibili2:1201477844002410566>")
+        button_web = discord.ui.Button(label="Website", style=discord.ButtonStyle.url, row=2,
+                                       url="https://www.axekz.com/", emoji="<:axe:1201477183982542888>")
         button_steam = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url,
                                          url='https://steamcommunity.com/groups/axekz', row=2,
-                                         emoji="<:amonge:1067146266032738384>")
-        button_bili = discord.ui.Button(label='Bilibili Channel', style=discord.ButtonStyle.url,
+                                         emoji="<:Steam_Logo:1201477320263880796>")
+        button_bili = discord.ui.Button(label='Bilibili', style=discord.ButtonStyle.url,
                                         url="https://space.bilibili.com/1200368090",
-                                        emoji="<:bilibili2:1201477844002410566>")
+                                        emoji="<:bilibili2:1201477844002410566>", row=3)
         button_qq = discord.ui.Button(label='QQ Group', style=discord.ButtonStyle.url,
                                       url='http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=qKG6PDxw4zojM91iS0je7uPvvh7mtOx_'
                                           '&authKey=jeSZf2rXhRy2HR80moAPBkEnqKIN%2FLZRbwM7Nf%2Ft2jUwYmHUXdf6bR49'
                                           '%2F1QDQ3Yf&noverify=0&group_code=188099455',
-                                      emoji="<:QQ3:1201477696358719488>")
+                                      emoji="<:QQ3:1201477696358719488>",  row=3)
         self.add_item(button_web)
         self.add_item(button_bili)
         self.add_item(button_steam)
