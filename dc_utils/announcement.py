@@ -9,6 +9,7 @@ from discord.ext import commands
 import discord
 import dotenv
 
+from config import GUILD_ID
 
 ANNOUNCEMENTS = [
             Embed(title="Hi There!",
@@ -90,7 +91,12 @@ class AnnouncementView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
-        button = discord.ui.Button(label=':amonge: Steam Group', style=discord.ButtonStyle.url, url='https://steamcommunity.com/groups/axekz', row=2)
+
+        guild = bot.get_guild(GUILD_ID)
+        self.steam_emoji = discord.utils.get(guild.emojis, name="amonge")
+
+        button = discord.ui.Button(label=f'{self.steam_emoji} Steam Group', style=discord.ButtonStyle.url,
+                                   url='https://steamcommunity.com/groups/axekz', row=2)
         self.add_item(button)
 
     @discord.ui.button(label='English', style=discord.ButtonStyle.grey, custom_id='persistent_view:green', emoji='🇬🇧')
