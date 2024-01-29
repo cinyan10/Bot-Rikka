@@ -10,10 +10,9 @@ import dotenv
 
 
 ANNOUNCEMENTS = [
-    Embed(title="Hi There!",
+    Embed(title="👋 **Welcome to the AXE Kreedz Community!** 🎉",
           description="""
-                  👋 **Welcome to the AXE Kreedz Community!** 🎉
-
+                  
                     We're thrilled to have you join our server. Whether you're a seasoned Kreedz player or new to the scene, you've come to the right place for a fun and challenging experience.
                     
                     Here's a few things to get you started:
@@ -27,14 +26,14 @@ ANNOUNCEMENTS = [
                     Remember to follow the server rules and respect your fellow players. Let's make this community a welcoming and enjoyable place for everyone.
                     
                     Enjoy your time here, and happy climbing! 🧗‍♂️
+                    
                   """,
           color=discord.Color.blue(),
           timestamp=datetime.datetime.now()
           ),
-    Embed(title="你好！",
+    Embed(title="👋 **欢迎来到 AXE Kreedz 社区！** 🎉",
           description="""
-                  👋 **欢迎来到 AXE Kreedz 社区！** 🎉
-
+                  
                     我们非常高兴您加入我们的服务器。无论您是经验丰富的 Kreedz 玩家还是新手，您都来对地方了，这里提供了一个有趣而具有挑战性的体验。
                     
                     以下是一些入门信息：
@@ -48,15 +47,14 @@ ANNOUNCEMENTS = [
                     请记住遵守服务器规则并尊重其他玩家。让我们一起把这个社区打造成一个对每个人都友好和愉快的地方。
                     
                     享受您在这里的时光，快乐攀爬！ 🧗‍♂️
-
+                    
                   """"",
           color=discord.Color.blue(),
           timestamp=datetime.datetime.now()
           ),
-    Embed(title="你好",
+    Embed(title="👋 **歡迎來到 AXE Kreedz 社群！** 🎉",
           description="""
-                  👋 **歡迎來到 AXE Kreedz 社群！** 🎉
-
+                  
                     我們非常高興您加入我們的伺服器。無論您是經驗豐富的 Kreedz 玩家還是新手，您都來對地方，這裡提供了一個有趣而具有挑戰性的體驗。
                     
                     以下是一些入門信息：
@@ -70,6 +68,7 @@ ANNOUNCEMENTS = [
                     請記住遵守伺服器規則並尊重其他玩家。讓我們一起把這個社群打造成一個對每個人都友好和愉快的地方。
                     
                     享受您在這裡的時光，快樂攀爬！ 🧗‍♂️
+                    
                   """,
           color=discord.Color.blue(),
           timestamp=datetime.datetime.now()
@@ -106,9 +105,7 @@ class AnnouncementView(discord.ui.View):
 
 - Use the command `/bind_steam` in the <#1192079597399965847> to bind your Steam ID.
 - After binding your Steam ID, use the command `/whitelist` to request whitelisting.
-- This revised version provides a clear and organized set of instructions for getting whitelisted while addressing each requirement and step.
-
-            """, inline=False)
+         """, inline=False)
 
             self.embeds[1].add_field(name="**如何获得白名单:**", value="""
 **要求:**
