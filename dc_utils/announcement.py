@@ -94,20 +94,19 @@ class AnnouncementView(discord.ui.View):
             self.embeds[0].add_field(name="**HOW TO GET WHITELISTED:**", value="""
 **Requirements:**
 
-Achieve 50,000 points in any game mode.
-Must not be banned by VAC (Valve Anti-Cheat).
-Must not be banned from multiple games.
+- Achieve 50,000 points in any game mode.
+- Must not be banned by VAC (Valve Anti-Cheat).
+- Must not be banned from multiple games.
 
 **Join Our Steam Group:**
 
-Ensure that your Steam profile is set to public (to verify your membership in our Steam group).
-**Bind Your Steam ID:** 
-Use the command `/bind_steam` in the <#1192079597399965847> to bind your Steam ID.
+- Ensure that your Steam profile is set to public (to verify your membership in our Steam group).
 
 **Request Whitelisting:**
 
-After binding your Steam ID, use the command `/whitelist` to request whitelisting.
-This revised version provides a clear and organized set of instructions for getting whitelisted while addressing each requirement and step.
+- Use the command `/bind_steam` in the <#1192079597399965847> to bind your Steam ID.
+- After binding your Steam ID, use the command `/whitelist` to request whitelisting.
+- This revised version provides a clear and organized set of instructions for getting whitelisted while addressing each requirement and step.
 
             """, inline=False)
 
@@ -122,12 +121,9 @@ This revised version provides a clear and organized set of instructions for gett
 
 - 确保您的 Steam 档案设置为公开（以验证您是否加入了我们的 Steam 群组）。
 
-**绑定您的 Steam ID:** 
-
-- 在 <#1192079597399965847> 频道中使用 `/bind_steam` 命令来绑定您的 Steam ID。
-
 **请求白名单:**
 
+- 在 <#1192079597399965847> 频道中使用 `/bind_steam` 命令来绑定您的 Steam ID。
 - 绑定您的 Steam ID 后，使用 `/whitelist` 命令来请求白名单。
 
                     """, inline=False)
@@ -145,10 +141,9 @@ This revised version provides a clear and organized set of instructions for gett
 
 **綁定您的 Steam ID:** 
 
-- 在 <#1192079597399965847> 頻道中使用 `/bind_steam` 命令來綁定您的 Steam ID。
-
 **請求白名單:**
 
+- 在 <#1192079597399965847> 頻道中使用 `/bind_steam` 命令來綁定您的 Steam ID。
 - 綁定您的 Steam ID 後，使用 `/whitelist` 命令來請求白名單。
 
                             """, inline=False)
@@ -157,15 +152,15 @@ This revised version provides a clear and organized set of instructions for gett
                                        url="https://www.axekz.com/", emoji="<:axe:1201477183982542888>")
         button_steam = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url,
                                          url='https://steamcommunity.com/groups/axekz',
-                                         emoji="<:Steam_Logo:1201477320263880796>")
+                                         emoji="<:Steam_Logo:1201477320263880796>", row=2)
         button_bili = discord.ui.Button(label='Bilibili', style=discord.ButtonStyle.url,
                                         url="https://space.bilibili.com/1200368090",
-                                        emoji="<:bilibili2:1201477844002410566>")
+                                        emoji="<:bilibili2:1201477844002410566>", row=2)
         button_qq = discord.ui.Button(label='QQ Group', style=discord.ButtonStyle.url,
                                       url='http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=qKG6PDxw4zojM91iS0je7uPvvh7mtOx_'
                                           '&authKey=jeSZf2rXhRy2HR80moAPBkEnqKIN%2FLZRbwM7Nf%2Ft2jUwYmHUXdf6bR49'
                                           '%2F1QDQ3Yf&noverify=0&group_code=188099455',
-                                      emoji="<:QQ3:1201477696358719488>")
+                                      emoji="<:QQ3:1201477696358719488>", row=2)
 
         self.add_item(button_web)
         self.add_item(button_bili)
