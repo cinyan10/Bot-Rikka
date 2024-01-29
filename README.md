@@ -20,7 +20,7 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
 - [ ] Server Information with both EN and CN
   - [ ] button link
 
-- [ ] **kz global stats**
+- [x] **kz global stats**
 
   - [ ] generate image
   - [x] /pr personal recent
@@ -28,11 +28,11 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
 
 - [ ] add players to [gokz.cn](https://gokz.cn)
 
-- [ ] **whitelist**
+- [x] **whitelist**
 
   - [ ] answer button
-  - [ ] steam banned status
-  - [ ] global pts for specific kz_mode
+  - [x] steam banned status
+  - [x] global pts for specific kz_mode
 
 - [x] Edit channel name to implement dynamic channel name 
 

@@ -12,6 +12,7 @@ from functions.globalapi.kz_global_stats import fetch_personal_recent, fetch_per
 from functions.misc import formate_record_time, format_seconds_to_time
 from functions.steam.steam import convert_steamid
 from functions.steam.steam_user import embed_set_author_steam
+from functions.globalapi.kz_global_stats import get_stats_embed
 
 
 class StatsView(discord.ui.View):
