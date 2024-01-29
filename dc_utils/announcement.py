@@ -13,16 +13,16 @@ import dotenv
 ANNOUNCEMENTS = [
             Embed(title="Hi There!",
                   description="""
-                  👋 Welcome to the AXE Kreedz Community! 🎉
+                  👋 **Welcome to the AXE Kreedz Community!** 🎉
 
                     We're thrilled to have you join our server. Whether you're a seasoned Kreedz player or new to the scene, you've come to the right place for a fun and challenging experience.
                     
                     Here's a few things to get you started:
                     
-                    🎮 Server IP: #🎮│servers 
+                    🎮 Server IP: <#1078216816482062367>
                     🏆 Check out our Kreedz maps in the server and start your climbing journey.
                     💬 Feel free to chat and interact with our friendly community members.
-                    ❓ If you have any questions or need assistance, don't hesitate to ask in the #『❔』support  channel.
+                    ❓ If you have any questions or need assistance, don't hesitate to ask in the <#1198635192496173227>  channel.
                     📅 Keep an eye out for server events and tournaments. It's a great way to showcase your skills and win cool prizes!
                     
                     Remember to follow the server rules and respect your fellow players. Let's make this community a welcoming and enjoyable place for everyone.
@@ -34,16 +34,16 @@ ANNOUNCEMENTS = [
                   ),
             Embed(title="你好！",
                   description="""
-                  👋 欢迎来到 AXE Kreedz 社区！ 🎉
+                  👋 **欢迎来到 AXE Kreedz 社区！** 🎉
 
                     我们非常高兴您加入我们的服务器。无论您是经验丰富的 Kreedz 玩家还是新手，您都来对地方了，这里提供了一个有趣而具有挑战性的体验。
                     
                     以下是一些入门信息：
                     
-                    🎮 服务器IP：#🎮│servers 
+                    🎮 服务器IP：<#1078216816482062367>
                     🏆 在服务器中查看我们的 Kreedz 地图，并开始您的攀爬之旅。
                     💬 随时与我们友好的社区成员聊天和互动。
-                    ❓ 如果您有任何问题或需要帮助，请在 #『❔』support 频道中提问，不要犹豫。
+                    ❓ 如果您有任何问题或需要帮助，请在 <#1198635192496173227> 频道中提问，不要犹豫。
                     📅 请关注服务器活动和比赛。这是展示您技能并赢得酷炫奖品的好机会！
                     
                     请记住遵守服务器规则并尊重其他玩家。让我们一起把这个社区打造成一个对每个人都友好和愉快的地方。
@@ -54,18 +54,18 @@ ANNOUNCEMENTS = [
                   color=discord.Color.blue(),
                   timestamp=datetime.datetime.now()
                   ),
-            Embed(title="公告",
+            Embed(title="你好",
                   description="""
-                  👋 歡迎來到 AXE Kreedz 社群！ 🎉
+                  👋 **歡迎來到 AXE Kreedz 社群！** 🎉
 
                     我們非常高興您加入我們的伺服器。無論您是經驗豐富的 Kreedz 玩家還是新手，您都來對地方，這裡提供了一個有趣而具有挑戰性的體驗。
                     
                     以下是一些入門信息：
                     
-                    🎮 伺服器IP：#🎮│servers 
+                    🎮 伺服器IP：<#1078216816482062367>
                     🏆 在伺服器中查看我們的 Kreedz 地圖，並開始您的攀爬之旅。
                     💬 隨時與我們友好的社群成員聊天和互動。
-                    ❓ 如果您有任何問題或需要幫助，請在 #『❔』support 頻道中提問，不要猶豫。
+                    ❓ 如果您有任何問題或需要幫助，請在 <#1198635192496173227> 頻道中提問，不要猶豫。
                     📅 請關注伺服器活動和比賽。這是展示您技能並贏得酷炫獎品的好機會！
                     
                     請記住遵守伺服器規則並尊重其他玩家。讓我們一起把這個社群打造成一個對每個人都友好和愉快的地方。
@@ -102,6 +102,12 @@ class AnnouncementView(discord.ui.View):
     @discord.ui.button(label='繁體中文', style=discord.ButtonStyle.grey, custom_id='persistent_view:grey', emoji='🇹🇼')
     async def grey(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
         await interaction.response.edit_message(embed=self.embeds[2])  # NOQA
+
+    @discord.ui.button(label='Steam Group', style=discord.ButtonStyle.url, url="https://steamcommunity.com/groups/axekz")
+    async def steam_group(self, interaction: discord.Interaction, button: discord.ui.Button):
+        pass
+
+
 
 
 class PersistentViewBot(commands.Bot):
