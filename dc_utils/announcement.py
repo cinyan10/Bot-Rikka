@@ -91,57 +91,59 @@ class AnnouncementView(discord.ui.View):
         super().__init__(timeout=None)
         self.embeds = ANNOUNCEMENTS
         self.bool = True
+        if self.bool:
+            self.bool = False
 
-        self.embeds[0].add_field(name="**HOW TO GET WHITELISTED:**", value="""
-        **Requirements:**
-        Achieve 50,000 points in any game mode.
-        Must not be banned by VAC (Valve Anti-Cheat).
-        Must not be banned from multiple games.
-        
-        **Join Our Steam Group:**
-        Ensure that your Steam profile is set to public (to verify your membership in our Steam group).
-        **Bind Your Steam ID:** 
-        Use the command `/bind_steam` in the <#1192079597399965847> to bind your Steam ID.
-        
-        **Request Whitelisting:**
-        After binding your Steam ID, use the command `/whitelist` to request whitelisting.
-        This revised version provides a clear and organized set of instructions for getting whitelisted while addressing each requirement and step.
-        
-        """, inline=False)
+            self.embeds[0].add_field(name="**HOW TO GET WHITELISTED:**", value="""
+            **Requirements:**
+            Achieve 50,000 points in any game mode.
+            Must not be banned by VAC (Valve Anti-Cheat).
+            Must not be banned from multiple games.
+            
+            **Join Our Steam Group:**
+            Ensure that your Steam profile is set to public (to verify your membership in our Steam group).
+            **Bind Your Steam ID:** 
+            Use the command `/bind_steam` in the <#1192079597399965847> to bind your Steam ID.
+            
+            **Request Whitelisting:**
+            After binding your Steam ID, use the command `/whitelist` to request whitelisting.
+            This revised version provides a clear and organized set of instructions for getting whitelisted while addressing each requirement and step.
+            
+            """, inline=False)
 
-        self.embeds[1].add_field(name="**如何获得白名单:**", value="""
-                **要求:**
-                - 在任意游戏模式中达到 50,000 分。
-                - 不能被 VAC (Valve 反作弊系统) 封禁。
-                - 不能在多个游戏中被封禁。
+            self.embeds[1].add_field(name="**如何获得白名单:**", value="""
+                    **要求:**
+                    - 在任意游戏模式中达到 50,000 分。
+                    - 不能被 VAC (Valve 反作弊系统) 封禁。
+                    - 不能在多个游戏中被封禁。
+    
+                    **加入我们的 Steam 群组:**
+                    - 确保您的 Steam 档案设置为公开（以验证您是否加入了我们的 Steam 群组）。
+    
+                    **绑定您的 Steam ID:** 
+                    - 在 <#1192079597399965847> 频道中使用 `/bind_steam` 命令来绑定您的 Steam ID。
+    
+                    **请求白名单:**
+                    - 绑定您的 Steam ID 后，使用 `/whitelist` 命令来请求白名单。
+    
+                    """, inline=False)
 
-                **加入我们的 Steam 群组:**
-                - 确保您的 Steam 档案设置为公开（以验证您是否加入了我们的 Steam 群组）。
-
-                **绑定您的 Steam ID:** 
-                - 在 <#1192079597399965847> 频道中使用 `/bind_steam` 命令来绑定您的 Steam ID。
-
-                **请求白名单:**
-                - 绑定您的 Steam ID 后，使用 `/whitelist` 命令来请求白名单。
-
-                """, inline=False)
-
-        self.embeds[2].add_field(name="**如何獲得白名單:**", value="""
-                **要求:**
-                - 在任意遊戲模式中達到 50,000 分。
-                - 不能被 VAC (Valve 反作弊系統) 封禁。
-                - 不能在多個遊戲中被封禁。
-                
-                **加入我們的 Steam 群組:**
-                - 確保您的 Steam 檔案設置為公開（以驗證您是否加入了我們的 Steam 群組）。
-                
-                **綁定您的 Steam ID:** 
-                - 在 <#1192079597399965847> 頻道中使用 `/bind_steam` 命令來綁定您的 Steam ID。
-                
-                **請求白名單:**
-                - 綁定您的 Steam ID 後，使用 `/whitelist` 命令來請求白名單。
-                
-                        """, inline=False)
+            self.embeds[2].add_field(name="**如何獲得白名單:**", value="""
+                    **要求:**
+                    - 在任意遊戲模式中達到 50,000 分。
+                    - 不能被 VAC (Valve 反作弊系統) 封禁。
+                    - 不能在多個遊戲中被封禁。
+                    
+                    **加入我們的 Steam 群組:**
+                    - 確保您的 Steam 檔案設置為公開（以驗證您是否加入了我們的 Steam 群組）。
+                    
+                    **綁定您的 Steam ID:** 
+                    - 在 <#1192079597399965847> 頻道中使用 `/bind_steam` 命令來綁定您的 Steam ID。
+                    
+                    **請求白名單:**
+                    - 綁定您的 Steam ID 後，使用 `/whitelist` 命令來請求白名單。
+                    
+                            """, inline=False)
 
         button_web = discord.ui.Button(label="Website", style=discord.ButtonStyle.url, row=1,
                                        url="https://www.axekz.com/", emoji="<:axe:1201477183982542888>")
@@ -156,12 +158,11 @@ class AnnouncementView(discord.ui.View):
                                           '&authKey=jeSZf2rXhRy2HR80moAPBkEnqKIN%2FLZRbwM7Nf%2Ft2jUwYmHUXdf6bR49'
                                           '%2F1QDQ3Yf&noverify=0&group_code=188099455',
                                       emoji="<:QQ3:1201477696358719488>",  row=2)
-        if self.bool:
-            self.bool = False
-            self.add_item(button_web)
-            self.add_item(button_bili)
-            self.add_item(button_steam)
-            self.add_item(button_qq)
+
+        self.add_item(button_web)
+        self.add_item(button_bili)
+        self.add_item(button_steam)
+        self.add_item(button_qq)
 
     @discord.ui.button(label='English', style=discord.ButtonStyle.grey, custom_id='persistent_view:green', emoji='🇬🇧')
     async def green(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
