@@ -77,10 +77,6 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
 
 - [ ] refactor some functions with class
 
-```python
-class SteamUser
-class PlayerKzStats
-```
 -  [x] bilibili
   -  [x] bind bilibili
   -  [ ] stream bool
@@ -89,7 +85,7 @@ class PlayerKzStats
 -  [ ] Mini Games
    -  [ ] simulate long jump
       -  [ ] random with local database stats
-      -  [ ] compare with others  (mini games)
+      -  [ ] compare with others  (mini-games)
    -  [ ] Rock, Paper, Scissors
 
 ## How to Use

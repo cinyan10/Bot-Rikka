@@ -10,6 +10,7 @@ bot = PersistentViewBot()
 discord.utils.setup_logging()
 
 
+# Loading Modules
 async def load():
     for filename in os.listdir('./commands'):
         if filename.endswith('.py'):
