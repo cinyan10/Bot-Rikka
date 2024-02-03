@@ -40,6 +40,18 @@ class Basic(commands.Cog):
         else:
             print(f'Channel with ID {channel_id} not found.')
 
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        channel = member.guild.system_channel
+        if channel is not None:
+            await channel.send(f'Welcome  to AXE Kreedz Discord Server!!')
+            embed = Embed(title='Welcome to AXE Kreedz!!',
+                  description=f"{member.mention} just join in this server!",
+                  colour=discord.Colour.random(),
+                  timestamp=datetime.now())
+            embed.set_thumbnail(member.avatar_url)
+            await channel.send(embed=embed)
+
     @commands.hybrid_command()
     async def ping(self, ctx):
         """Pings the bot"""
