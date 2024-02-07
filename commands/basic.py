@@ -4,7 +4,7 @@ import discord
 from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import Bot
-from config import TEST_CHANNEL_ID, INFO_CHANNEL_ID, ANNOUNCEMENT_MESSAGE_ID, WELCOME_CHANNEL_ID
+from config import TEST_CHANNEL_ID, INFO_CHANNEL_ID, ANNOUNCEMENT_MESSAGE_ID, WELCOME_CHANNEL_ID, GUILD_LINK
 from dc_utils.announcement import AnnouncementView, ANNOUNCEMENTS
 
 RESPONSES = ["meow~", "Itami~ >.<", "What's the matter, gosyujinnsama?", "pong~", "UwU", "don't poke me, plz T^T"]
@@ -34,7 +34,7 @@ class Basic(commands.Cog):
         if channel:
             try:
                 message = await channel.fetch_message(message_id)
-                await message.edit(embed=ANNOUNCEMENTS[0], view=AnnouncementView())
+                await message.edit(content=GUILD_LINK, embed=ANNOUNCEMENTS[0], view=AnnouncementView())
             except discord.NotFound:
                 print(f'Message with ID {message_id} not found.')
         else:
