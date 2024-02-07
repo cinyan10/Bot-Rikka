@@ -65,7 +65,7 @@ class AnnouncementView(discord.ui.View):
         if not hasattr(self, 'fields_added'):
             self.fields_added = True
             self.embeds[0].add_field(name="**HOW TO GET WHITELISTED:**", value="""
-**1. Requirements:**
+1. Requirements:
 - Achieve 50,000 points in any game mode.
 - Must not be banned by VAC (Valve Anti-Cheat).
 - Must not be banned from multiple games.
@@ -103,7 +103,6 @@ class AnnouncementView(discord.ui.View):
 - 確保您的 Steam 檔案設置為公開（以驗證您是否加入了我們的 Steam 群組）。
 
 **3. 請求白名單:**
-
 - 在 <#1192079597399965847> 頻道中使用 `/bind_steam` 命令來綁定您的 Steam ID。
 - 綁定您的 Steam ID 後，使用 `/whitelist` 命令來請求白名單。
 
