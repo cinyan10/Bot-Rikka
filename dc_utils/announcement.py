@@ -66,34 +66,28 @@ class AnnouncementView(discord.ui.View):
             self.fields_added = True
             self.embeds[0].add_field(name="**HOW TO GET WHITELISTED:**", value="""
 **1. Requirements:**
-
 - Achieve 50,000 points in any game mode.
 - Must not be banned by VAC (Valve Anti-Cheat).
 - Must not be banned from multiple games.
 
 **2. Join Our Steam Group:**
-
 - Ensure that your Steam profile is set to public (to verify your membership in our Steam group).
 
 **3. Request Whitelisting:**
-
 - Use the command `/bind_steam` in the <#1192079597399965847> to bind your Steam ID.
 - After binding your Steam ID, use the command `/whitelist` to request whitelisting.
          """, inline=False)
 
             self.embeds[1].add_field(name="**如何获得白名单:**", value="""
 **1. 要求:**
-
 - 在任意游戏模式中达到 50,000 分。
 - 不能被 VAC (Valve 反作弊系统) 封禁。
 - 不能在多个游戏中被封禁。
 
 **2. 加入我们的 Steam 群组:**
-
 - 确保您的 Steam 档案设置为公开（以验证您是否加入了我们的 Steam 群组）。
 
 **3. 请求白名单:**
-
 - 在 <#1192079597399965847> 频道中使用 `/bind_steam` 命令来绑定您的 Steam ID。
 - 绑定您的 Steam ID 后，使用 `/whitelist` 命令来请求白名单。
 
@@ -101,17 +95,14 @@ class AnnouncementView(discord.ui.View):
 
             self.embeds[2].add_field(name="**如何獲得白名單:**", value="""
 **1. 要求:**
-
 - 在任意遊戲模式中達到 50,000 分。
 - 不能被 VAC (Valve 反作弊系統) 封禁。
 - 不能在多個遊戲中被封禁。
 
 **2. 加入我們的 Steam 群組:**
-
 - 確保您的 Steam 檔案設置為公開（以驗證您是否加入了我們的 Steam 群組）。
 
 **綁定您的 Steam ID:** 
-
 **3. 請求白名單:**
 
 - 在 <#1192079597399965847> 頻道中使用 `/bind_steam` 命令來綁定您的 Steam ID。
