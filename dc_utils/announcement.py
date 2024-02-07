@@ -102,7 +102,6 @@ class AnnouncementView(discord.ui.View):
 **2. 加入我們的 Steam 群組:**
 - 確保您的 Steam 檔案設置為公開（以驗證您是否加入了我們的 Steam 群組）。
 
-**綁定您的 Steam ID:** 
 **3. 請求白名單:**
 
 - 在 <#1192079597399965847> 頻道中使用 `/bind_steam` 命令來綁定您的 Steam ID。
