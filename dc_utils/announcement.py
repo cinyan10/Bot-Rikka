@@ -65,7 +65,7 @@ class AnnouncementView(discord.ui.View):
         if not hasattr(self, 'fields_added'):
             self.fields_added = True
             self.embeds[0].add_field(name="**HOW TO GET WHITELISTED:**", value="""
-**1. Requirements:**
+**1. Requirements:** 
 - Achieve 50,000 points in any game mode.
 - Must not be banned by VAC (Valve Anti-Cheat).
 - Must not be banned from multiple games.

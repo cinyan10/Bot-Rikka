@@ -45,11 +45,11 @@ def query_server_simple(server):  # NOQA
                    f"{info['player_count']}/{info['max_players']}\n")
 
         if players:
-            players_str = ''
+            flag_str = ''
             for player in players['players']:
-                content += f"`{player['name'].replace('`', '')}`  "
-                players_str += f"`{player['name']}`"
-            if players_str != '':
+                content += f"`{player['name'].replace('`', '-')}`  "
+                flag_str += f"`{player['name']}`"
+            if flag_str != '':
                 content += "\n"
         return content
     except Exception as e:
