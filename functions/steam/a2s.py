@@ -45,10 +45,13 @@ def query_server_simple(server):  # NOQA
                    f"{info['player_count']}/{info['max_players']}\n")
 
         if players:
+
             flag_str = ''
             for player in players['players']:
-                content += f"`{player['name'].replace('`', '-')}`  "
-                flag_str += f"`{player['name']}`"
+                player_name = player['name'].replace('`', '-')
+                content += f"`{player_name}`  "
+                flag_str += f"{player['name']}"
+
             if flag_str != '':
                 content += "\n"
         return content
@@ -113,3 +116,10 @@ async def query_server_embed(server: Server, bot=None) -> Embed:
     except Exception as e:
         print(f"Error: {e}")
         return Embed(title="Error")
+
+
+if __name__ == "__main__":
+    name = '`'
+    name = name.replace('`', '-')
+    print(name)
+    pass
