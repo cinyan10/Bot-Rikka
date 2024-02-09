@@ -8,10 +8,8 @@ from discord.ext import commands
 import discord
 import dotenv
 
-
-ANNOUNCEMENTS = [
-    Embed(title="👋 **Welcome to the AXE Kreedz Community!** 🎉",
-          description="""                                   
+EMBED_EN = Embed(title="👋 **Welcome to the AXE Kreedz Community!** 🎉",
+                 description="""                                   
                     🎮 Server IP: <#1078216816482062367>
          
                     Remember to follow the server rules and respect your fellow players.
@@ -19,35 +17,81 @@ ANNOUNCEMENTS = [
                     Enjoy your time here, and happy climbing! 🧗‍♂️
                     
                   """,
-          color=discord.Color.blue(),
-          timestamp=datetime.datetime.now()
-          ),
-    Embed(title="👋 **欢迎来到 AXE Kreedz 社区！** 🎉",
-          description="""                   
-                    🎮 服务器IP：<#1078216816482062367>
-                    
-                    请遵守服务器规则并尊重其他玩家.
-                    
-                    快乐亏追！ 🧗‍♂️
-                    
-                  """"",
-          color=discord.Color.blue(),
-          timestamp=datetime.datetime.now()
-          ),
-    Embed(title="👋 **歡迎來到 AXE Kreedz 社群！** 🎉",
-          description="""
-                                    
-                    🎮 伺服器IP：<#1078216816482062367>
-                   
-                    請記住遵守伺服器規則並尊重其他玩家。
-                    
-                    享受您在這裡的時光，快樂攀爬！ 🧗‍♂️
-                    
-                  """,
-          color=discord.Color.blue(),
-          timestamp=datetime.datetime.now()
-          )
-]
+                 color=discord.Color.blue(),
+                 timestamp=datetime.datetime.now(),
+                 )
+
+EMBED_EN.add_field(name="**HOW TO GET WHITELISTED:**", value="""
+**1. Requirements:** 
+- Achieve 50,000 points in any game mode.
+- Must not be banned by VAC (Valve Anti-Cheat).
+- Must not be banned from multiple games.
+
+**2. Join Our Steam Group:**
+- Ensure that your Steam profile is set to public (to verify your membership in our Steam group).
+
+**3. Request Whitelisting:**
+- Use the command `/bind_steam` in the <#1192079597399965847> to bind your Steam ID.
+- After binding your Steam ID, use the command `/whitelist` to request whitelisting.
+         """, inline=False)
+
+EMBED_CN = Embed(title="👋 **欢迎来到 AXE Kreedz 社区！** 🎉",
+                 description="""                   
+                            🎮 服务器IP：<#1078216816482062367>
+                            
+                            请遵守服务器规则并尊重其他玩家.
+                            
+                            快乐亏追！ 🧗‍♂️
+                            
+                          """"",
+                 color=discord.Color.blue(),
+                 timestamp=datetime.datetime.now()
+                 )
+
+EMBED_CN.add_field(name="**如何获得白名单:**", value="""
+**1. 要求:**
+- 在任意游戏模式中达到 50,000 分。
+- 不能被 VAC (Valve 反作弊系统) 封禁。
+- 不能在多个游戏中被封禁。
+
+**2. 加入我们的 Steam 群组:**
+- 确保您的 Steam 档案设置为公开（以验证您是否加入了我们的 Steam 群组）。
+
+**3. 请求白名单:**
+- 在 <#1192079597399965847> 频道中使用 `/bind_steam` 命令来绑定您的 Steam ID。
+- 绑定您的 Steam ID 后，使用 `/whitelist` 命令来请求白名单。
+
+                    """, inline=False)
+
+EMBED_TCN = Embed(title="👋 **歡迎來到 AXE Kreedz 社群！** 🎉",
+                  description="""
+                                            
+                            🎮 伺服器IP：<#1078216816482062367>
+                           
+                            請記住遵守伺服器規則並尊重其他玩家。
+                            
+                            享受您在這裡的時光，快樂攀爬！ 🧗‍♂️
+                            
+                          """,
+                  color=discord.Color.blue(),
+                  timestamp=datetime.datetime.now()
+                  )
+EMBED_TCN.add_field(name="**如何獲得白名單:**", value="""
+**1. 要求:**
+- 在任意遊戲模式中達到 50,000 分。
+- 不能被 VAC (Valve 反作弊系統) 封禁。
+- 不能在多個遊戲中被封禁。
+
+**2. 加入我們的 Steam 群組:**
+- 確保您的 Steam 檔案設置為公開（以驗證您是否加入了我們的 Steam 群組）。
+
+**3. 請求白名單:**
+- 在 <#1192079597399965847> 頻道中使用 `/bind_steam` 命令來綁定您的 Steam ID。
+- 綁定您的 Steam ID 後，使用 `/whitelist` 命令來請求白名單。
+
+                            """, inline=False)
+
+ANNOUNCEMENTS = [EMBED_EN, EMBED_CN, EMBED_TCN]
 
 
 # Define a simple View that persists between bot restarts
@@ -64,50 +108,8 @@ class AnnouncementView(discord.ui.View):
         self.embeds = ANNOUNCEMENTS
         if not hasattr(self, 'fields_added'):
             self.fields_added = True
-            self.embeds[0].add_field(name="**HOW TO GET WHITELISTED:**", value="""
-**1. Requirements:** 
-- Achieve 50,000 points in any game mode.
-- Must not be banned by VAC (Valve Anti-Cheat).
-- Must not be banned from multiple games.
 
-**2. Join Our Steam Group:**
-- Ensure that your Steam profile is set to public (to verify your membership in our Steam group).
-
-**3. Request Whitelisting:**
-- Use the command `/bind_steam` in the <#1192079597399965847> to bind your Steam ID.
-- After binding your Steam ID, use the command `/whitelist` to request whitelisting.
-         """, inline=False)
-
-            self.embeds[1].add_field(name="**如何获得白名单:**", value="""
-**1. 要求:**
-- 在任意游戏模式中达到 50,000 分。
-- 不能被 VAC (Valve 反作弊系统) 封禁。
-- 不能在多个游戏中被封禁。
-
-**2. 加入我们的 Steam 群组:**
-- 确保您的 Steam 档案设置为公开（以验证您是否加入了我们的 Steam 群组）。
-
-**3. 请求白名单:**
-- 在 <#1192079597399965847> 频道中使用 `/bind_steam` 命令来绑定您的 Steam ID。
-- 绑定您的 Steam ID 后，使用 `/whitelist` 命令来请求白名单。
-
-                    """, inline=False)
-
-            self.embeds[2].add_field(name="**如何獲得白名單:**", value="""
-**1. 要求:**
-- 在任意遊戲模式中達到 50,000 分。
-- 不能被 VAC (Valve 反作弊系統) 封禁。
-- 不能在多個遊戲中被封禁。
-
-**2. 加入我們的 Steam 群組:**
-- 確保您的 Steam 檔案設置為公開（以驗證您是否加入了我們的 Steam 群組）。
-
-**3. 請求白名單:**
-- 在 <#1192079597399965847> 頻道中使用 `/bind_steam` 命令來綁定您的 Steam ID。
-- 綁定您的 Steam ID 後，使用 `/whitelist` 命令來請求白名單。
-
-                            """, inline=False)
-
+        # buttons
         button_web = discord.ui.Button(label="Website", style=discord.ButtonStyle.url,
                                        url="https://www.axekz.com/", emoji="<:axe:1201477183982542888>")
         button_steam = discord.ui.Button(label='Steam Group', style=discord.ButtonStyle.url,
@@ -148,15 +150,15 @@ class PersistentViewBot(commands.Bot):
         super().__init__(command_prefix=commands.when_mentioned_or('!'), intents=intents)
 
     # async def setup_hook(self) -> None:
-        # self.add_view(AnnouncementView())
+    # self.add_view(AnnouncementView())
 
-        # Register the persistent view for listening here.
-        # Note that this does not send the view to any message.
-        # In order to do this you need to first send a message with the View, which is shown below.
-        # If you have the message_id you can also pass it as a keyword argument, but for this example
-        # we don't have one.
-        # For dynamic items, we must register the classes instead of the views.
-        # self.add_dynamic_items(DynamicButton)
+    # Register the persistent view for listening here.
+    # Note that this does not send the view to any message.
+    # In order to do this you need to first send a message with the View, which is shown below.
+    # If you have the message_id you can also pass it as a keyword argument, but for this example
+    # we don't have one.
+    # For dynamic items, we must register the classes instead of the views.
+    # self.add_dynamic_items(DynamicButton)
 
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
