@@ -55,7 +55,7 @@ def query_server_simple(server):  # NOQA
             if flag_str != '':
                 content += "\n"
 
-            content = content.replace('``', "`")
+            content = content.replace('``', "` `")
         return content
     except Exception as e:
         print(f"Error: {e}")
