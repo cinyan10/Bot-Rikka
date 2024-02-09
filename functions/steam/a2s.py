@@ -48,14 +48,15 @@ def query_server_simple(server):  # NOQA
 
             flag_str = ''
             for player in players['players']:
-                player_name = player['name'].replace('`', '-')
+                player_name = player['name'].replace('`', '')
                 content += f"`{player_name}`    "
                 flag_str += f"{player['name']}"
+
+            content = content.replace('``', "` `")
 
             if flag_str != '':
                 content += "\n"
 
-            content = content.replace('``', "` `")
         return content
     except Exception as e:
         print(f"Error: {e}")
