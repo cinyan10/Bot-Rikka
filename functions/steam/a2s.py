@@ -34,7 +34,6 @@ def query_all_servers() -> str:
 
 def query_servers_field() -> Embed:
     embed = Embed(title="AXE Server List", timestamp=datetime.now(), color=0x60FFFF)
-    embed.set_thumbnail(url="https://i.pinimg.com/originals/d6/e4/95/d6e4956bd479d6b0d08eeb8971ee3b05.gif")
     for s in SERVER_LIST:
         query_server_field(s, embed)
 
