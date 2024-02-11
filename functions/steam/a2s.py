@@ -54,8 +54,8 @@ def query_server_simple(server):  # NOQA
 
             content = content.replace('``', "` `")
 
-            if flag_str != '':
-                content += "\n"
+            # if flag_str != '':
+            #     content += "\n"
 
         return content
     except Exception as e:
