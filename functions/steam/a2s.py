@@ -35,7 +35,7 @@ def query_all_servers() -> str:
 def query_servers_field() -> Embed:
     embed = Embed(title="AXE Server List", timestamp=datetime.now(), color=0x60FFFF)
     for s in SERVER_LIST:
-        query_server_field(s, embed, s.id % 2 == 1)
+        query_server_field(s, embed, s.id % 2 == 0)
 
     return embed
 
