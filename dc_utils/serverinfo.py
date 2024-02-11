@@ -19,7 +19,7 @@ async def server_list_embed_loop(message):
         await message.edit(embed=embed)
 
         # Wait for one minute before the next update
-        await asyncio.sleep(10)
+        await asyncio.sleep(20)
 
 
 async def gz_server_embeds_loop(message: discord.Message, servers, bot):
