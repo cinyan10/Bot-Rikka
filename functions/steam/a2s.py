@@ -56,7 +56,7 @@ def query_server_field(server,  embed : Embed):  # NOQA
             flag_str = ''
             for player in players['players']:
                 player_name = player['name'].replace('`', '')
-                content += f"{player_name} - `{format_seconds(player['duration'])}`\n"
+                content += f"`{player_name} - {format_seconds(player['duration'])}`\n"
                 flag_str += f"`{player['name']}`    "
 
             content = content.replace('``', "` `")
