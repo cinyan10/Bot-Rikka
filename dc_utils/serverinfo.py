@@ -13,7 +13,7 @@ async def server_list_embed_loop(message):
         # Function that updates the content of the embedded message
         # current_datetime = datetime.now(timezone.utc)
         # new_content = query_all_servers()
-        embed = query_servers_field()
+        embed = query_all_servers()
 
         # Edit the embedded message with the new content
         await message.edit(embed=embed)
