@@ -35,12 +35,12 @@ def query_all_servers() -> str:
 def query_servers_field() -> Embed:
     embed = Embed(title="AXE Server List", timestamp=datetime.now(), color=0x60FFFF)
     for s in SERVER_LIST:
-        query_server_field(s, embed)
+        query_server_field(s, embed, s.id % 2 == 1)
 
     return embed
 
 
-def query_server_field(server,  embed : Embed):  # NOQA
+def query_server_field(server,  embed : Embed, inline : bool):  # NOQA
     try:
         with a2s.ServerQuerier((server.ip, server.port)) as s:
             info = s.info()
@@ -66,7 +66,7 @@ def query_server_field(server,  embed : Embed):  # NOQA
 
         embed.add_field(
             name=f"**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}** | {info['player_count']}/{info['max_players']}\n"
-            , value=content)
+            , value=content, inline=inline)
 
         return embed
     except Exception as e:
