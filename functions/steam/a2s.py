@@ -35,7 +35,7 @@ def query_all_servers() -> Embed:
                   description=info_data,
                   url="https://ban.axekz.com/"
                   )
-    embed.set_thumbnail(url="https://media.tenor.com/W1HeRvdNz1gAAAAi/bugcat-capoo.gif")
+    embed.set_thumbnail(url="https://media.tenor.com/dTEjKmDAP8gAAAAi/anime-girl.gif")
 
     return embed
 
