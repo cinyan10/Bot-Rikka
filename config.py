@@ -99,7 +99,6 @@ GIFS = [
     "https://media.tenor.com/W1HeRvdNz1gAAAAi/bugcat-capoo.gif",
     "https://i.pinimg.com/originals/29/90/69/299069ebd9915dd74773ef46a65519ae.gif",
     "https://img1.picmix.com/output/stamp/normal/1/1/3/6/2486311_58fe0.gif",
-    "https://www.vhv.rs/dpng/d/479-4793895_cute-anime-gif-transparent-background-hd-png-download.png",
     "https://media.licdn.com/dms/image/D5622AQEXbeQc7gtk3w/feedshare-shrink_2048_1536/0/1691297970076?e=2147483647&v=beta&t=ohT0ya6QcLej1AhUVKnLMY9HSZzZESzS9SPQO__zpBo",
     "https://media.tenor.com/XXiNkLk52VsAAAAi/bugcat-capoo.gif",
     "https://media.tenor.com/9HYC8AwPPCUAAAAd/miku-anime.gif",

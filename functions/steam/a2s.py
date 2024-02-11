@@ -97,11 +97,14 @@ def query_server_simple(server):  # NOQA
                    f"{info['player_count']}/{info['max_players']}\n")
 
         if players:
-
+            linefeed = False
             flag_str = ''
             for player in players['players']:
                 player_name = player['name'].replace('`', '')
-                content += f"`{player_name} - {format_seconds(player['duration'])}`\n"
+                content += f"`{player_name} - {format_seconds(player['duration'])}`"
+                if linefeed:
+                    content += "\n"
+                    linefeed = not linefeed
                 flag_str += f"`{player['name']}`    "
 
             content = content.replace('``', "` `")
