@@ -5,20 +5,15 @@ import discord
 
 from dc_utils.server_status import embeds_server_status
 from functions.embed_content import get_jstop
-from functions.steam.a2s import query_all_servers, query_server_embed
+from functions.steam.a2s import query_all_servers, query_server_embed, query_servers_field
 
 
 async def server_list_embed_loop(message):
     while True:
         # Function that updates the content of the embedded message
-        current_datetime = datetime.now(timezone.utc)
-        new_content = query_all_servers()
-        embed = discord.Embed(
-            title='AXE SERVER LIST',
-            description=new_content,
-            colour=0x60FFFF,
-            timestamp=current_datetime
-        )
+        # current_datetime = datetime.now(timezone.utc)
+        # new_content = query_all_servers()
+        embed = query_servers_field()
 
         # Edit the embedded message with the new content
         await message.edit(embed=embed)

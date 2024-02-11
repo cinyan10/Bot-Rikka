@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from discord import Embed
 from valve.source import a2s
 from config import SERVER_LIST, MAP_TIERS
@@ -28,6 +30,52 @@ def query_all_servers() -> str:
         info_data += query_server_simple(s)
 
     return info_data
+
+
+def query_servers_field() -> Embed:
+    embed = Embed(title="AXE Server List", timestamp=datetime.now(), color=0x60FFFF)
+    for s in SERVER_LIST:
+        query_server_field(s, embed)
+
+    return embed
+
+
+def query_server_field(server,  embed : Embed):  # NOQA
+    try:
+        with a2s.ServerQuerier((server.ip, server.port)) as s:
+            info = s.info()
+            players = s.players()
+            try:
+                tier = MAP_TIERS[info['map']]
+            except Exception:
+                tier = 'T0'
+
+        content = (
+                   f"*{info['map']}* | "
+                   f'**T{tier}**  | '
+                   f"{info['player_count']}/{info['max_players']}\n")
+
+        if players:
+            flag_str = ''
+            for player in players['players']:
+                player_name = player['name'].replace('`', '')
+                content += f"`{player_name} - {format_seconds(player['duration'])}`\n"
+                flag_str += f"`{player['name']}`    "
+
+            content = content.replace('``', "` `")
+
+            # if flag_str != '':
+            #     content += "\n"
+
+        embed.add_field(
+            name=f"[**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}**](http://redirect.axekz.com/{server.id}):"
+            , value=content)
+
+        return embed
+    except Exception as e:
+        print(f"Error: {e}")
+        return ""
+
 
 
 def query_server_simple(server):  # NOQA
