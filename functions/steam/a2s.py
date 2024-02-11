@@ -49,7 +49,7 @@ def query_server_simple(server):  # NOQA
             flag_str = ''
             for player in players['players']:
                 player_name = player['name'].replace('`', '')
-                content += f"`{player_name} - {player['duration']}`    "
+                content += f"`{player_name} - {format_seconds(player['duration'])}`    "
                 flag_str += f"`{player['name']}`    "
 
             content = content.replace('``', "` `")
