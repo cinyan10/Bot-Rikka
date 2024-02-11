@@ -91,20 +91,17 @@ def query_server_simple(server):  # NOQA
                 tier = MAP_TIERS[info['map']]
             except Exception:
                 tier = 'T0'
-        content = (f"[**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}**](http://redirect.axekz.com/{server.id}):  "
-                   f"*{info['map']}* "
-                   f'**T{tier}**  '
+        content = (f"[**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}**](http://redirect.axekz.com/{server.id}) |  "
+                   f"*{info['map']}* | "
+                   f'**T{tier}**  | '
                    f"{info['player_count']}/{info['max_players']}\n")
 
         if players:
-            linefeed = False
+
             flag_str = ''
             for player in players['players']:
                 player_name = player['name'].replace('`', '')
-                content += f"`{player_name} - {format_seconds(player['duration'])}`"
-                if linefeed:
-                    content += "\n"
-                    linefeed = not linefeed
+                content += f"`{player_name} - {format_seconds(player['duration'])}`\n"
                 flag_str += f"`{player['name']}`    "
 
             content = content.replace('``', "` `")
