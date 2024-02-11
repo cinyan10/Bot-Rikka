@@ -52,14 +52,14 @@ def query_server_field(server,  embed : Embed):  # NOQA
 
         content = ("[connect](http://redirect.axekz.com/{server.id})\n"
                    f"*{info['map']}* | "
-                   f'**T{tier}**  | '
-                   f"{info['player_count']}/{info['max_players']}\n")
+                   f'**T{tier}**'
+                   )
 
         if players:
             flag_str = ''
             for player in players['players']:
                 player_name = player['name'].replace('`', '')
-                content += f"`{player_name} - {format_seconds(player['duration'])}`\n"
+                content += f"{player_name} - `{format_seconds(player['duration'])}`\n"
                 flag_str += f"`{player['name']}`    "
 
             content = content.replace('``', "` `")
@@ -68,7 +68,7 @@ def query_server_field(server,  embed : Embed):  # NOQA
             #     content += "\n"
 
         embed.add_field(
-            name=f"**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}**"
+            name=f"**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}** {info['player_count']}/{info['max_players']}\n"
             , value=content)
 
         return embed
