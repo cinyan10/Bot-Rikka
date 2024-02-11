@@ -63,7 +63,6 @@ def query_server_field(server,  embed : Embed, inline : bool):  # NOQA
 
             # if flag_str != '':
             #     content += "\n"
-
         embed.add_field(
             name=f"**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}** | {info['player_count']}/{info['max_players']}\n"
             , value=content, inline=inline)
