@@ -50,10 +50,7 @@ def query_server_field(server,  embed : Embed):  # NOQA
             except Exception:
                 tier = 'T0'
 
-        content = ("[connect](http://redirect.axekz.com/{server.id})\n"
-                   f"*{info['map']}* | "
-                   f'**T{tier}**'
-                   )
+        content = f"[*{info['map']}*](http://redirect.axekz.com/{server.id}) | **T{tier}**\n"
 
         if players:
             flag_str = ''
@@ -68,7 +65,7 @@ def query_server_field(server,  embed : Embed):  # NOQA
             #     content += "\n"
 
         embed.add_field(
-            name=f"**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}** {info['player_count']}/{info['max_players']}\n"
+            name=f"**AXE GOKZ {server.name_short[:2]}#{server.name_short[2]}** | {info['player_count']}/{info['max_players']}\n"
             , value=content)
 
         return embed
