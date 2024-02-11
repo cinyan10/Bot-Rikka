@@ -127,3 +127,15 @@ def format_seconds(seconds):
         return "{}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds))
     else:
         return "{:02}:{:02}".format(int(minutes), int(seconds))
+
+
+def format_seconds2(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if hours >= 10:
+        return "{:02}:{:02}".format(int(hours), int(minutes))
+    elif hours >= 1:
+        return "{}:{:02}".format(int(hours), int(minutes))
+    else:
+        return "{:02}".format(int(minutes))
+

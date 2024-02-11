@@ -3,7 +3,7 @@ from datetime import datetime
 from discord import Embed
 from valve.source import a2s
 from config import SERVER_LIST, MAP_TIERS
-from functions.misc import format_seconds
+from functions.misc import format_seconds, format_seconds2
 from functions.server import Server
 
 
@@ -56,7 +56,7 @@ def query_server_field(server,  embed : Embed):  # NOQA
             flag_str = ''
             for player in players['players']:
                 player_name = player['name'].replace('`', '')
-                content += f"`{player_name} - {format_seconds(player['duration'])}`\n"
+                content += f"`{player_name} - {format_seconds2(player['duration'])}`\n"
                 flag_str += f"`{player['name']}`    "
 
             content = content.replace('``', "` `")
