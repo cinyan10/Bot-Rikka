@@ -1,8 +1,9 @@
+import random
 from datetime import datetime
 
 from discord import Embed
 from valve.source import a2s
-from config import SERVER_LIST, MAP_TIERS
+from config import SERVER_LIST, MAP_TIERS, GIFS
 from functions.misc import format_seconds, format_seconds2
 from functions.server import Server
 
@@ -28,14 +29,13 @@ def query_all_servers() -> Embed:
     info_data = ''
     for s in SERVER_LIST:
         info_data += query_server_simple(s)
-
     embed = Embed(title="AXE Server List",
                   timestamp=datetime.now(),
                   color=0x60FFFF,
                   description=info_data,
                   url="https://ban.axekz.com/"
                   )
-    embed.set_thumbnail(url="https://media.tenor.com/dTEjKmDAP8gAAAAi/anime-girl.gif")
+    embed.set_thumbnail(url=random.choice(GIFS))
 
     return embed
 

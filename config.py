@@ -87,3 +87,21 @@ SERVER_LIST = [
     Server('GOKZ BeiJing #5', 'GOKZ 北京#5', '北京5', 11, '43.138.126.94', 10005, 1200514949554913342),
     Server('GOKZ BeiJing #6', 'GOKZ 北京#6', '北京6', 12, '43.138.126.94', 10006, 1200514970543198318),
 ]
+
+
+GIFS = [
+    "https://media.tenor.com/dTEjKmDAP8gAAAAi/anime-girl.gif",
+    "https://i.gifer.com/6mh.gif",
+    "https://aniyuki.com/wp-content/uploads/2021/05/aniyuki-anime-dance-gif-87.gif",
+    "https://giffiles.alphacoders.com/763/76342.gif",
+    "https://i.pinimg.com/originals/de/eb/72/deeb72f330d622fcf337bc0967e9e54f.gif",
+    "https://1.bp.blogspot.com/-VZ0haM2Th_o/WwufvBMOPjI/AAAAAAAJlic/jaZCAyEyM3k9eTpzScqB3Hbaxquu1z7NACLcBGAs/s1600/AW1121058_04.jpg",
+    "https://media.tenor.com/W1HeRvdNz1gAAAAi/bugcat-capoo.gif",
+    "https://i.pinimg.com/originals/29/90/69/299069ebd9915dd74773ef46a65519ae.gif",
+    "https://img1.picmix.com/output/stamp/normal/1/1/3/6/2486311_58fe0.gif",
+    "https://www.vhv.rs/dpng/d/479-4793895_cute-anime-gif-transparent-background-hd-png-download.png",
+    "https://media.licdn.com/dms/image/D5622AQEXbeQc7gtk3w/feedshare-shrink_2048_1536/0/1691297970076?e=2147483647&v=beta&t=ohT0ya6QcLej1AhUVKnLMY9HSZzZESzS9SPQO__zpBo",
+    "https://media.tenor.com/XXiNkLk52VsAAAAi/bugcat-capoo.gif",
+    "https://media.tenor.com/9HYC8AwPPCUAAAAd/miku-anime.gif",
+
+]
