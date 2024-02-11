@@ -24,12 +24,20 @@ if __name__ == "__main__":
     pass
 
 
-def query_all_servers() -> str:
+def query_all_servers() -> Embed:
     info_data = ''
     for s in SERVER_LIST:
         info_data += query_server_simple(s)
 
-    return info_data
+    embed = Embed(title="AXE Server List",
+                  timestamp=datetime.now(),
+                  color=0x60FFFF,
+                  description=info_data,
+                  url="https://ban.axekz.com/"
+                  )
+    embed.set_thumbnail(url="https://media.tenor.com/W1HeRvdNz1gAAAAi/bugcat-capoo.gif")
+
+    return embed
 
 
 def query_servers_field() -> Embed:
