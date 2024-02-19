@@ -85,7 +85,7 @@ def get_steam_user_country(steamid64):
         return "black"
 
 
-def convert_steamid(source_id, target_type):
+def convert_steamid(source_id, target_type=None):
     """
     Converts between SteamID, SteamID32, and SteamID64.
 
@@ -93,6 +93,13 @@ def convert_steamid(source_id, target_type):
     :param target_type: The target format type ('steamid', 'steamid32', 'steamid64').
     :return: The converted SteamID in the target format.
     """
+    if source_id is None:
+        print("No source ID provided")
+        return None
+
+    if target_type is None:
+        target_type = "steamid"
+
     source_id = str(source_id)
 
     def steamid_to_steamid64(steamid):
@@ -101,17 +108,17 @@ def convert_steamid(source_id, target_type):
         z = int(parts[2])
         return z * 2 + y + 76561197960265728
 
-    def steamid64_to_steamid(steamid64):
+    def steamid64_to_steamid(steamid_64):
         steamid64_base = 76561197960265728
-        z = (steamid64 - steamid64_base) // 2
-        y = (steamid64 - steamid64_base) % 2
+        z = (steamid_64 - steamid64_base) // 2
+        y = (steamid_64 - steamid64_base) % 2
         return f"STEAM_1:{y}:{z}"
 
     def steamid32_to_steamid64(steamid32):
         return steamid32 + 76561197960265728
 
-    def steamid64_to_steamid32(steamid64):
-        return steamid64 - 76561197960265728
+    def steamid64_to_steamid32(steamid_64):
+        return steamid_64 - 76561197960265728
 
     # Format source SteamID if it starts with STEAM_0
     if source_id.startswith("STEAM_0"):
@@ -132,11 +139,11 @@ def convert_steamid(source_id, target_type):
         raise ValueError("Invalid SteamID format")
 
     # Convert to target format
-    if target_type == 'steamid':
+    if target_type in ['steamid', 0]:
         return steamid64_to_steamid(steamid64) if source_format != 'steamid' else source_id
-    elif target_type == 'steamid32':
+    elif target_type in ['steamid32', '32', 1, 32]:
         return steamid64_to_steamid32(steamid64) if source_format != 'steamid32' else int(source_id)
-    elif target_type == 'steamid64':
+    elif target_type in ['steamid64', '64', 2, 64]:
         return steamid64 if source_format != 'steamid64' else int(source_id)
     else:
         raise ValueError("Invalid target format type")
@@ -213,5 +220,5 @@ def is_in_group(steamid64):
 
 
 if __name__ == '__main__':
-    rs = is_in_group(STEAMID64, 103582791473839714)
+    rs = convert_steamid(STEAMID64, 2)
     print(rs)
