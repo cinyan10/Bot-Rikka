@@ -72,7 +72,7 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
     content = ''
     for player in datas:
         progress_bar.update(1)
-        if len(content) > 1950:
+        if len(content) > 950:
             break
 
         if player[2] != 0:
