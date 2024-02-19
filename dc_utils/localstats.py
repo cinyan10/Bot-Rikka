@@ -83,6 +83,8 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
             hours, minutes, seconds = seconds_to_hms(player[2])
             count += 1
             content += f'[**{count}. {player[0]}**]({player[3]})  \t\t| **{hours}h {minutes}m {seconds}s**\n'
+    content += '```\n'
+    contents.append(content)
     progress_bar.close()
 
     print(contents)
@@ -93,5 +95,6 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
 
 
 if __name__ == '__main__':
-
+    cs = []
+    cs.append('a')
     pass
