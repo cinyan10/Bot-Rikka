@@ -1,14 +1,21 @@
 import discord
 from discord import Embed, Message
 from discord.ext import commands
-from configs.discord import GOKZCN_CHANNEL_ID, PLAYTIME_CHANNEL_ID
+from configs.discord import GOKZCN_CHANNEL_ID
 from dc_utils.gokzcn import gokzcn_rank
+from dc_utils.leaderboard import update_playtime_rank_7am
 from dc_utils.localstats import get_playtime_rank
 
 
 class Leaderboards(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.gokzcn_channel = bot.get_channel(GOKZCN_CHANNEL_ID)
+        self.playtime_channel = bot.get_channel()
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        await update_playtime_rank_7am(self.playtime_channel)
 
     @commands.hybrid_command()
     @commands.has_permissions(administrator=True)
@@ -37,13 +44,13 @@ class Leaderboards(commands.Cog):
     @commands.hybrid_command()
     @commands.has_permissions(administrator=True)
     async def update_playtime_rank(self, ctx):
-        channel = self.bot.get_channel(PLAYTIME_CHANNEL_ID)
-
         ms = await ctx.send(embed=Embed(title="Loading ranking", description=f"this will take a while...",
                                         color=discord.Color.blue()))
 
-        await get_playtime_rank(channel)
-        await ms.edit(embed=Embed(title="Done", description=f"updated in {channel.name}", color=discord.Color.green()))
+        await get_playtime_rank(self.playtime_channel)
+        await ms.edit(embed=Embed(title="Done",
+                                  description=f"updated in {self.playtime_channel.name}",
+                                  color=discord.Color.green()))
 
 
 async def setup(bot: commands):

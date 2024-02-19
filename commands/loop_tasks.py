@@ -1,6 +1,7 @@
 from discord.ext import commands
 from configs.discord import SERVER_LIST_CHANNEL_ID, GUANGZHOU_CHANNEL_ID, BEIJING_CHANNEL_ID, JSTOP_CLIENT_ID, \
     STATUS_CHANNEL_ID
+from dc_utils.leaderboard import update_gokzcn_rank_7am
 
 from dc_utils.serverinfo import *
 from configs.servers import SERVER_LIST

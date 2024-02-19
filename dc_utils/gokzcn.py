@@ -18,7 +18,7 @@ def gokzcn_rank(mode='kzt') -> list[Embed]:
     players: list = get_whitelisted_players()
     ranking = []
 
-    pbar = tqdm(total=len(players), desc='Updating gokz.cn Ranking')
+    pbar = tqdm(total=len(players), desc='Updating Gokz.cn Ranking')
     for player in players:
         pbar.update(1)
 
