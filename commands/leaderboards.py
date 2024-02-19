@@ -43,11 +43,13 @@ class Leaderboards(commands.Cog):
     async def update_playtime_rank(self, ctx):
         channel = self.bot.get_channel(PLAYTIME_CHANNEL_ID)
 
-        ms = await ctx.send(embed=Embed(title="Loading ranking", description=f"this will take a while...", color=discord.Color.blue()))
-        rs_embeds = get_playtime_rank()
-        if rs_embeds:
+        ms = await ctx.send(embed=Embed(title="Loading ranking", description=f"this will take a while...",
+                                        color=discord.Color.blue()))
+
+        result_embeds = get_playtime_rank()
+        if result_embeds:
             await channel.purge(limit=None)
-        for embed in rs_embeds:
+        for embed in result_embeds:
             await channel.send(embed=embed)
         await ms.edit(embed=Embed(title="Done", description=f"updated in {channel.name}", color=discord.Color.green()))
 

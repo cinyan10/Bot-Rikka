@@ -31,9 +31,10 @@ def get_playtime_rank() -> list[Embed]:
     for sublist in sublists:
         content = ''
         for player in sublist:
-            hours, minutes, seconds = seconds_to_hms(player[2])
-            count += 1
-            content += f'[**{count}. {player[0]}**]({player[3]}) - Play Time: **{hours}h, {minutes}m, {seconds}s**\n'
+            if player[2] != 0:
+                hours, minutes, seconds = seconds_to_hms(player[2])
+                count += 1
+                content += f'[**{count}. {player[0]}**]({player[3]}) - Play Time: **{hours}h, {minutes}m, {seconds}s**\n'
         embeds.append(Embed(description=content, colour=discord.Colour.blue()))
 
     embeds[0].title = 'Playtime Ranking'

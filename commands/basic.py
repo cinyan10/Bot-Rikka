@@ -23,22 +23,21 @@ class Basic(commands.Cog):
         print(f'Logged in as {self.bot.user.name} (ID: {self.bot.user.id})')
         await self.commands_sync()
 
+        # Send message in test channel
         title = "I'm successfully started!!"
         embed = Embed(title=title, colour=discord.Colour.green(), timestamp=datetime.now())
         await self.bot.get_channel(TEST_CHANNEL_ID).send(embed=embed)
 
-        channel_id = INFO_CHANNEL_ID
-        message_id = ANNOUNCEMENT_MESSAGE_ID
-        channel = self.bot.get_channel(channel_id)
-
+        # Announcement
+        channel = self.bot.get_channel(INFO_CHANNEL_ID)
         if channel:
             try:
-                message = await channel.fetch_message(message_id)
+                message = await channel.fetch_message(ANNOUNCEMENT_MESSAGE_ID)
                 await message.edit(content=GUILD_LINK, embed=ANNOUNCEMENTS[0], view=AnnouncementView())
             except discord.NotFound:
-                print(f'Message with ID {message_id} not found.')
+                print(f'Message with ID {ANNOUNCEMENT_MESSAGE_ID} not found.')
         else:
-            print(f'Channel with ID {channel_id} not found.')
+            print(f'Channel with ID {INFO_CHANNEL_ID} not found.')
 
     @commands.hybrid_command()
     async def ping(self, ctx):

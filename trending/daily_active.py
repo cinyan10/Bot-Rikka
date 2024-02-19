@@ -139,7 +139,7 @@ def differ_yesterday(players_count, total_players):
 
         # Query to get yesterday's data
         yesterday_data_query = (
-            "SELECT day_players, day_whitelisted, total_players "
+            "SELECT day_players, total_whitelisted, total_players "
             "FROM online_day "
             "WHERE date = %s"
         )
@@ -148,12 +148,12 @@ def differ_yesterday(players_count, total_players):
 
         if yesterday_data:
             day_players = yesterday_data[0]
-            day_whitelisted = yesterday_data[1]
+            total_whitelisted = yesterday_data[1]
             total_whitelisted = yesterday_data[2]
 
             # Calculate the differences
             day_players_difference = players_count['day_players'] - day_players
-            day_whitelisted_difference = players_count['whitelisted'] - day_whitelisted
+            day_whitelisted_difference = players_count['total_whitelisted'] - total_whitelisted
             total_difference = total_players['total_players'] - total_whitelisted
 
             return [day_players_difference, day_whitelisted_difference, total_difference]
