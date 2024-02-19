@@ -43,6 +43,44 @@ def get_playtime_rank() -> list[Embed]:
     return embeds
 
 
+async def playtime_ranking(channel: discord.TextChannel) -> list[str]:
+    contents = []
+    steamids = get_whitelisted_players()
+
+    datas = []
+    count = 0
+    for steamid in steamids:
+        count = count + 1
+        print(f"{count}/{len(steamids)} {steamid}")
+        steamid64 = convert_steamid(steamid, 64)
+        playtime = get_playtime(steamid)
+        name = get_steam_username(steamid64)
+        url = get_steam_profile_url(steamid64)
+        datas.append([name, steamid64, playtime, url])
+
+    datas = sorted(datas, key=lambda x: x[2], reverse=True)
+    chunk_size = 20
+    sublists = [datas[i:i + chunk_size] for i in range(0, len(datas), chunk_size)]
+    count = 0
+
+    for sublist in sublists:
+        content = ''
+        for player in sublist:
+            if len(content) > 1950:
+                contents.append(content)
+                content = ''
+
+            if player[2] != 0:
+                hours, minutes, seconds = seconds_to_hms(player[2])
+                count += 1
+                content += f'[**{count}. {player[0]}**]({player[3]})  \t\t| **{hours}h {minutes}m {seconds}s**\n'
+
+    if contents:
+        await channel.purge(limit=None)
+    for content in contents:
+        await channel.send(content=content)
+
+
 if __name__ == '__main__':
     rs = get_playtime_rank()
     print(rs)
