@@ -10,15 +10,7 @@ from functions.steam.a2s import query_all_servers, query_server_embed, query_ser
 
 async def server_list_embed_loop(message):
     while True:
-        # Function that updates the content of the embedded message
-        # current_datetime = datetime.now(timezone.utc)
-        # new_content = query_all_servers()
-        embed = query_all_servers()
-
-        # Edit the embedded message with the new content
-        await message.edit(embed=embed)
-
-        # Wait for one minute before the next update
+        await message.edit(embed=query_all_servers())
         await asyncio.sleep(20)
 
 

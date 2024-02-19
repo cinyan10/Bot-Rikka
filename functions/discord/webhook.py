@@ -1,13 +1,13 @@
 import requests
 import json
 from config import WEBHOOK_URL, SERVER_LIST
-from functions.steam.a2s import query_server_simple
+from functions.steam.a2s import query_single_server
 
 
 def send_webhook():
     info_data = ''
     for s in SERVER_LIST:
-        info_data += query_server_simple(s)
+        info_data += query_single_server(s)
 
     payload = {
         "content": "",

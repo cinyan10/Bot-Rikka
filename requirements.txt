@@ -1,4 +1,9 @@
 python-dotenv~=1.0.0
 requests~=2.31.0
-
 mcstatus~=11.1.1
+discord~=2.3.2
+pycountry~=23.12.11
+pytz~=2024.1
+mysql-connector-python~=8.3.0
+python-steam-api~=1.2.2
+beautifulsoup4
