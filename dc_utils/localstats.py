@@ -46,7 +46,8 @@ def get_playtime_rank() -> list[Embed]:
 
 async def playtime_ranking(channel: discord.TextChannel) -> None:
     contents = []
-    steamids = get_whitelisted_players()[20:]
+    steamids = get_whitelisted_players()
+    steamids = steamids[20:]
 
     datas = []
     count = 0
