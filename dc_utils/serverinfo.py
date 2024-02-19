@@ -1,11 +1,9 @@
 import asyncio
-from datetime import datetime, timezone
-
 import discord
 
 from dc_utils.server_status import embeds_server_status
 from functions.embed_content import get_jstop
-from functions.steam.a2s import query_all_servers, query_server_embed, query_servers_field
+from functions.steam.a2s import query_all_servers, query_server_embed
 
 
 async def server_list_embed_loop(message):
