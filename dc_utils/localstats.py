@@ -51,7 +51,7 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
     datas = []
     count = 0
     progress_bar = tqdm(total=len(steamids), desc="Updating Playtime Ranking...")
-    for steamid in steamids:
+    for steamid in steamids[20:]:
         count = count + 1
         progress_bar.update(1)
 
@@ -65,11 +65,13 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
     datas = sorted(datas, key=lambda x: x[2], reverse=True)
     chunk_size = 20
     sublists = [datas[i:i + chunk_size] for i in range(0, len(datas), chunk_size)]
-    count = 0
 
+    count = 0
+    progress_bar = tqdm(total=len(steamids), desc="Formatting Playtime Ranking...")
     for sublist in sublists:
         content = ''
         for player in sublist:
+            progress_bar.update(1)
             if len(content) > 1950:
                 contents.append(content)
                 content = ''
@@ -86,5 +88,4 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
 
 
 if __name__ == '__main__':
-    rs = get_playtime_rank()
-    print(rs)
+    pass
