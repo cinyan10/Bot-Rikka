@@ -1,7 +1,8 @@
 import discord
 import requests
 from discord import Embed
-from config import *
+from configs.gokz import GLOBAL_API_URL
+from configs.steam import STEAMID64
 from functions.database import get_steam_user_name
 from functions.globalapi.kz_maps import get_map_tier
 from functions.globalapi.kz_mode import format_kzmode

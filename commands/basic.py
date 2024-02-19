@@ -4,7 +4,7 @@ import discord
 from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import Bot
-from config import TEST_CHANNEL_ID, INFO_CHANNEL_ID, ANNOUNCEMENT_MESSAGE_ID, WELCOME_CHANNEL_ID, GUILD_LINK
+from configs.discord import TEST_CHANNEL_ID, INFO_CHANNEL_ID, WELCOME_CHANNEL_ID, ANNOUNCEMENT_MESSAGE_ID, GUILD_LINK
 from dc_utils.announcement import AnnouncementView, ANNOUNCEMENTS
 
 RESPONSES = ["meow~", "Itami~ >.<", "What's the matter, gosyujinnsama?", "pong~", "UwU", "don't poke me, plz T^T"]
@@ -39,17 +39,6 @@ class Basic(commands.Cog):
                 print(f'Message with ID {message_id} not found.')
         else:
             print(f'Channel with ID {channel_id} not found.')
-
-    @commands.Cog.listener()
-    async def on_member_join(self, member):
-        channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
-        if channel is not None:
-            embed = Embed(title='Welcome to AXE Kreedz!!',
-                          description=f"{member.mention} just join in this server!",
-                          colour=discord.Colour.random(),
-                          timestamp=datetime.now())
-            embed.set_thumbnail(member.avatar_url)
-            await channel.send(embed=embed)
 
     @commands.hybrid_command()
     async def ping(self, ctx):

@@ -1,5 +1,5 @@
 import mysql.connector
-from config import *
+from configs.database import db_config
 from functions.steam.steam import convert_steamid
 
 

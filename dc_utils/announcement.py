@@ -1,4 +1,3 @@
-# This example requires the 'message_content' privileged intent to function.
 from __future__ import annotations
 
 import datetime
@@ -149,38 +148,6 @@ class PersistentViewBot(commands.Bot):
 
         super().__init__(command_prefix=commands.when_mentioned_or('!'), intents=intents)
 
-    # async def setup_hook(self) -> None:
-    # self.add_view(AnnouncementView())
-
-    # Register the persistent view for listening here.
-    # Note that this does not send the view to any message.
-    # In order to do this you need to first send a message with the View, which is shown below.
-    # If you have the message_id you can also pass it as a keyword argument, but for this example
-    # we don't have one.
-    # For dynamic items, we must register the classes instead of the views.
-    # self.add_dynamic_items(DynamicButton)
-
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
         print('------')
-
-
-# @bot.command()
-# @commands.is_owner()
-# async def prepare(ctx: commands.Context):
-#     """Starts a persistent view."""
-#     # In order for a persistent view to be listened to, it needs to be sent to an actual message.
-#     # Call this method once just to store it somewhere.
-#     # In a more complicated program you might fetch the message_id from a database for use later.
-#     # However, this is outside the scope of this simple example.
-#     await ctx.send("What's your favourite colour?", view=AnnouncementView())
-
-
-if __name__ == '__main__':
-    dotenv.load_dotenv()
-
-    TOKEN = os.getenv('TEST_TOKEN')
-
-    bot = PersistentViewBot()
-
-    bot.run(TOKEN)

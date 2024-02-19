@@ -1,7 +1,8 @@
 from datetime import datetime
 from discord import Embed
 from valve.source import a2s
-from config import SERVER_LIST, MAP_TIERS
+from configs.servers import SERVER_LIST
+from configs.gokz import MAP_TIERS
 from functions.misc import format_seconds, format_seconds2
 from functions.server import Server
 

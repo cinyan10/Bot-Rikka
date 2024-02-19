@@ -1,8 +1,9 @@
 from discord.ext import commands
-from config import *
+from configs.discord import SERVER_LIST_CHANNEL_ID, GUANGZHOU_CHANNEL_ID, BEIJING_CHANNEL_ID, JSTOP_CLIENT_ID, \
+    STATUS_CHANNEL_ID
 
 from dc_utils.serverinfo import *
-from config import SERVER_LIST
+from configs.servers import SERVER_LIST
 from functions.misc import get_or_create_message
 
 

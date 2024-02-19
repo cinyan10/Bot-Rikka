@@ -1,6 +1,7 @@
 import requests
 import json
-from config import WEBHOOK_URL, SERVER_LIST
+from configs.servers import SERVER_LIST
+from configs.discord import WEBHOOK_URL
 from functions.steam.a2s import query_single_server
 
 

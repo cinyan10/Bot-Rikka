@@ -1,7 +1,8 @@
 import mysql.connector
-from config import *
 import mysql.connector
-from config import db_config
+from configs.database import db_config
+from configs.gokz import JUMP_TYPE, KZ_MODES
+from configs.steam import STEAMID32
 
 db_config['database'] = 'gokz'
 

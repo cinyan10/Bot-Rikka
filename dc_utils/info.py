@@ -4,7 +4,9 @@ import discord
 import mysql.connector
 from discord import Role, Embed
 
-from config import KZGOEU_MAPS_URL, MAP_IMAGE_URL, db_config, WL_ROLE_ID
+from configs.gokz import KZGOEU_MAPS_URL, MAP_IMAGE_URL
+from configs.discord import WL_ROLE_ID
+from configs.database import db_config
 from functions.database import discord_id_to_steamid, execute_query
 from functions.db_operate.db_discord import get_kzmode
 from functions.db_operate.db_firstjoin import check_wl

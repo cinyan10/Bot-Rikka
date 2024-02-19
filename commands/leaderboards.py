@@ -1,7 +1,7 @@
 import discord
 from discord import Embed, Message
 from discord.ext import commands
-from config import GOKZCN_CHANNEL_ID, PLAYTIME_CHANNEL_ID
+from configs.discord import GOKZCN_CHANNEL_ID, PLAYTIME_CHANNEL_ID
 from dc_utils.gokzcn import gokzcn_rank
 from dc_utils.localstats import get_playtime_rank
 

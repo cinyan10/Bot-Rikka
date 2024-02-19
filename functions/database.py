@@ -1,7 +1,9 @@
 import mysql.connector
 from datetime import timedelta
 
-from config import *
+from configs.database import DB_HOST, DB_PASSWORD, DB_PORT, DB_USER, db_config
+from configs.gokz import KZ_MODES
+from configs.steam import STEAMID32
 from functions.globalapi.kzgoeu import get_kzgoeu_profile_url
 from functions.steam.steam import convert_steamid
 

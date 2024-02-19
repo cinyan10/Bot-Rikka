@@ -1,5 +1,5 @@
 import mysql.connector
-from config import db_config
+from configs.database import db_config
 
 
 async def set_language(ctx, lang):

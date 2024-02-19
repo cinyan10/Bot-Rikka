@@ -1,5 +1,5 @@
 from discord import Embed
-from config import *
+from configs.gokz import JUMP_TYPE, JUMPSTATS
 from functions.db_operate.db_gokz import get_ljpb, get_jspb
 
 from functions.steam.steam import convert_steamid

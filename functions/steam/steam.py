@@ -1,6 +1,7 @@
 import requests
-from config import *
 import xml.etree.ElementTree as element_tree  # NOQA
+
+from configs.steam import STEAM_API_KEY, STEAM_GROUP_ID, STEAMID64
 
 
 def get_steam_username(steamid64):
@@ -201,7 +202,7 @@ def is_in_group(steamid64):
             group_ids = [group['gid'] for group in data['response']['groups']]
 
             # Check if the desired group_id_64 is in the user's group memberships
-            return GROUP_ID in group_ids
+            return STEAM_GROUP_ID in group_ids
         else:
             # User's group list not available or empty
             return False
