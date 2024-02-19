@@ -92,4 +92,5 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
 
 
 if __name__ == '__main__':
+
     pass
