@@ -9,20 +9,24 @@ from functions.steam.steam import convert_steamid, get_steam_username, get_steam
 from tqdm import tqdm
 
 
-async def get_playtime_rank(channel) -> list[Embed]:
+async def get_playtime_rank(channel) -> None:
     embeds = []
     steamids = get_whitelisted_players()
 
     datas = []
     count = 0
+
+    progress_bar = tqdm(total=len(steamids), desc="Updating Playtime Ranking...")
     for steamid in steamids:
         count = count + 1
-        print(f"{count}/{len(steamids)} {steamid}")
+        progress_bar.update(1)
+
         steamid64 = convert_steamid(steamid, 'steamid64')
         playtime = get_playtime(steamid)
         name = get_steam_username(steamid64)
         url = get_steam_profile_url(steamid64)
         datas.append([name, steamid64, playtime, url])
+    progress_bar.close()
 
     datas = sorted(datas, key=lambda x: x[2], reverse=True)
     chunk_size = 20
@@ -45,6 +49,7 @@ async def get_playtime_rank(channel) -> list[Embed]:
         await channel.purge(limit=None)
     for embed in embeds:
         await channel.send(embeds=embeds)
+
 
 async def playtime_ranking(channel: discord.TextChannel) -> None:
     steamids = get_whitelisted_players()
