@@ -38,7 +38,7 @@ def gokzcn_rank(mode='kzt') -> list[Embed]:
         content = ''
         for player in sublist:
             count += 1
-            content += f'[**{count}. {player[0]}**]({player[3]}) - Skill: **{player[2]}** - cnRank: **{player[1]}**\n'
+            content += f'{count}. [**{player[0]}**]({player[3]}) - Skill: **{player[2]}** - cnRank: **{player[1]}**\n'
         embeds.append(Embed(description=content, colour=discord.Colour.blue()))
 
     embeds[0].title = "SERVER GOKZ.CN RANKING"
@@ -48,4 +48,5 @@ def gokzcn_rank(mode='kzt') -> list[Embed]:
 
 
 if __name__ == '__main__':
-    gokzcn_rank()
+
+    pass
