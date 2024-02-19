@@ -88,7 +88,7 @@ def update_whitelist_for_users() -> None:
 
 
 def get_whitelisted_players() -> list:
-    """return a list of steamID"""
+    """Return a list of dictionaries containing SteamID and name for whitelisted players."""
     conn = None
     cursor = None
     try:
@@ -97,14 +97,12 @@ def get_whitelisted_players() -> list:
             print("Database connection failed.")
             return []
         cursor = conn.cursor()
-        # Execute SQL query to retrieve Steam IDs with whitelist = 1
-        cursor.execute("SELECT auth FROM firstjoin.firstjoin WHERE whitelist = 1")
+        cursor.execute("SELECT auth, name FROM firstjoin.firstjoin WHERE whitelist = 1")
 
         whitelisted_players = cursor.fetchall()
 
-        # Extract Steam IDs from the result and store them in a list
-        steam_ids = [row[0] for row in whitelisted_players]
-        return steam_ids
+        players_info = [{'steamid': row[0], 'name': row[1]} for row in whitelisted_players]
+        return players_info
     except mysql.connector.Error as e:
         print(f"MySQL error: {e}")
         return []

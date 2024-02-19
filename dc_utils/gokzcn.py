@@ -18,10 +18,10 @@ def gokzcn_rank(mode='kzt') -> list[Embed]:
     ranking = []
 
     count = 0
-    for steamid in players:
+    for player in players:
         count += 1
         print("loading", count, '/', len(players))
-        steamid64 = convert_steamid(steamid, 'steamid64')
+        steamid64 = convert_steamid(player['steamid'], 'steamid64')
         data = fetch_playerdata(steamid64, mode=mode)
         if data:
             info = [data['name'], data['ranking'], data['point_skill'], data['url']]

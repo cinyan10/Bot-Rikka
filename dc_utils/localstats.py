@@ -13,22 +13,18 @@ from functions.steam.steam_user import get_steam_user_details
 
 async def get_playtime_rank(channel) -> None:
     embeds = []
-    steamids = get_whitelisted_players()
-
     datas = []
-    steamid_playtimes = get_playtimes(steamids)
 
-    progress_bar = tqdm(total=len(steamids), desc="Updating Playtime Ranking...", )
-    for user in steamid_playtimes:
+    names_id = get_whitelisted_players()
+
+    progress_bar = tqdm(total=len(names_id), desc="Updating Playtime Ranking...", )
+    for user in names_id:
         progress_bar.update(1)
 
         steamid64 = convert_steamid(user['steamid'], 64)
-        details = get_steam_user_details(steamid64)
+        url = get_steam_profile_url(steamid64)
 
-        name = details['personaname']
-        url = details['profileurl']
-
-        datas.append([name, steamid64, user['playtime'], url])
+        datas.append([user['name'], steamid64, user['playtime'], url])
     progress_bar.close()
 
     datas = sorted(datas, key=lambda x: x[2], reverse=True)
