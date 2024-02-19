@@ -9,7 +9,7 @@ from functions.steam.steam import convert_steamid, get_steam_username, get_steam
 from tqdm import tqdm
 
 
-def get_playtime_rank() -> list[Embed]:
+async def get_playtime_rank(channel) -> list[Embed]:
     embeds = []
     steamids = get_whitelisted_players()
 
@@ -41,8 +41,10 @@ def get_playtime_rank() -> list[Embed]:
     embeds[0].title = 'Playtime Ranking'
     embeds[-1].timestamp = datetime.now()
 
-    return embeds
-
+    if embeds:
+        await channel.purge(limit=None)
+    for embed in embeds:
+        await channel.send(embeds=embeds)
 
 async def playtime_ranking(channel: discord.TextChannel) -> None:
     steamids = get_whitelisted_players()

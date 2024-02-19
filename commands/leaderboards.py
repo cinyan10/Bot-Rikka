@@ -46,7 +46,7 @@ class Leaderboards(commands.Cog):
         ms = await ctx.send(embed=Embed(title="Loading ranking", description=f"this will take a while...",
                                         color=discord.Color.blue()))
 
-        await playtime_ranking(channel)
+        await get_playtime_rank(channel)
         await ms.edit(embed=Embed(title="Done", description=f"updated in {channel.name}", color=discord.Color.green()))
 
 
