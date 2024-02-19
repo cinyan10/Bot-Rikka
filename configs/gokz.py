@@ -1,4 +1,7 @@
 import json
+import os
+
+from config import PROJECT_DIR
 
 JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump',
              'ladder jump', 'ladderhop', 'jumpbug', 'lowpre bunnyhop', 'lowpre weird jump']
@@ -6,8 +9,8 @@ JUMPSTATS = ['Distance', 'IsBlockJump', 'Block', 'Mode', 'JumpType',
              'Strafes', 'Sync', 'Pre', 'Max', 'Airtime', 'JumpID', 'Created']
 KZ_MODES = ['vnl', 'skz', 'kzt']
 
-
-with open('./maps_tier.json', 'r', encoding='utf-8') as f:
+MAPS_TIER = None
+with open(PROJECT_DIR + "/resources/maps_tier.json", 'r', encoding='utf-8') as f:
     MAP_TIERS = json.load(f)
     pass
 

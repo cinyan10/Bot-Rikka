@@ -6,3 +6,4 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 NEZHA_TOKEN = os.getenv('NEZHA_TOKEN')
 
+PROJECT_DIR = os.path.dirname(__file__)
