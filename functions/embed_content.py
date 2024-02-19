@@ -16,6 +16,7 @@ def user_info(discord_id=None, steamid=None) -> discord.Embed:
 
     if steamid is None:
         steamid = discord_id_to_steamid(discord_id)
+        print(steamid)
     else:
         steamid = convert_steamid(str(steamid), 'steamid')
 
