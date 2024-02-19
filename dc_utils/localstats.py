@@ -3,12 +3,10 @@ from datetime import datetime
 import discord
 from discord import Embed
 
-from functions.db_operate.db_firstjoin import get_whitelisted_players, get_playtime, get_playtimes
+from functions.db_operate.db_firstjoin import get_whitelisted_players, get_playtime
 from functions.misc import seconds_to_hms
-from functions.steam.steam import convert_steamid, get_steam_username, get_steam_profile_url
+from functions.steam.steam import convert_steamid, get_steam_profile_url
 from tqdm import tqdm
-
-from functions.steam.steam_user import get_steam_user_details
 
 
 async def get_playtime_rank(channel) -> None:

@@ -18,14 +18,10 @@ class Leaderboards(commands.Cog):
 
         send_ms: Message = await ctx.send(embed=Embed(title="Loading...", description=f"this will take a while...", color=0x60FFFF))
         try:
-            # Get the channel by channel ID
-
-            # Check if the channel exists
             if channel is None:
                 await ctx.send(f"Channel with ID {GOKZCN_CHANNEL_ID} not found.")
                 return
 
-            # Get the content from the gokzcn_rank() function
             embeds = gokzcn_rank()
             if embeds:
                 await channel.purge(limit=None)
