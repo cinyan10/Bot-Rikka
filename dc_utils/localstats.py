@@ -71,19 +71,17 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
     progress_bar = tqdm(total=len(steamids), desc="Formatting Playtime Ranking...")
 
     contents = []
-    content = '```\n'
+    content = ''
     for player in datas:
         progress_bar.update(1)
         if len(content) > 1950:
-            content += '\n```'
             contents.append(content)
-            content = '```\n'
+            content = ''
 
         if player[2] != 0:
             hours, minutes, seconds = seconds_to_hms(player[2])
             count += 1
             content += f'[**{count}. {player[0]}**]({player[3]})  \t\t| **{hours}h {minutes}m {seconds}s**\n'
-    content += '```\n'
     contents.append(content)
     progress_bar.close()
 
