@@ -1,8 +1,9 @@
 import discord
 from discord import Embed
 
-from functions.database import discord_id_to_steamid, get_steam_user_name, retrieve_join_date, retrieve_last_seen, \
+from functions.database import get_steam_user_name, retrieve_join_date, retrieve_last_seen, \
     get_country_from_steamid32, query_jumpstats_top
+from functions.db_operate.db_discord import discord_id_to_steamid
 from functions.db_operate.db_firstjoin import get_playtime
 from functions.globalapi.kzgoeu import get_kzgoeu_profile_url
 from functions.misc import format_string_to_datetime, get_country_code, seconds_to_hms
@@ -10,13 +11,19 @@ from functions.steam.steam import convert_steamid, get_steam_pfp, get_steam_prof
 
 
 def user_info(discord_id=None, steamid=None) -> discord.Embed:
+    print(discord_id)
+    print(steamid)
 
     if steamid is None:
         steamid = discord_id_to_steamid(discord_id)
     else:
         steamid = convert_steamid(str(steamid), 'steamid')
+
     steamid64 = convert_steamid(steamid, 'steamid64')
     steamid32 = convert_steamid(steamid, 'steamid32')
+
+    print(steamid)
+    print(steamid64)
 
     name = get_steam_user_name(steamid)
     joindate = format_string_to_datetime(retrieve_join_date(steamid))

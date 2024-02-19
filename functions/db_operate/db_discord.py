@@ -1,5 +1,6 @@
 import mysql.connector
 from configs.database import db_config
+from functions.database import execute_query
 from functions.steam.steam import convert_steamid
 
 
@@ -34,3 +35,9 @@ def get_kzmode(discord_id=None, steamid=None):
 
 if __name__ == "__main__":
     pass
+
+
+def discord_id_to_steamid(discord_id):
+    query = 'SELECT steamid FROM discord.users WHERE discord_id = %s'
+    result = execute_query(query, (discord_id,), fetch_one=True)
+    return result[0] if result else None

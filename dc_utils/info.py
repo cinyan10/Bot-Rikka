@@ -7,8 +7,8 @@ from discord import Role, Embed
 from configs.gokz import KZGOEU_MAPS_URL, MAP_IMAGE_URL
 from configs.discord import WL_ROLE_ID
 from configs.database import db_config
-from functions.database import discord_id_to_steamid, execute_query
-from functions.db_operate.db_discord import get_kzmode
+from functions.database import execute_query
+from functions.db_operate.db_discord import get_kzmode, discord_id_to_steamid
 from functions.db_operate.db_firstjoin import check_wl
 from functions.globalapi.kz_global_stats import fetch_personal_recent, fetch_personal_best
 from functions.misc import formate_record_time, format_seconds_to_time

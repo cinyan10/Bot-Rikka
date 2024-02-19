@@ -38,12 +38,6 @@ def get_country_from_steamid32(steamid32):
     return result[0] if result else None
 
 
-def discord_id_to_steamid(discord_id):
-    query = 'SELECT steamid FROM discord.users WHERE discord_id = %s'
-    result = execute_query(query, (discord_id,), fetch_one=True)
-    return result[0] if result else None
-
-
 def retrieve_join_date(steam_id):
     query = 'SELECT joindate FROM firstjoin.firstjoin WHERE auth = %s'
     result = execute_query(query, (steam_id,), fetch_one=True)

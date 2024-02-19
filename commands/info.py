@@ -5,6 +5,7 @@ from dc_utils.firstjoin import find_player
 from dc_utils.info import *
 from dc_utils.setting import set_language, set_kz_mode
 from functions.database import reset_user_steam
+from functions.db_operate.db_discord import discord_id_to_steamid
 from functions.embed_content import user_info
 from functions.gokzcn import get_gokzcn_info
 

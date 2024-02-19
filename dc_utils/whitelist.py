@@ -4,7 +4,7 @@ import discord.ext.commands
 from discord import Embed
 
 from dc_utils.info import set_wl_role
-from functions.database import discord_id_to_steamid
+from functions.db_operate.db_discord import discord_id_to_steamid
 from functions.db_operate.db_firstjoin import update_whitelist_status
 from functions.globalapi.kz_global_stats import KzGlobalStats
 from functions.steam.steam import convert_steamid, is_in_group

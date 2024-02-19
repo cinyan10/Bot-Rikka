@@ -1,8 +1,7 @@
 import discord
 from discord.ext import commands
 from dc_utils.jumpstats import *
-from functions.database import discord_id_to_steamid
-from functions.db_operate.db_discord import get_kzmode
+from functions.db_operate.db_discord import get_kzmode, discord_id_to_steamid
 
 
 class LocalStats(commands.Cog):
