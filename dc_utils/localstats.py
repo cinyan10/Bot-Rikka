@@ -51,7 +51,7 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
     datas = []
     count = 0
     progress_bar = tqdm(total=len(steamids), desc="Updating Playtime Ranking...")
-    for steamid in steamids
+    for steamid in steamids:
         count = count + 1
         progress_bar.update(1)
 
