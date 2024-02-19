@@ -48,7 +48,7 @@ async def get_playtime_rank(channel) -> None:
     if embeds:
         await channel.purge(limit=None)
     for embed in embeds:
-        await channel.send(embeds=embeds)
+        await channel.send(embed=embed)
 
 
 async def playtime_ranking(channel: discord.TextChannel) -> None:
