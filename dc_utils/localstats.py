@@ -21,10 +21,11 @@ async def get_playtime_rank(channel) -> None:
     for user in names_id:
         progress_bar.update(1)
 
+        playtime = get_playtime(user['steamid'])
         steamid64 = convert_steamid(user['steamid'], 64)
         url = get_steam_profile_url(steamid64)
 
-        datas.append([user['name'], steamid64, user['playtime'], url])
+        datas.append([user['name'], steamid64, playtime, url])
     progress_bar.close()
 
     datas = sorted(datas, key=lambda x: x[2], reverse=True)
