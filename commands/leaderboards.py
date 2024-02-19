@@ -3,7 +3,7 @@ from discord import Embed, Message
 from discord.ext import commands
 from configs.discord import GOKZCN_CHANNEL_ID, PLAYTIME_CHANNEL_ID
 from dc_utils.gokzcn import gokzcn_rank
-from dc_utils.localstats import get_playtime_rank
+from dc_utils.localstats import get_playtime_rank, playtime_ranking
 
 
 class Leaderboards(commands.Cog):
@@ -46,11 +46,7 @@ class Leaderboards(commands.Cog):
         ms = await ctx.send(embed=Embed(title="Loading ranking", description=f"this will take a while...",
                                         color=discord.Color.blue()))
 
-        result_embeds = get_playtime_rank()
-        if result_embeds:
-            await channel.purge(limit=None)
-        for embed in result_embeds:
-            await channel.send(embed=embed)
+        await playtime_ranking(channel)
         await ms.edit(embed=Embed(title="Done", description=f"updated in {channel.name}", color=discord.Color.green()))
 
 

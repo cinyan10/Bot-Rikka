@@ -6,6 +6,7 @@ from discord import Embed
 from functions.db_operate.db_firstjoin import get_whitelisted_players, get_playtime
 from functions.misc import seconds_to_hms
 from functions.steam.steam import convert_steamid, get_steam_username, get_steam_profile_url
+from tqdm import tqdm
 
 
 def get_playtime_rank() -> list[Embed]:
@@ -43,16 +44,19 @@ def get_playtime_rank() -> list[Embed]:
     return embeds
 
 
-async def playtime_ranking(channel: discord.TextChannel) -> list[str]:
+async def playtime_ranking(channel: discord.TextChannel) -> None:
     contents = []
     steamids = get_whitelisted_players()
 
     datas = []
     count = 0
+    progress_bar = tqdm(total=len(steamids), desc="Updating Playtime Ranking...")
     for steamid in steamids:
         count = count + 1
-        print(f"{count}/{len(steamids)} {steamid}")
+        progress_bar.update(1)
+
         steamid64 = convert_steamid(steamid, 64)
+
         playtime = get_playtime(steamid)
         name = get_steam_username(steamid64)
         url = get_steam_profile_url(steamid64)
