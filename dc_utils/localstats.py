@@ -46,7 +46,6 @@ def get_playtime_rank() -> list[Embed]:
 
 async def playtime_ranking(channel: discord.TextChannel) -> None:
     steamids = get_whitelisted_players()
-    steamids = steamids[:20]
 
     datas = []
     count = 0
@@ -81,7 +80,7 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
         if player[2] != 0:
             hours, minutes, seconds = seconds_to_hms(player[2])
             count += 1
-            content += f'[**{count}. {player[0]}**]({player[3]})  \t\t| **{hours}h {minutes}m {seconds}s**\n'
+            content += f'{count}. [**{player[0]}**]({player[3]})\t - **{hours}h {minutes}m {seconds}s**\n'
     contents.append(content)
     progress_bar.close()
 
