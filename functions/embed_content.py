@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import discord
 from discord import Embed
 
@@ -8,36 +10,43 @@ from functions.db_operate.db_firstjoin import get_playtime
 from functions.globalapi.kzgoeu import get_kzgoeu_profile_url
 from functions.misc import format_string_to_datetime, get_country_code, seconds_to_hms
 from functions.steam.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
+from functions.steam.steam_user import get_user_details
 
 
-def user_info(discord_id=None, steamid=None) -> discord.Embed:
-    print(discord_id)
-    print(steamid)
+async def user_info(ctx, discord_id=None, steamid=None) -> None:
 
     if steamid is None:
         steamid = discord_id_to_steamid(discord_id)
-        print(steamid)
     else:
-        steamid = convert_steamid(str(steamid), 'steamid')
+        steamid = convert_steamid(steamid)
 
-    steamid64 = convert_steamid(steamid, 'steamid64')
-    steamid32 = convert_steamid(steamid, 'steamid32')
+    if steamid is None:
+        ctx.send(embed=Embed(title="Error!",
+                             description="Query Steam error. Please ensure you have bound your Steam ID",
+                             color=0xff0f0f,
+                             timestamp=datetime.now()))
+        return
 
-    print(steamid)
-    print(steamid64)
+    steamid64 = convert_steamid(steamid, 64)
+    steamid32 = convert_steamid(steamid, 32)
 
-    name = get_steam_user_name(steamid)
     joindate = format_string_to_datetime(retrieve_join_date(steamid))
     lastseen = format_string_to_datetime(retrieve_last_seen(steamid))
-    pfp_url = get_steam_pfp(steamid64)
-    profile_url = get_steam_profile_url(steamid64)
-    kzgoeu_url = get_kzgoeu_profile_url(steamid)
-    country = get_country_code(get_country_from_steamid32(steamid32)).lower()
+
+    # kzgoeu_url = get_kzgoeu_profile_url(steamid)
+
+    user = get_user_details(steamid64)
+    name = user['personaname']
+    pfp_url = user['avatarfull']
+    profile_url = user['profileurl']
+
+    country_emoji = ':flag_' + get_country_code(get_country_from_steamid32(steamid32)).lower() + ':'
+
     playtime = get_playtime(steamid)
     hours, minutes, seconds = seconds_to_hms(playtime)
 
     content = (
-        f":flag_{country}: **{name}**\n"
+        f"{country_emoji}: **{name}**\n"
         f"**steamID**: `{steamid}`\n"
         f"**steamID64**: `{steamid64}`\n"
         f"**First Join**: {joindate}\n"
@@ -46,15 +55,15 @@ def user_info(discord_id=None, steamid=None) -> discord.Embed:
     )
 
     embed = Embed(
-        title=f"Info",
+        title=f"Profile",
         description=content,
         colour=discord.Colour.blue(),
     )
     embed.set_author(name=f"{name}", icon_url=pfp_url, url=profile_url)
-    embed.url = kzgoeu_url
+    embed.url = profile_url
     embed.set_image(url=pfp_url)
 
-    return embed
+    await ctx.send(embed=embed)
 
 
 def get_jstop(limit: int, mode: str) -> discord.Embed:

@@ -18,8 +18,7 @@ class Info(commands.Cog):
     async def info(self, ctx, member: discord.Member = None, steamid: str = None):
         """Show your or other's information"""
         discord_id = member.id if member else ctx.author.id
-        result = user_info(discord_id, steamid)
-        await ctx.send(embed=result)
+        await user_info(ctx, discord_id, steamid)
 
     @commands.hybrid_command()
     async def bind_steam(self, ctx, steamid: str):
