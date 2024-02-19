@@ -80,6 +80,8 @@ async def playtime_ranking(channel: discord.TextChannel) -> None:
                 content = '```\n'
 
             if player[2] != 0:
+                print(player)
+                print([player[2]])
                 hours, minutes, seconds = seconds_to_hms(player[2])
                 count += 1
                 content += f'[**{count}. {player[0]}**]({player[3]})  \t\t| **{hours}h {minutes}m {seconds}s**\n'
