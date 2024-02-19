@@ -10,7 +10,7 @@ from functions.db_operate.db_firstjoin import get_playtime
 from functions.globalapi.kzgoeu import get_kzgoeu_profile_url
 from functions.misc import format_string_to_datetime, get_country_code, seconds_to_hms
 from functions.steam.steam import convert_steamid, get_steam_pfp, get_steam_profile_url
-from functions.steam.steam_user import get_user_details
+from functions.steam.steam_user import get_steam_user_details
 
 
 async def user_info(ctx, discord_id=None, steamid=None) -> None:
@@ -35,7 +35,7 @@ async def user_info(ctx, discord_id=None, steamid=None) -> None:
 
     # kzgoeu_url = get_kzgoeu_profile_url(steamid)
 
-    user = get_user_details(steamid64)
+    user = get_steam_user_details(steamid64)
     name = user['personaname']
     pfp_url = user['avatarfull']
     profile_url = user['profileurl']

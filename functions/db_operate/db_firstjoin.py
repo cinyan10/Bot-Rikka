@@ -1,6 +1,7 @@
 import mysql.connector
 from configs.database import db_config
 from functions.steam.steam import convert_steamid, is_in_group
+from tqdm import tqdm
 
 db_config['database'] = "firstjoin"
 
@@ -135,6 +136,36 @@ def get_playtime(steamid) -> int:
 
     except mysql.connector.Error as err:
         print("Error:", err)
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def get_playtimes(steamids: list) -> list:
+    """Return total playtime for each SteamID in the input list."""
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    playtimes = []
+    try:
+        pbar = tqdm(total=len(steamids), desc="Getting playtimes...")
+        for steamid in steamids:
+            pbar.update(1)
+
+            query = """SELECT total FROM firstjoin.mostactive WHERE steamid = %s"""
+            cursor.execute(query, (steamid,))
+            result = cursor.fetchone()
+            if result:
+                playtimes.append({'steamid': steamid, 'playtime': result[0]})
+            else:
+                playtimes.append({'steamid': steamid, 'playtime': 0})
+        pbar.close()
+
+        return playtimes
+
+    except mysql.connector.Error as err:
+        print("Error:", err)
+        return []
 
     finally:
         cursor.close()

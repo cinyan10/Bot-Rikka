@@ -9,7 +9,7 @@ from configs.steam import STEAM_API_KEY, STEAMID64
 steam = Steam(STEAM_API_KEY)
 
 
-def get_user_details(steamid64):
+def get_steam_user_details(steamid64):
     details = steam.users.get_user_details(STEAMID64)
     return details['player']
 
