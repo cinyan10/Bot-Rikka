@@ -33,7 +33,7 @@ async def get_playtime_rank(channel) -> None:
     sublists = [datas[i:i + chunk_size] for i in range(0, len(datas), chunk_size)]
     count = 0
 
-    for sublist in sublists:
+    for sublist in sublists[:5]:
         content = ''
         for player in sublist:
             if player[2] != 0:
