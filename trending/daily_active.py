@@ -129,7 +129,7 @@ def insert_player_counts_to_table(day_players, total_players):
         conn.close()
 
 
-def differ_yesterday(players_count, total_players):
+def differ_yesterday(player_count, total_players):
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     try:
@@ -149,12 +149,12 @@ def differ_yesterday(players_count, total_players):
         if yesterday_data:
             day_players = yesterday_data[0]
             total_whitelisted = yesterday_data[1]
-            total_whitelisted = yesterday_data[2]
+            total = yesterday_data[2]
 
             # Calculate the differences
-            day_players_difference = players_count['day_players'] - day_players
-            day_whitelisted_difference = players_count['total_whitelisted'] - total_whitelisted
-            total_difference = total_players['total_players'] - total_whitelisted
+            day_players_difference = player_count['day_players'] - day_players
+            day_whitelisted_difference = player_count['total_whitelisted'] - total_whitelisted
+            total_difference = total_players['total_players'] - total
 
             return [day_players_difference, day_whitelisted_difference, total_difference]
 
