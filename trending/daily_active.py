@@ -171,7 +171,7 @@ def differ_yesterday(player_count, total_players):
         conn.close()
 
 
-def send_discord_webhook(player_counts, total_count, differs) -> None:
+def send_discord_webhook(player_counts, total, difference) -> None:
     # Define the embed message payload
     yesterday = date.today() - timedelta(days=1)
     embed_payload = {
@@ -181,17 +181,17 @@ def send_discord_webhook(player_counts, total_count, differs) -> None:
         "fields": [
             {
                 "name": "Active Player",
-                "value": f"**{player_counts['day_players']}** ({'+' if differs[0] > 0 else ''}{differs[0]})",
+                "value": f"**{player_counts['day_players']}** ({'+' if difference[0] > 0 else ''}{difference[0]})",
                 "inline": True
             },
             {
                 "name": "WL Player",
-                "value": f"**{player_counts['whitelisted']}** ({'+' if differs[1] > 0 else ''}{differs[1]})",
+                "value": f"**{player_counts['whitelisted']}** ({'+' if difference[1] > 0 else ''}{difference[1]})",
                 "inline": True
             },
             {
                 "name": "Total Player",
-                "value": f"**{total_count['total_players']}** ({'+' if differs[2] > 0 else ''}{differs[2]})",
+                "value": f"**{total['total_players']}** ({'+' if difference[2] > 0 else ''}{difference[2]})",
                 "inline": True
             },
         ]
