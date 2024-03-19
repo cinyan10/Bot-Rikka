@@ -10,7 +10,7 @@ async def find_player(ctx, name):
 
     embeds = []
     for player in players:
-        embed = user_info(steamid=player)
+        embed = user_info(ctx=ctx, steamid=player)
         embeds.append(embed)
 
     await ctx.send(embeds=embeds)
