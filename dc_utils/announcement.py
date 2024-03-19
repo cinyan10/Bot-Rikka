@@ -136,7 +136,7 @@ class AnnouncementView(discord.ui.View):
     async def red(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
         await interaction.response.edit_message(embed=self.embeds[1])  # NOQA
 
-    @discord.ui.button(label='繁體中文', style=discord.ButtonStyle.grey, custom_id='persistent_view:grey', emoji='🇹🇼')
+    @discord.ui.button(label='繁體中文', style=discord.ButtonStyle.grey, custom_id='persistent_view:grey', emoji='🇭🇰')
     async def grey(self, interaction: discord.Interaction, button: discord.ui.Button):  # NOQA
         await interaction.response.edit_message(embed=self.embeds[2])  # NOQA
 
