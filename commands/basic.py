@@ -4,14 +4,13 @@ import discord
 from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import Bot
-from configs.discord import TEST_CHANNEL_ID, INFO_CHANNEL_ID, WELCOME_CHANNEL_ID, ANNOUNCEMENT_MESSAGE_ID, GUILD_LINK
+from configs.discord import TEST_CHANNEL_ID, INFO_CHANNEL_ID, ANNOUNCEMENT_MESSAGE_ID, GUILD_LINK
 from dc_utils.announcement import AnnouncementView, ANNOUNCEMENTS
 
 RESPONSES = ["meow~", "Itami~ >.<", "What's the matter, gosyujinnsama?", "pong~", "UwU", "don't poke me, plz T^T"]
 
 
 class Basic(commands.Cog):
-
     def __init__(self, bot):
         self.bot: Bot = bot
 
@@ -45,7 +44,7 @@ class Basic(commands.Cog):
         result = random.choice(RESPONSES)
         await ctx.send(f'{result}')
 
-    @commands.hybrid_command()
+    @commands.command()
     @commands.has_permissions(administrator=True)
     async def sync(self, ctx):
         await self.commands_sync()

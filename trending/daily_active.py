@@ -219,4 +219,3 @@ if __name__ == "__main__":
     total_count = total_players_count()
     insert_player_counts_to_table(players_count, total_count)
     differs = differ_yesterday(players_count, total_count)
-    send_discord_webhook(players_count, total_count, differs)

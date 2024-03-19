@@ -171,7 +171,4 @@ def send_discord_webhook(player_counts):
 if __name__ == "__main__":
     create_online_month_table()
     last_month_player_counts = players_played_last_month_count()
-
     insert_player_counts_to_table(last_month_player_counts)
-    # Send a webhook message with player counts
-    send_discord_webhook(last_month_player_counts)
