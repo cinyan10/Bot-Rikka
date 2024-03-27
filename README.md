@@ -17,6 +17,8 @@ bot-rikka is a discord bot provides various features. Most of the codes from cha
 
 - [ ] 添加中文插件指令 和 介绍文本
 
+- [ ] 服务器列表从数据库读取
+
 - [X] Server Information with both EN and CN
   - [x] button link
 

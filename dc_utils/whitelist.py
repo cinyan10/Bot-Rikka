@@ -1,5 +1,3 @@
-import asyncio
-
 import discord.ext.commands
 from discord import Embed
 

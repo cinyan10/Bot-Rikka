@@ -1,6 +1,4 @@
 import json
-import os
-
 from config import PROJECT_DIR
 
 JUMP_TYPE = ['long jump', 'bunnyhop', 'multi bunnyhop', 'weird jump',

@@ -1,11 +1,9 @@
 from __future__ import annotations
 
 import datetime
-import os
 from discord import Embed
 from discord.ext import commands
 import discord
-import dotenv
 
 EMBED_EN = Embed(title="👋 **Welcome to the AXE Kreedz Community!** 🎉",
                  description="""                                   
